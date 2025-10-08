@@ -1,1 +1,213 @@
-<h1></h1>My Portofolio</h1>
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Christian Effendi — Strategic Communication & Marketing</title>
+
+  <!-- Minimal SEO / Social -->
+  <meta name="description" content="Christian Effendi — Strategic Communication student. Marketing, branding, event management & AI content creation. CV & experience." />
+
+  <!-- Fonts & Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --header-height:72px;
+      --muted:#475569;
+      --accent:#0ea5e9;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:#f8fafc;color:#0f1724;-webkit-font-smoothing:antialiased}
+    main{ padding-top: calc(var(--header-height) + 12px); }
+    section{ scroll-margin-top: calc(var(--header-height) + 12px); padding:48px 24px; }
+
+    /* subtle white-gold background */
+    .bg-white-gold{ position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:0.06; background: linear-gradient(110deg, #fff 0%, rgba(255,221,130,0.12) 18%, #fff 45%, rgba(255,214,77,0.06) 72%, #fff 100%); filter: blur(18px); mix-blend-mode: screen; }
+
+    /* header */
+    #main-header{ position:fixed; left:0; right:0; top:0; height:var(--header-height); display:flex; align-items:center; z-index:80; border-top:1px solid rgba(15,23,42,0.04); background:transparent; }
+    #main-header.scrolled{ backdrop-filter: blur(6px); background: rgba(255,255,255,0.86); box-shadow:0 6px 18px rgba(2,6,23,0.06) }
+    nav.container{ display:flex; align-items:center; justify-content:space-between; padding:0 18px; width:100%; max-width:1100px; margin:0 auto; }
+    .nav-links a{ margin-left:12px; padding:8px 10px; border-radius:8px; text-decoration:none; color:var(--muted); font-weight:600 }
+
+    /* hero */
+    .hero h1{ font-size: clamp(28px, 5vw, 48px); margin:6px 0; font-weight:800; line-height:1.02 }
+    .hero p.lead{ color:var(--muted); font-size:16px; max-width:58ch; margin-top:8px }
+
+    /* cards */
+    .card{ background: rgba(255,255,255,0.86); border-radius:12px; padding:18px; box-shadow:0 8px 30px rgba(2,6,23,0.04); border:1px solid rgba(2,6,23,0.04)}
+    .muted{ color:var(--muted) }
+    .exp-card{ background: rgba(255,255,255,0.86); padding:14px; border-radius:10px; border:1px solid rgba(2,6,23,0.04); box-shadow:0 8px 20px rgba(2,6,23,0.03); }
+
+    /* skills tidy grid */
+    .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
+    .skill-item{ background: rgba(2,6,23,0.03); padding:10px 12px; border-radius:10px; font-weight:600; text-align:center }
+
+    /* resume button */
+    .resume-btn{ border:1px solid rgba(2,6,23,0.06); background:#fff; padding:8px 12px; border-radius:10px; text-decoration:none; color:inherit; font-weight:700 }
+
+    /* footer social links border */
+    .social-icon-footer{ display:inline-block; padding:8px 12px; border-radius:10px; border:1px solid rgba(15,23,42,0.06); text-decoration:none; color:inherit; font-weight:600 }
+
+    @media (max-width:768px){ nav.container{ padding:0 12px } }
+  </style>
+</head>
+<body>
+
+  <div class="bg-white-gold" aria-hidden="true"></div>
+
+  <header id="main-header" role="banner" aria-label="Main header">
+    <nav class="container" role="navigation" aria-label="Primary">
+      <div style="display:flex;align-items:center;gap:14px">
+        <a href="#" aria-label="Home" style="font-weight:800;font-size:18px">CE.</a>
+      </div>
+
+      <div class="nav-links" style="display:flex;align-items:center">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a id="resume-link" class="resume-btn" href="#" target="_blank" rel="noopener noreferrer">Resume</a>
+      </div>
+    </nav>
+  </header>
+
+  <main role="main" class="container mx-auto" style="max-width:1100px;padding:20px">
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <p class="text-blue-600 font-medium">Hi, my name is</p>
+      <h1>Christian Effendi.</h1>
+      <h3 class="muted" style="margin-top:6px;font-weight:700">Strategic Communication & Marketing Student</h3>
+      <p class="lead">I build impactful marketing campaigns using creative content, event experience, and data-driven strategies. Currently seeking internship opportunities.</p>
+      <div style="margin-top:14px;display:flex;gap:12px;align-items:center">
+        <a id="hero-resume" class="resume-btn" href="#" target="_blank" rel="noopener noreferrer">Open Resume</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading" style="font-size:20px;font-weight:800">About</h2>
+      <div class="card" style="margin-top:12px">
+        <p class="muted">Strategic Communication undergraduate (5th semester, GPA 3.45) at Multimedia Nusantara University with hands-on experience in marketing, sales, and event management. Proven ability to engage 200+ prospective students, deliver persuasive presentations to audiences of 50–150, and lead a 40-member team in large-scale events with 1,000+ participants. Skilled in campaign design, digital marketing tools, and AI-powered content creation.</p>
+
+        <h3 style="margin-top:12px;font-weight:700">Education</h3>
+        <p class="muted">Multimedia Nusantara University — Undergraduate in Strategic Communication (GPA 3.45). Achievement Scholarship recipient (2023).</p>
+
+        <h3 style="margin-top:12px;font-weight:700">Certifications & Awards</h3>
+        <ul class="muted" style="margin:6px 0 0 18px">
+          <li>AI-Powered Performance Ads Certification, Google Digital Academy (Skillshop), 2025</li>
+          <li>Career Preparation Workshop, Multimedia Nusantara University, 2025</li>
+          <li>2nd Place — Marketing Competition, KSPM UMN, 2024</li>
+          <li>1st Place — Article Writing Competition, Kompas Corner, 2023</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE (keep detailed list) -->
+    <section id="experience" aria-labelledby="experience-heading">
+      <h2 id="experience-heading" style="font-size:20px;font-weight:800">Experience</h2>
+      <div style="margin-top:12px;display:grid;gap:12px">
+        <div class="exp-card">
+          <p class="text-sm text-blue-600 font-medium">Apr 2025 — Present</p>
+          <h3 style="font-weight:700">Education Consultant (Part-time)</h3>
+          <p class="muted">Multimedia Nusantara University</p>
+          <ul class="muted" style="margin-top:8px;margin-left:18px">
+            <li>Conducted daily follow-ups with over 200 prospective students, providing personalized guidance on programs, tuition, and scholarship opportunities.</li>
+            <li>Established recurring consultation events (“NGOPI”) to engage prospective students and parents.</li>
+            <li>Traveled regionally (Tangerang to Jambi) to spearhead outreach and promotional campaigns.</li>
+          </ul>
+        </div>
+
+        <div class="exp-card">
+          <p class="text-sm text-blue-600 font-medium">Jun 2025 — Aug 2025</p>
+          <h3 style="font-weight:700">Marketing Assistant (Freelance)</h3>
+          <p class="muted">Multimedia Nusantara University</p>
+          <ul class="muted" style="margin-top:8px;margin-left:18px">
+            <li>Delivered presentations at high schools to audiences of 50–150 senior students.</li>
+            <li>Organized 5+ promotional events including expos and seminars.</li>
+          </ul>
+        </div>
+
+        <div class="exp-card">
+          <p class="text-sm text-blue-600 font-medium">Oct 2024 — Present</p>
+          <h3 style="font-weight:700">Barista (Part-time)</h3>
+          <p class="muted">C TO COFFEE</p>
+          <ul class="muted" style="margin-top:8px;margin-left:18px">
+            <li>Served 20–40 customers daily; handled multi-channel payments and maintained accurate beverage prep following SOP.</li>
+            <li>Demonstrated strong multitasking and customer service in a fast-paced environment.</li>
+          </ul>
+        </div>
+
+        <div class="exp-card">
+          <p class="text-sm text-blue-600 font-medium">Feb 2024 — Feb 2025</p>
+          <h3 style="font-weight:700">Head of Security Division</h3>
+          <p class="muted">UMN Earth Caring Operation</p>
+          <ul class="muted" style="margin-top:8px;margin-left:18px">
+            <li>Directed a 40-member security team for events with 1,000+ participants; implemented security protocols with zero incidents.</li>
+          </ul>
+        </div>
+
+        <div class="exp-card">
+          <p class="text-sm text-blue-600 font-medium">Mar 2023 — Feb 2024</p>
+          <h3 style="font-weight:700">Safety Liaison Team</h3>
+          <p class="muted">MR. & MRS. UMN</p>
+          <ul class="muted" style="margin-top:8px;margin-left:18px">
+            <li>Managed security logistics for 500+ attendees and served as personal liaison for a finalist.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS (tidied grid) -->
+    <section id="skills" aria-labelledby="skills-heading">
+      <h2 id="skills-heading" style="font-size:20px;font-weight:800">Skills</h2>
+      <div style="margin-top:12px" class="card">
+        <div class="skills-grid">
+          <div class="skill-item">Microsoft Office Suite</div>
+          <div class="skill-item">Social Media Marketing</div>
+          <div class="skill-item">Canva</div>
+          <div class="skill-item">CapCut</div>
+          <div class="skill-item">AI Content Creation</div>
+          <div class="skill-item">Instagram Ads</div>
+          <div class="skill-item">Campaign Design</div>
+          <div class="skill-item">Public Speaking</div>
+          <div class="skill-item">Leadership</div>
+          <div class="skill-item">Time Management</div>
+          <div class="skill-item">Teamwork</div>
+          <div class="skill-item">Problem-Solving</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer (kept contact links in footer for convenience) -->
+  <footer role="contentinfo" style="padding:28px 18px;background:transparent">
+    <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div style="color:var(--muted)">Designed & Built by Christian Effendi</div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a id="footer-email" class="social-icon-footer" href="mailto:christianeff14@gmail.com" aria-label="Send email to Christian">Email</a>
+        <a id="footer-linkedin" class="social-icon-footer" href="https://bit.ly/3J2DzK7" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn">LinkedIn</a>
+        <a id="footer-wa" class="social-icon-footer" href="https://wa.me/6289529527783" target="_blank" rel="noopener noreferrer" aria-label="Open WhatsApp">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // wire resume Drive link (view only)
+    const DRIVE_VIEW_URL = 'https://drive.google.com/file/d/1FnZQXX-7pcsI4L3J1qqd5cvprqldqWow/view?usp=drive_link';
+    document.getElementById('resume-link').href = DRIVE_VIEW_URL;
+    document.getElementById('hero-resume')?.setAttribute('href', DRIVE_VIEW_URL);
+    document.getElementById('resume-link').setAttribute('target','_blank');
+
+    // ensure footer email uses mailto fallback
+    const footerEmail = document.getElementById('footer-email');
+    footerEmail?.addEventListener('click', (e)=>{ e.preventDefault(); window.location.href = 'mailto:christianeff14@gmail.com'; });
+
+    // header scrolled state
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', ()=>{ if(window.scrollY>8) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
+  </script>
+</body>
+</html>
