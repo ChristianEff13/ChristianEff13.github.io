@@ -44,6 +44,13 @@
     .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
     .skill-item{ background: rgba(2,6,23,0.03); padding:10px 12px; border-radius:10px; font-weight:600; text-align:center }
 
+    /* portfolio grid */
+    .portfolio-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:12px }
+    .portfolio-card{ background: rgba(255,255,255,0.9); padding:14px; border-radius:10px; border:1px solid rgba(2,6,23,0.04); box-shadow:0 6px 18px rgba(2,6,23,0.03); }
+    .portfolio-card h3{ margin:0 0 6px; font-size:16px; font-weight:700 }
+    .portfolio-actions{ display:flex; gap:8px }
+    .btn-open{ padding:8px 10px; border-radius:8px; border:1px solid rgba(2,6,23,0.06); text-decoration:none; font-weight:700; background:transparent }
+
     /* resume button */
     .resume-btn{ border:1px solid rgba(2,6,23,0.06); background:#fff; padding:8px 12px; border-radius:10px; text-decoration:none; color:inherit; font-weight:700 }
 
@@ -180,9 +187,84 @@
       </div>
     </section>
 
+    <!-- PORTFOLIO (integrated, no preview modal) -->
+    <section id="portfolio" aria-labelledby="portfolio-heading">
+      <h2 id="portfolio-heading" style="font-size:20px;font-weight:800">Portfolio</h2>
+      <div class="card" style="margin-top:12px">
+        <p class="muted">Selected coursework projects — open in Google Drive (view only).</p>
+        <div class="portfolio-grid" style="margin-top:12px">
+
+          <article class="portfolio-card">
+            <h3>Strategic Brand Activation Plan</h3>
+            <p class="muted" style="font-size:13px;margin-bottom:10px">A complete activation strategy linking campaign concept, channels and KPIs.</p>
+            <div class="portfolio-actions">
+              <a class="btn-open" href="https://drive.google.com/file/d/1qNbfrG8xDrR5IythCbl79CW4vua9Gd21/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <h3>Social Awareness Campaign: Redefining Engagement</h3>
+            <p class="muted" style="font-size:13px;margin-bottom:10px">A data-informed campaign focused on boosting meaningful interactions.</p>
+            <div class="portfolio-actions">
+              <a class="btn-open" href="https://drive.google.com/file/d/12Wz8ZgXc-uNKaWmJbwxpVUgOtTjLyMgy/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <h3>Visual Identity Development — Modern Youth Brand</h3>
+            <p class="muted" style="font-size:13px;margin-bottom:10px">Brand identity and visual system tailored for younger audiences.</p>
+            <div class="portfolio-actions">
+              <a class="btn-open" href="https://drive.google.com/file/d/1QBza4jlGniTDBzOQ3tU8jO1iCZNqxA5Q/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <h3>Integrated Social Media Strategy for Gen Z Audiences</h3>
+            <p class="muted" style="font-size:13px;margin-bottom:10px">Channel planning and content pillars optimized for Gen Z.</p>
+            <div class="portfolio-actions">
+              <a class="btn-open" href="https://drive.google.com/file/d/1rfAXErlCCW0kYW4rYbaYQtQXR0sz4Xbm/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <h3>Narrative Marketing through Visual Storytelling</h3>
+            <p class="muted" style="font-size:13px;margin-bottom:10px">Short-form storytelling techniques for brand resonance.</p>
+            <div class="portfolio-actions">
+              <a class="btn-open" href="https://drive.google.com/file/d/15HeKctKEKyrjvTt6Dha-sEx1oTIEo-GA/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <h3>Creative Copywriting for Brand Communication</h3>
+            <p class="muted" style="font-size:13px;margin-bottom:10px">Examples of ad copy, captions, and short scripts for campaigns.</p>
+            <div class="portfolio-actions">
+              <a class="btn-open" href="https://drive.google.com/file/d/1m6_0_cmE5ncCEIkfAA7h633eCKxRV8a3/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <h3>Digital Campaign Reel: Engagement through Motion</h3>
+            <p class="muted" style="font-size:13px;margin-bottom:10px">Compilation of video and motion assets highlighting engagement metrics.</p>
+            <div class="portfolio-actions">
+              <a class="btn-open" href="https://drive.google.com/file/d/1v92iFb3QCKosz2qo5vsRz6iz17D-C4Zh/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <h3>Market Insight Report: Understanding Consumer Behavior</h3>
+            <p class="muted" style="font-size:13px;margin-bottom:10px">Report summarizing survey findings and strategic recommendations.</p>
+            <div class="portfolio-actions">
+              <a class="btn-open" href="https://drive.google.com/file/d/1z9KFUkt6j1NvQCdXkWIHREyxld52hm_F/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Footer (kept contact links in footer for convenience) -->
+  <!-- Footer (keep contact links in footer) -->
   <footer role="contentinfo" style="padding:28px 18px;background:transparent">
     <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <div style="color:var(--muted)">Designed & Built by Christian Effendi</div>
@@ -195,11 +277,10 @@
   </footer>
 
   <script>
-    // wire resume Drive link (view only)
+    // Wire resume Drive link (view only)
     const DRIVE_VIEW_URL = 'https://drive.google.com/file/d/1FnZQXX-7pcsI4L3J1qqd5cvprqldqWow/view?usp=drive_link';
     document.getElementById('resume-link').href = DRIVE_VIEW_URL;
     document.getElementById('hero-resume')?.setAttribute('href', DRIVE_VIEW_URL);
-    document.getElementById('resume-link').setAttribute('target','_blank');
 
     // ensure footer email uses mailto fallback
     const footerEmail = document.getElementById('footer-email');
@@ -208,6 +289,10 @@
     // header scrolled state
     const header = document.getElementById('main-header');
     window.addEventListener('scroll', ()=>{ if(window.scrollY>8) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
+
+    // Accessibility: focus markers for keyboard users
+    (function(){ window.addEventListener('keydown', (e)=>{ if(e.key==='Tab') document.documentElement.classList.add('show-focus'); }, { once:true }); })();
   </script>
 </body>
 </html>
+
