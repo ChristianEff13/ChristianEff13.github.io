@@ -3,196 +3,229 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Christian Effendi Strategic Communication Student | Marketing Export Intern at WINGS Group</title>
+  <title>Christian Effendi | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg-body: #0f172a;
+      --bg-card: rgba(30, 41, 59, 0.5);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: rgba(51, 65, 85, 0.5);
+      --nav-bg: rgba(15, 23, 42, 0.9);
+    }
+
+    .light-mode {
+      --bg-body: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.7);
+      --text-main: #0f1724;
+      --text-muted: #475569;
+      --accent: #0ea5e9;
+      --border: rgba(226, 232, 240, 0.8);
+      --nav-bg: rgba(255, 255, 255, 0.9);
+    }
+
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background-color: var(--bg-body); 
+      color: var(--text-main); 
+      transition: background-color 0.4s ease, color 0.4s ease;
+      overflow-x: hidden;
+    }
+
     @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes move-forever { 0% { transform: translate3d(-90px, 0, 0); } 100% { transform: translate3d(85px, 0, 0); } }
     
-    /* ANIMASI GELOMBANG LEMBUT (TIDAK MENUTUPI TULISAN) */
-    @keyframes move-forever {
-      0% { transform: translate3d(-90px, 0, 0); }
-      100% { transform: translate3d(85px, 0, 0); }
-    }
+    /* PERBAIKAN ANIMASI MARQUEE: Lebih Cepat & Seamless */
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes marquee-reverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
-    /* ANIMASI MARQUEE MENYAMBUNG TANPA PUTUS */
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    @keyframes marquee-reverse {
-      0% { transform: translateX(-50%); }
-      100% { transform: translateX(0); }
-    }
-
-    :root{
-      --header-height:72px;
-      --muted:#475569;
-      --accent:#0ea5e9;
-    }
-    
-    body { font-family: 'Inter', sans-serif; background: #ffffff; color: #0f1724; overflow-x: hidden; }
-    
-    /* BACKGROUND WAVES */
-    .waves-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; pointer-events: none; }
-    .editorial { display: block; width: 100%; height: 100vh; margin: 0; }
+    .waves-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; pointer-events: none; }
     .parallax > use { animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite; }
-    .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
-    .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
-    .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
-    .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+
+    .card-glass { 
+      background: var(--bg-card); 
+      backdrop-filter: blur(8px); 
+      border: 1px solid var(--border); 
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    .card-glass:hover { transform: translateY(-5px); border-color: var(--accent); }
 
     /* MARQUEE WRAPPER */
-    .marquee-wrapper { width: 100%; overflow: hidden; display: flex; white-space: nowrap; border-top: 1px solid #e2e8f0; padding: 15px 0; }
-    .marquee-content { display: flex; animation: marquee 30s linear infinite; }
-    .marquee-content-rev { display: flex; animation: marquee-reverse 40s linear infinite; }
-    .marquee-item { padding: 0 20px; font-weight: 800; font-size: 1.2rem; color: #0369a1; text-transform: uppercase; }
+    .marquee-wrapper { width: 100%; overflow: hidden; display: flex; white-space: nowrap; border-top: 1px solid var(--border); padding: 15px 0; background: transparent; }
+    /* Durasi diubah ke 15s & 20s agar lebih cepat */
+    .marquee-content { display: flex; animation: marquee 15s linear infinite; width: max-content; }
+    .marquee-content-rev { display: flex; animation: marquee-reverse 20s linear infinite; width: max-content; }
+    .marquee-item { padding: 0 40px; font-weight: 800; font-size: 1.1rem; color: var(--accent); text-transform: uppercase; flex-shrink: 0; }
 
     section { scroll-margin-top: 100px; animation: fadeInUp 0.8s ease-out; }
-    .card-glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 12px; }
   </style>
 </head>
 <body>
 
   <div class="waves-bg">
-    <svg class="editorial" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none">
+    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none">
       <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
       <g class="parallax">
-        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(224, 242, 254, 0.7)" />
-        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(186, 230, 253, 0.5)" />
-        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255, 255, 255, 0.3)" />
-        <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(240, 249, 255, 1)" />
+        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(56, 189, 248, 0.2)" />
+        <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--bg-body)" />
       </g>
     </svg>
   </div>
 
-  <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+  <header class="fixed top-0 left-0 right-0 z-50 border-b" style="background: var(--nav-bg); border-color: var(--border);">
     <nav class="max-w-6xl mx-auto px-6 h-[72px] flex items-center justify-between">
-      <a href="#" class="text-2xl font-extrabold text-sky-600">CE.</a>
-      <div class="flex gap-6 items-center">
-        <a href="#about" class="font-semibold text-slate-600 hover:text-sky-600">About</a>
-        <a href="#experience" class="font-semibold text-slate-600 hover:text-sky-600">Experience</a>
-        <a href="#portfolio" class="font-semibold text-slate-600 hover:text-sky-600">Portfolio</a>
-        <a id="resume-nav" class="px-4 py-2 border-2 border-sky-500 text-sky-600 font-bold rounded-lg hover:bg-sky-500 hover:text-white transition" href="#" target="_blank">Resume</a>
+      <a href="#" class="text-2xl font-extrabold text-sky-500">CE.</a>
+      <div class="flex items-center gap-6">
+        <button onclick="toggleMode()" class="p-2 rounded-lg border border-slate-500/30 hover:bg-slate-500/10 transition" id="mode-btn">🌙</button>
+        <div class="hidden md:flex gap-6 font-semibold text-sm">
+          <a href="#about" class="hover:text-sky-500 transition">About</a>
+          <a href="#experience" class="hover:text-sky-500 transition">Experience</a>
+          <a href="#portfolio" class="hover:text-sky-500 transition">Portfolio</a>
+        </div>
+        <a id="resume-nav" class="px-4 py-2 border-2 border-sky-500 text-sky-500 font-bold rounded-lg hover:bg-sky-500 hover:text-white transition" href="#" target="_blank">Resume</a>
       </div>
     </nav>
   </header>
 
   <main class="max-w-6xl mx-auto px-6 pt-32">
     <section id="hero" class="mb-24">
-      <p class="text-sky-600 font-bold tracking-widest uppercase text-sm mb-2">Portfolio</p>
-      <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 mb-4">Christian Effendi.</h1>
-      <h3 class="text-xl md:text-2xl font-bold text-slate-600 mb-6">Strategic Communication Student | Marketing Export Intern at WINGS Group</h3>
-      <p class="text-lg text-slate-500 max-w-2xl leading-relaxed">I combine strategic communication and marketing execution to support international market growth. Currently contributing to export marketing projects at WINGS Group, focusing on branding alignment and cross-market campaign execution.</p>
+      <p class="text-sky-500 font-bold tracking-widest uppercase text-sm mb-2">Portfolio</p>
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-4">Christian Effendi.</h1>
+      <h3 class="text-xl md:text-2xl font-bold opacity-80 mb-6">Strategic Communication Student | Marketing Export Intern at WINGS Group</h3>
+      <p class="text-lg opacity-70 max-w-2xl leading-relaxed">I combine strategic communication and marketing execution to support international market growth.</p>
     </section>
 
     <section id="about" class="mb-24">
       <h2 class="text-2xl font-extrabold mb-6">About</h2>
       <div class="card-glass p-8">
-        <p class="text-slate-600 leading-relaxed mb-6">Strategic Communication undergraduate (6th semester, GPA 3.61) at Multimedia Nusantara University with hands on experience in marketing, sales, and event management. Proven ability to engage 200+ prospective students, deliver persuasive presentations to audiences of 50–150, and lead a 40 member team in large scale events with 1,000+ participants. Skilled in campaign design, digital marketing tools, and AI-powered content creation.</p>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div>
-            <h4 class="font-bold text-sky-700 mb-2">Education</h4>
-            <p class="text-sm text-slate-600">Multimedia Nusantara University — Strategic Communication (GPA 3.61). Achievement Scholarship (2023).</p>
-          </div>
-          <div>
-            <h4 class="font-bold text-sky-700 mb-2">Certifications & Awards</h4>
-            <ul class="text-sm text-slate-600 list-disc ml-4 space-y-1">
-              <li>AI-Powered Performance Ads Certification, Google Digital Academy</li>
-              <li>2nd Place — Marketing Competition, KSPM UMN, 2024</li>
-              <li>1st Place — Article Writing Competition, Kompas Corner, 2023</li>
-            </ul>
-          </div>
+        <p class="opacity-80 leading-relaxed mb-6 italic">"Strategic Communication undergraduate (6th semester, GPA 3.61) at Multimedia Nusantara University with hands-on experience in marketing, sales, and event management. Proven ability to engage 200+ prospective students, deliver persuasive presentations to audiences of 50–150, and lead a 40 member team in large scale events with 1,000+ participants. Skilled in campaign design, digital marketing tools, and AI-powered content creation."</p>
+        <div class="grid md:grid-cols-2 gap-8 text-sm">
+            <div>
+                <h4 class="font-bold text-sky-500 mb-2">Education</h4>
+                <p class="opacity-80">Multimedia Nusantara University — Strategic Communication (GPA 3.61). Achievement Scholarship (2023).</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-sky-500 mb-2">Certifications & Awards</h4>
+                <ul class="opacity-80 list-disc ml-4">
+                    <li>AI-Powered Performance Ads Certification, Google Digital Academy</li>
+                    <li>2nd Place — Marketing Competition, KSPM UMN, 2024</li>
+                    <li>1st Place — Article Writing Competition, Kompas Corner, 2023</li>
+                </ul>
+            </div>
         </div>
       </div>
     </section>
 
     <section id="experience" class="mb-24">
-      <h2 class="text-2xl font-extrabold mb-6">Experience</h2>
-      <div class="space-y-6">
-        <div class="card-glass p-6">
-          <span class="text-xs font-bold text-sky-500 uppercase">Apr 2025 — Apr 2026</span>
-          <h3 class="font-bold text-xl mt-1">Education Consultant (Part-time)</h3>
-          <p class="text-slate-600 mb-3">Multimedia Nusantara University</p>
-          <ul class="text-sm text-slate-500 list-disc ml-5 space-y-1">
-            <li>Conducted daily follow-ups with over 200 prospective students, providing personalized guidance.</li>
-            <li>Established recurring consultation events ("NGOPI") to engage parents.</li>
+      <h2 class="text-2xl font-extrabold mb-8">Experience</h2>
+      <div class="space-y-8">
+        
+        <div class="card-glass p-8 border-l-4 border-l-sky-500">
+          <span class="text-xs font-bold text-sky-500 uppercase tracking-widest">Feb 2026 — Present</span>
+          <h3 class="font-bold text-2xl mt-1">Marketing Export Intern</h3>
+          <p class="font-semibold opacity-90 mb-4 text-sky-500">WINGS Group</p>
+          <ul class="text-sm opacity-70 list-disc ml-5 space-y-2">
+            <li>Conducted market research and competitor pricing analysis across ASEAN markets to identify category opportunities and optimize export pricing strategies.</li>
+            <li>Analyzed multi-channel retail price lists including wholesalers and convenience stores to support data-driven market entry decisions in ASEAN.</li>
+            <li>Assisted in export marketing planning and budgeting for overseas campaigns and events, coordinating with regional vendors and partners across ASEAN.</li>
           </ul>
         </div>
-        <div class="card-glass p-6">
-          <span class="text-xs font-bold text-sky-500 uppercase">Jun 2025 — Aug 2025</span>
+
+        <div class="card-glass p-8">
+          <span class="text-xs font-bold text-sky-500 uppercase tracking-widest">Apr 2025 — Apr 2026</span>
+          <h3 class="font-bold text-2xl mt-1">Education Consultant (Part-time)</h3>
+          <p class="font-semibold opacity-90 mb-4">Multimedia Nusantara University</p>
+          <ul class="text-sm opacity-70 list-disc ml-5 space-y-2">
+            <li>Conducted daily follow-ups with over 200 prospective students, providing personalized guidance on programs, tuition, and scholarship opportunities.</li>
+            <li>Established recurring consultation events ("NGOPI") to engage prospective students and parents.</li>
+            <li>Traveled regionally (Tangerang to Jambi) to spearhead outreach and promotional campaigns.</li>
+          </ul>
+        </div>
+
+        <div class="card-glass p-8">
+          <span class="text-xs font-bold text-sky-500 uppercase tracking-widest">Jun 2025 — Aug 2025</span>
           <h3 class="font-bold text-xl mt-1">Marketing Assistant (Freelance)</h3>
-          <p class="text-slate-600">Multimedia Nusantara University</p>
+          <p class="font-semibold opacity-90 mb-4">Multimedia Nusantara University</p>
+          <ul class="text-sm opacity-70 list-disc ml-5 space-y-2">
+            <li>Delivered presentations at high schools to audiences of 50–150 senior students.</li>
+            <li>Organized 5+ promotional events including expos and seminars.</li>
+          </ul>
         </div>
-        <div class="card-glass p-6">
-          <span class="text-xs font-bold text-sky-500 uppercase">Oct 2024 — Feb 2026</span>
-          <h3 class="font-bold text-xl mt-1">Barista (Part-time)</h3>
-          <p class="text-slate-600">C TO COFFEE</p>
-        </div>
-        <div class="card-glass p-6">
-          <span class="text-xs font-bold text-sky-500 uppercase">Feb 2024 — Feb 2025</span>
-          <h3 class="font-bold text-xl mt-1">Head of Security Division</h3>
-          <p class="text-slate-600">UMN Earth Caring Operation</p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="card-glass p-6">
+            <span class="text-[10px] font-bold text-sky-500 uppercase">Oct 2024 — Feb 2026</span>
+            <h3 class="font-bold text-lg mt-1">Barista (Part-time)</h3>
+            <p class="text-xs font-bold opacity-70 mb-3">C TO COFFEE</p>
+            <ul class="text-xs opacity-60 list-disc ml-4 space-y-1">
+                <li>Served 20–40 customers daily; handled multi-channel payments and maintained accurate beverage prep following SOP.</li>
+                <li>Demonstrated strong multitasking and customer service in a fast-paced environment.</li>
+            </ul>
+          </div>
+          <div class="card-glass p-6">
+            <span class="text-[10px] font-bold text-sky-500 uppercase">Feb 2024 — Feb 2025</span>
+            <h3 class="font-bold text-lg mt-1">Head of Security Division</h3>
+            <p class="text-xs font-bold opacity-70 mb-3">UMN Earth Caring Operation</p>
+            <p class="text-xs opacity-60 leading-relaxed">Directed a 40-member security team for events with 1,000+ participants; implemented security protocols with zero incidents.</p>
+          </div>
+          <div class="card-glass p-6">
+            <span class="text-[10px] font-bold text-sky-500 uppercase">Event Period</span>
+            <h3 class="font-bold text-lg mt-1">Safety Liaison Team</h3>
+            <p class="text-xs font-bold opacity-70 mb-3">MR. & MRS. UMN</p>
+            <p class="text-xs opacity-60 leading-relaxed">Managed security logistics for 500+ attendees and served as personal liaison for a finalist.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="portfolio" class="mb-24">
       <h2 class="text-2xl font-extrabold mb-6">Portfolio</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="card-glass p-6 flex flex-col justify-between">
-          <h3 class="font-bold">Media Planning Strategy</h3>
-          <p class="text-xs text-slate-500 my-4">Designed media planning based on consumer journey.</p>
-          <a class="text-sky-600 font-bold text-sm border-b-2 border-sky-100 hover:border-sky-600 transition" href="https://drive.google.com/file/d/1qNbfrG8xDrR5IythCbl79CW4vua9Gd21/view?usp=drive_link" target="_blank">Open Project</a>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="card-glass p-4 text-center">
+            <h4 class="text-xs font-bold mb-2">Media Planning</h4>
+            <a href="https://drive.google.com/file/d/1qNbfrG8xDrR5IythCbl79CW4vua9Gd21/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
         </div>
-        <div class="card-glass p-6 flex flex-col justify-between">
-          <h3 class="font-bold">Brand Repositioning</h3>
-          <p class="text-xs text-slate-500 my-4">Tropicana Slim for Gen Z strategy.</p>
-          <a class="text-sky-600 font-bold text-sm border-b-2 border-sky-100 hover:border-sky-600 transition" href="https://drive.google.com/file/d/12Wz8ZgXc-uNKaWmJbwxpVUgOtTjLyMgy/view?usp=drive_link" target="_blank">Open Project</a>
+        <div class="card-glass p-4 text-center">
+            <h4 class="text-xs font-bold mb-2">Brand Reposition</h4>
+            <a href="https://drive.google.com/file/d/12Wz8ZgXc-uNKaWmJbwxpVUgOtTjLyMgy/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
         </div>
-        <div class="card-glass p-6 flex flex-col justify-between">
-          <h3 class="font-bold">Digital Marketing Strategy</h3>
-          <p class="text-xs text-slate-500 my-4">Analysis of Gojek ecosystem communication.</p>
-          <a class="text-sky-600 font-bold text-sm border-b-2 border-sky-100 hover:border-sky-600 transition" href="https://drive.google.com/file/d/1QBza4jlGniTDBzOQ3tU8jO1iCZNqxA5Q/view?usp=drive_link" target="_blank">Open Project</a>
+        <div class="card-glass p-4 text-center">
+            <h4 class="text-xs font-bold mb-2">Digital Strategy</h4>
+            <a href="https://drive.google.com/file/d/1QBza4jlGniTDBzOQ3tU8jO1iCZNqxA5Q/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
         </div>
-        <div class="card-glass p-6 flex flex-col justify-between">
-          <h3 class="font-bold">Creative Content Strategy</h3>
-          <p class="text-xs text-slate-500 my-4">Copywriting deck for Bango.</p>
-          <a class="text-sky-600 font-bold text-sm border-b-2 border-sky-100 hover:border-sky-600 transition" href="https://drive.google.com/file/d/1rfAXErlCCW0kYW4rYbaYQtQXR0sz4Xbm/view?usp=drive_link" target="_blank">Open Project</a>
+        <div class="card-glass p-4 text-center">
+            <h4 class="text-xs font-bold mb-2">Copywriting</h4>
+            <a href="https://drive.google.com/file/d/1rfAXErlCCW0kYW4rYbaYQtQXR0sz4Xbm/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
         </div>
-        <div class="card-glass p-6 flex flex-col justify-between">
-          <h3 class="font-bold">Integrated Brand Campaign</h3>
-          <p class="text-xs text-slate-500 my-4">Avoskin sustainability campaign plan.</p>
-          <a class="text-sky-600 font-bold text-sm border-b-2 border-sky-100 hover:border-sky-600 transition" href="https://drive.google.com/file/d/15HeKctKEKyrjvTt6Dha-sEx1oTIEo-GA/view?usp=drive_link" target="_blank">Open Project</a>
+        <div class="card-glass p-4 text-center">
+            <h4 class="text-xs font-bold mb-2">Integrated Brand</h4>
+            <a href="https://drive.google.com/file/d/15HeKctKEKyrjvTt6Dha-sEx1oTIEo-GA/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
         </div>
-        <div class="card-glass p-6 flex flex-col justify-between">
-          <h3 class="font-bold">Integrated Marketing</h3>
-          <p class="text-xs text-slate-500 my-4">Polytron Electric Motorbike plan.</p>
-          <a class="text-sky-600 font-bold text-sm border-b-2 border-sky-100 hover:border-sky-600 transition" href="https://drive.google.com/file/d/1m6_0_cmE5ncCEIkfAA7h633eCKxRV8a3/view?usp=drive_link" target="_blank">Open Project</a>
+        <div class="card-glass p-4 text-center">
+            <h4 class="text-xs font-bold mb-2">Integrated Mktg</h4>
+            <a href="https://drive.google.com/file/d/1m6_0_cmE5ncCEIkfAA7h633eCKxRV8a3/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
         </div>
-        <div class="card-glass p-6 flex flex-col justify-between">
-          <h3 class="font-bold">Strategic Promotion Eval</h3>
-          <p class="text-xs text-slate-500 my-4">Beauty Industry analysis.</p>
-          <a class="text-sky-600 font-bold text-sm border-b-2 border-sky-100 hover:border-sky-600 transition" href="https://drive.google.com/file/d/1v92iFb3QCKosz2qo5vsRz6iz17D-C4Zh/view?usp=drive_link" target="_blank">Open Project</a>
+        <div class="card-glass p-4 text-center">
+            <h4 class="text-xs font-bold mb-2">Promotion Eval</h4>
+            <a href="https://drive.google.com/file/d/1v92iFb3QCKosz2qo5vsRz6iz17D-C4Zh/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
         </div>
-        <div class="card-glass p-6 flex flex-col justify-between">
-          <h3 class="font-bold">Trend Spotting Analysis</h3>
-          <p class="text-xs text-slate-500 my-4">Cultural insight marketing trends.</p>
-          <a class="text-sky-600 font-bold text-sm border-b-2 border-sky-100 hover:border-sky-600 transition" href="https://drive.google.com/file/d/1z9KFUkt6j1NvQCdXkWIHREyxld52hm_F/view?usp=drive_link" target="_blank">Open Project</a>
+        <div class="card-glass p-4 text-center">
+            <h4 class="text-xs font-bold mb-2">Trend Spotting</h4>
+            <a href="https://drive.google.com/file/d/1z9KFUkt6j1NvQCdXkWIHREyxld52hm_F/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
         </div>
       </div>
     </section>
   </main>
 
-  <div class="marquee-wrapper">
+  <div class="marquee-wrapper mt-20">
     <div class="marquee-content">
       <span class="marquee-item">Get contact with me —</span>
       <span class="marquee-item">Get contact with me —</span>
-      <span class="marquee-item">Get contact with me —</span>
-      <span class="marquee-item">Get contact with me —</span>
-    </div>
-    <div class="marquee-content">
       <span class="marquee-item">Get contact with me —</span>
       <span class="marquee-item">Get contact with me —</span>
       <span class="marquee-item">Get contact with me —</span>
@@ -200,29 +233,33 @@
     </div>
   </div>
 
-  <div class="marquee-wrapper" style="background: #0369a1; border: none; padding: 10px 0;">
+  <div class="marquee-wrapper" style="background: var(--accent); border: none; padding: 10px 0;">
     <div class="marquee-content-rev">
-      <span class="marquee-item" style="color:white; font-size: 0.9rem;">Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-      <span class="marquee-item" style="color:white; font-size: 0.9rem;">Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-    </div>
-    <div class="marquee-content-rev">
-      <span class="marquee-item" style="color:white; font-size: 0.9rem;">Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-      <span class="marquee-item" style="color:white; font-size: 0.9rem;">Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
+      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
+      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
+      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
+      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
     </div>
   </div>
 
-  <footer class="py-12 bg-white relative z-20 px-6">
-    <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-6">
-      <p class="font-bold text-slate-800">Designed & Built by Christian Effendi</p>
+  <footer class="py-12 border-t" style="border-color: var(--border);">
+    <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-between items-center gap-6">
+      <p class="font-bold opacity-80">Christian Effendi &copy; 2026</p>
       <div class="flex gap-4">
-        <a class="px-4 py-2 border rounded-lg hover:bg-sky-50 transition" href="mailto:christianeff14@gmail.com">Email</a>
-        <a class="px-4 py-2 border rounded-lg hover:bg-sky-50 transition" href="https://bit.ly/3J2DzK7" target="_blank">LinkedIn</a>
-        <a class="px-4 py-2 border rounded-lg hover:bg-sky-50 transition" href="https://wa.me/6289529527783" target="_blank">WhatsApp</a>
+        <a class="px-4 py-2 border rounded-lg hover:bg-sky-500 hover:text-white transition text-sm font-bold" href="mailto:christianeff14@gmail.com">Email</a>
+        <a class="px-4 py-2 border rounded-lg hover:bg-sky-500 hover:text-white transition text-sm font-bold" href="https://bit.ly/3J2DzK7" target="_blank">LinkedIn</a>
+        <a class="px-4 py-2 border rounded-lg hover:bg-sky-500 hover:text-white transition text-sm font-bold" href="https://wa.me/6289529527783" target="_blank">WhatsApp</a>
       </div>
     </div>
   </footer>
 
   <script>
+    function toggleMode() {
+      const body = document.body;
+      const btn = document.getElementById('mode-btn');
+      body.classList.toggle('light-mode');
+      btn.innerHTML = body.classList.contains('light-mode') ? '☀️' : '🌙';
+    }
     const RESUME_URL = 'https://drive.google.com/file/d/1FnZQXX-7pcsI4L3J1qqd5cvprqldqWow/view?usp=drive_link';
     document.getElementById('resume-nav').href = RESUME_URL;
   </script>
