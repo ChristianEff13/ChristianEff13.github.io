@@ -36,10 +36,29 @@
       overflow-x: hidden;
     }
 
+    /* 1. SCROLL PROGRESS BAR (TOP) */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 4px;
+      background: linear-gradient(to right, #38bdf8, #818cf8);
+      z-index: 100;
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+
+    /* 2. CURSOR SPOTLIGHT EFFECT */
+    .spotlight {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      background: radial-gradient(600px circle at var(--x) var(--y), rgba(56, 189, 248, 0.07), transparent 80%);
+    }
+
     @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
     @keyframes move-forever { 0% { transform: translate3d(-90px, 0, 0); } 100% { transform: translate3d(85px, 0, 0); } }
-    
-    /* PERBAIKAN ANIMASI MARQUEE: Lebih Cepat & Seamless */
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     @keyframes marquee-reverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
@@ -51,13 +70,17 @@
       backdrop-filter: blur(8px); 
       border: 1px solid var(--border); 
       border-radius: 12px;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .card-glass:hover { transform: translateY(-5px); border-color: var(--accent); }
+    
+    /* 3. HOVER DEPTH EFFECT */
+    .card-glass:hover { 
+      transform: translateY(-8px) scale(1.01); 
+      border-color: var(--accent);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(56, 189, 248, 0.1);
+    }
 
-    /* MARQUEE WRAPPER */
     .marquee-wrapper { width: 100%; overflow: hidden; display: flex; white-space: nowrap; border-top: 1px solid var(--border); padding: 15px 0; background: transparent; }
-    /* Durasi diubah ke 15s & 20s agar lebih cepat */
     .marquee-content { display: flex; animation: marquee 15s linear infinite; width: max-content; }
     .marquee-content-rev { display: flex; animation: marquee-reverse 20s linear infinite; width: max-content; }
     .marquee-item { padding: 0 40px; font-weight: 800; font-size: 1.1rem; color: var(--accent); text-transform: uppercase; flex-shrink: 0; }
@@ -66,6 +89,8 @@
   </style>
 </head>
 <body>
+  <div id="progress-bar"></div>
+  <div class="spotlight" id="spotlight"></div>
 
   <div class="waves-bg">
     <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none">
@@ -124,7 +149,6 @@
     <section id="experience" class="mb-24">
       <h2 class="text-2xl font-extrabold mb-8">Experience</h2>
       <div class="space-y-8">
-        
         <div class="card-glass p-8 border-l-4 border-l-sky-500">
           <span class="text-xs font-bold text-sky-500 uppercase tracking-widest">Feb 2026 — Present</span>
           <h3 class="font-bold text-2xl mt-1">Marketing Export Intern</h3>
@@ -226,28 +250,17 @@
     <div class="marquee-content">
       <span class="marquee-item">— Get contact with me —</span>
       <span class="marquee-item">— +62 895 2952 7783 —</span>
-      <span class="marquee-item">— Get contact with me —</span>
       <span class="marquee-item">— christianeff13@gmail.com —</span>
-      <span class="marquee-item">— Get contact with me —</span>
       <span class="marquee-item">— linkedin.com/in/christaineff/ —</span>
       <span class="marquee-item">— Get contact with me —</span>
       <span class="marquee-item">— +62 895 2952 7783 —</span>
-      <span class="marquee-item">— Get contact with me —</span>
       <span class="marquee-item">— christianeff13@gmail.com —</span>
-      <span class="marquee-item">— Get contact with me —</span>
       <span class="marquee-item">— linkedin.com/in/christaineff/ —</span>
-      <span class="marquee-item">— Get contact with me —</span>
     </div>
   </div>
 
   <div class="marquee-wrapper" style="background: var(--accent); border: none; padding: 10px 0;">
     <div class="marquee-content-rev">
-      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
       <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
       <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
       <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
@@ -267,14 +280,31 @@
   </footer>
 
   <script>
+    // 1. Script Spotlight (x, y)
+    window.addEventListener('mousemove', e => {
+      document.body.style.setProperty('--x', e.clientX + 'px');
+      document.body.style.setProperty('--y', e.clientY + 'px');
+    });
+
+    // 2. Script Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+    });
+
     function toggleMode() {
       const body = document.body;
       const btn = document.getElementById('mode-btn');
       body.classList.toggle('light-mode');
       btn.innerHTML = body.classList.contains('light-mode') ? '☀️' : '🌙';
     }
+
     const RESUME_URL = 'https://drive.google.com/file/d/1FnZQXX-7pcsI4L3J1qqd5cvprqldqWow/view?usp=drive_link';
     document.getElementById('resume-nav').href = RESUME_URL;
   </script>
+</body>
+</html>
 </body>
 </html>
