@@ -1,286 +1,573 @@
-<!doctype html>
-<html lang="en" class="scroll-smooth">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Christian Effendi | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Christian Effendi | Liquid Glass Portfolio</title>
+  
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons (Apple-like clean icons) -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Google Fonts: Inter (San Francisco alternative) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            apple: {
+              gray: '#f5f5f7',
+              dark: '#1d1d1f',
+              blue: '#0066cc',
+            }
+          },
+          animation: {
+            'blob': 'blob 20s infinite alternate',
+            'blob-reverse': 'blob-reverse 25s infinite alternate',
+            'blob-slow': 'blob-slow 30s infinite alternate',
+            'marquee': 'marquee 25s linear infinite',
+          },
+          keyframes: {
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            'blob-reverse': {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(-30px, 50px) scale(1.2)' },
+              '66%': { transform: 'translate(20px, -20px) scale(0.8)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            'blob-slow': {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '50%': { transform: 'translate(50px, 50px) scale(1.05)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            marquee: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
+    /* CSS Variables for Liquid Glass */
     :root {
-      --bg-body: #0f172a;
-      --bg-card: rgba(30, 41, 59, 0.5);
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --border: rgba(51, 65, 85, 0.5);
-      --nav-bg: rgba(15, 23, 42, 0.9);
+      --bg-color: #f5f5f7;
+      --text-main: #1d1d1f;
+      --text-muted: #86868b;
+      --glass-bg: rgba(255, 255, 255, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.8);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+      --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      --blob-opacity: 0.7;
     }
 
-    .light-mode {
-      --bg-body: #ffffff;
-      --bg-card: rgba(255, 255, 255, 0.7);
-      --text-main: #0f1724;
-      --text-muted: #475569;
-      --accent: #0ea5e9;
-      --border: rgba(226, 232, 240, 0.8);
-      --nav-bg: rgba(255, 255, 255, 0.9);
+    .dark {
+      --bg-color: #000000;
+      --text-main: #f5f5f7;
+      --text-muted: #a1a1a6;
+      --glass-bg: rgba(30, 30, 32, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      --blob-opacity: 0.4;
     }
 
-    body { 
-      font-family: 'Inter', sans-serif; 
-      background-color: var(--bg-body); 
-      color: var(--text-main); 
-      transition: background-color 0.4s ease, color 0.4s ease;
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      transition: background-color 0.5s ease, color 0.5s ease;
       overflow-x: hidden;
     }
 
-    #progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--accent); z-index: 100; width: 0%; transition: width 0.1s ease; }
-    .spotlight { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; background: radial-gradient(600px circle at var(--x) var(--y), rgba(56, 189, 248, 0.07), transparent 80%); }
+    /* Core Glassmorphism Class */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow), var(--glass-highlight);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .glass-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12), var(--glass-highlight);
+      border-color: rgba(56, 189, 248, 0.4); /* Tailwind Sky 400 */
+    }
 
-    .skill-chip { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 600; background: var(--bg-card); transition: all 0.3s; cursor: default; }
-    .skill-chip:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.05); }
+    /* Apple-style floating Nav Pill */
+    .nav-pill {
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid var(--glass-border);
+    }
 
-    .fab { position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 40; transition: all 0.3s; }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(134, 134, 139, 0.4); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(134, 134, 139, 0.7); }
 
-    @keyframes move-forever { 0% { transform: translate3d(-90px, 0, 0); } 100% { transform: translate3d(85px, 0, 0); } }
-    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    @keyframes marquee-reverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    /* Gradient Text */
+    .text-gradient {
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-    .waves-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; pointer-events: none; }
-    .parallax > use { animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite; }
+    /* Skill Chip (iOS Style) */
+    .chip {
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: rgba(125, 125, 125, 0.1);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      backdrop-filter: blur(10px);
+    }
 
-    .card-glass { background: var(--bg-card); backdrop-filter: blur(8px); border: 1px solid var(--border); border-radius: 12px; transition: all 0.4s ease; }
-    .card-glass:hover { transform: translateY(-8px); border-color: var(--accent); }
-
-    .marquee-wrapper { width: 100%; overflow: hidden; display: flex; white-space: nowrap; border-top: 1px solid var(--border); padding: 15px 0; background: transparent; }
-    .marquee-content { display: flex; animation: marquee 20s linear infinite; width: max-content; }
-    .marquee-content-rev { display: flex; animation: marquee-reverse 25s linear infinite; width: max-content; }
-    .marquee-item { padding: 0 40px; font-weight: 800; font-size: 1.1rem; color: var(--accent); text-transform: uppercase; flex-shrink: 0; }
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      z-index: 1000; width: 0%; transition: width 0.1s ease;
+    }
   </style>
 </head>
-<body>
-  <div id="progress-bar"></div>
-  <div class="spotlight"></div>
-  
-  <a href="https://wa.me/6289529527783" target="_blank" class="fab" title="Chat on WhatsApp">
-    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.89 4.44-9.892 9.886-.001 2.125.593 3.456 1.574 5.111l-.973 3.558 3.68-.963zm10.511-7.143c-.29-.144-1.711-.844-1.976-.94-.264-.096-.456-.144-.648.144-.192.288-.744.94-.912 1.132-.168.192-.336.216-.626.072-.29-.144-1.225-.452-2.333-1.44-.862-.769-1.443-1.717-1.612-2.005-.168-.288-.018-.444.127-.587.13-.13.29-.336.435-.504.144-.168.192-.288.288-.48.096-.192.048-.36-.024-.504-.072-.144-.648-1.56-.888-2.136-.233-.561-.471-.485-.648-.494-.168-.008-.36-.009-.552-.009-.192 0-.504.072-.768.36-.264.288-1.008.984-1.008 2.399 0 1.416 1.032 2.784 1.176 2.976.144.192 2.031 3.102 4.921 4.348.687.296 1.223.473 1.64.606.69.219 1.318.188 1.815.114.553-.082 1.711-.696 1.952-1.368.24-.672.24-1.248.168-1.368-.072-.12-.264-.192-.552-.336z"/></svg>
-  </a>
+<body class="antialiased selection:bg-sky-500/30">
 
-  <div class="waves-bg">
-    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none">
-      <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
-      <g class="parallax">
-        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(56, 189, 248, 0.2)" />
-        <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--bg-body)" />
-      </g>
-    </svg>
+  <!-- Scroll Progress -->
+  <div id="progress-bar"></div>
+
+  <!-- Mesh Gradient Background (Liquid Effect) -->
+  <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+    <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-sky-400/40 blur-[100px] md:blur-[150px] animate-blob mix-blend-normal dark:mix-blend-screen opacity-[var(--blob-opacity)]"></div>
+    <div class="absolute top-[20%] right-[-10%] w-[45vw] h-[45vw] rounded-full bg-indigo-400/40 blur-[100px] md:blur-[150px] animate-blob-reverse mix-blend-normal dark:mix-blend-screen opacity-[var(--blob-opacity)]"></div>
+    <div class="absolute bottom-[-20%] left-[20%] w-[60vw] h-[60vw] rounded-full bg-purple-400/40 blur-[100px] md:blur-[150px] animate-blob-slow mix-blend-normal dark:mix-blend-screen opacity-[var(--blob-opacity)]"></div>
   </div>
 
-  <header class="fixed top-0 left-0 right-0 z-50 border-b" style="background: var(--nav-bg); border-color: var(--border);">
-    <nav class="max-w-6xl mx-auto px-6 h-[72px] flex items-center justify-between">
-      <a href="#" class="text-2xl font-extrabold text-sky-500">CE.</a>
-      <div class="flex items-center gap-6">
-        <button onclick="toggleMode()" class="p-2 rounded-lg border border-slate-500/30 hover:bg-slate-500/10 transition" id="mode-btn">🌙</button>
-        <div class="hidden md:flex gap-6 font-semibold text-sm">
-          <a href="#about" class="hover:text-sky-500 transition">About</a>
-          <a href="#experience" class="hover:text-sky-500 transition">Experience</a>
-          <a href="#portfolio" class="hover:text-sky-500 transition">Portfolio</a>
-        </div>
-        <a id="resume-nav" class="px-4 py-2 border-2 border-sky-500 text-sky-500 font-bold rounded-lg hover:bg-sky-500 hover:text-white transition" href="#" target="_blank">Resume</a>
+  <!-- Dynamic Island Navbar -->
+  <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
+    <nav class="nav-pill rounded-full px-6 py-3 flex items-center gap-6 shadow-lg">
+      <a href="#" class="font-extrabold text-xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-500">CE.</a>
+      <div class="hidden md:flex items-center gap-5 text-sm font-medium opacity-80">
+        <a href="#about" class="hover:text-sky-500 transition">About</a>
+        <a href="#experience" class="hover:text-sky-500 transition">Experience</a>
+        <a href="#organizations" class="hover:text-sky-500 transition">Organizations</a>
+        <a href="#portfolio" class="hover:text-sky-500 transition">Portfolio</a>
+      </div>
+      <div class="w-[1px] h-5 bg-gray-500/30 hidden md:block"></div>
+      <div class="flex items-center gap-3">
+        <button onclick="toggleTheme()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-500/10 hover:bg-gray-500/20 transition" aria-label="Toggle Theme">
+          <i class="ph ph-moon text-lg dark:hidden"></i>
+          <i class="ph ph-sun text-lg hidden dark:block text-yellow-300"></i>
+        </button>
+        <a href="https://drive.google.com/file/d/1FnZQXX-7pcsI4L3J1qqd5cvprqldqWow/view?usp=drive_link" target="_blank" class="px-4 py-1.5 rounded-full bg-black dark:bg-white text-white dark:text-black text-xs font-semibold hover:scale-105 transition transform shadow-md">
+          Resume
+        </a>
       </div>
     </nav>
   </header>
 
-  <main class="max-w-6xl mx-auto px-6 pt-32">
-    <section id="hero" class="mb-24">
-      <p class="text-sky-500 font-bold tracking-widest uppercase text-sm mb-2">Portfolio</p>
-      <h1 class="text-5xl md:text-7xl font-extrabold mb-4">Christian Effendi.</h1>
-      <h3 class="text-xl md:text-2xl font-bold opacity-80 mb-6">Strategic Communication Student | Marketing Export Intern at WINGS Group</h3>
-      <p class="text-lg opacity-70 max-w-2xl leading-relaxed mb-8">I combine strategic communication and marketing execution to support international market growth.</p>
-      
-      <div class="mt-8">
-        <span class="text-4xl font-bold text-sky-500" id="gpa-counter" data-target="3.61">0.00</span><span class="text-4xl font-bold text-sky-500"> GPA</span>
-        <p class="text-xs uppercase tracking-wider opacity-60 mt-1">Academic Excellence at UMN</p>
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-6 pt-32 md:pt-40 pb-24">
+    
+    <!-- Hero Section -->
+    <section class="flex flex-col items-center justify-center text-center gap-12 mb-20 md:mb-32">
+      <div class="w-full max-w-4xl space-y-6 flex flex-col items-center z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border-sky-400/30 text-xs font-semibold text-sky-500 mb-2">
+          <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
+          Available for Opportunities
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">
+          Hi, I'm <br/><span class="text-gradient">Christian Effendi.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-[var(--text-muted)] font-medium max-w-2xl leading-relaxed mx-auto">
+          Marketing Undergraduate & Strategic Communication Student. Currently driving international market growth through Global Operations at <strong class="text-[var(--text-main)]">WINGS Group</strong>.
+        </p>
+
+        <!-- GPA moved here -->
+        <div class="flex flex-col items-center gap-2 pt-4">
+          <div class="flex items-baseline gap-2">
+            <h3 class="text-4xl font-extrabold text-sky-500" id="gpa-counter" data-target="3.67">0.00</h3>
+            <span class="text-xl font-bold text-[var(--text-muted)]">/ 4.00 GPA</span>
+          </div>
+          <p class="text-sm font-semibold opacity-80 mt-1">(Achievement Scholar at UMN)</p>
+        </div>
+        
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-6">
+          <a href="mailto:christianeff14@gmail.com" class="glass px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-all">
+            <i class="ph ph-envelope-simple text-xl"></i> Email Me
+          </a>
+          <a href="https://www.linkedin.com/in/christianeff/" target="_blank" class="glass px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-indigo-500 hover:text-white hover:border-indigo-500 transition-all">
+            <i class="ph ph-linkedin-logo text-xl"></i> LinkedIn
+          </a>
+        </div>
       </div>
     </section>
 
-    <section id="about" class="mb-24">
-      <h2 class="text-2xl font-extrabold mb-6">About</h2>
-      <div class="card-glass p-8">
-        <p class="opacity-80 leading-relaxed mb-8 italic">"Strategic Communication undergraduate (6th semester, GPA 3.61) at Multimedia Nusantara University with hands-on experience in marketing, sales, and event management. Proven ability to engage 200+ prospective students, deliver persuasive presentations to audiences of 50–150, and lead a 40 member team in large scale events with 1,000+ participants. Skilled in campaign design, digital marketing tools, and AI-powered content creation."</p>
+    <!-- iOS Widget Grid Style (About & Skills) -->
+    <section id="about" class="mb-24 scroll-mt-32">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div class="mb-8">
-          <h4 class="text-xs font-bold text-sky-500 uppercase mb-4 tracking-widest">Core Expertise</h4>
+        <!-- Summary Widget (Large) -->
+        <div class="md:col-span-2 glass rounded-3xl p-8 glass-hover">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <i class="ph ph-user-focus text-sky-500 text-2xl"></i> Summary
+          </h2>
+          <p class="text-[var(--text-muted)] leading-relaxed text-sm md:text-base">
+            Marketing undergraduate with internship experience in <span class="font-semibold text-[var(--text-main)]">Global Operations at WINGS Group</span>, supporting international marketing activities across multiple FMCG product categories. Experienced in agency coordination, KOL outreach, POSM development, social media planning, competitor research, and campaign support for overseas markets.
+          </p>
+        </div>
+
+        <!-- Contact Widget -->
+        <div class="glass rounded-3xl p-8 glass-hover flex flex-col justify-center">
+           <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <i class="ph ph-map-pin text-sky-500 text-2xl"></i> Details
+          </h2>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-center gap-3"><i class="ph-fill ph-phone text-[var(--text-muted)]"></i> (+62) 895-2952-7783</li>
+            <li class="flex items-center gap-3"><i class="ph-fill ph-map-pin-line text-[var(--text-muted)]"></i> Tangerang, Banten</li>
+            <li class="flex items-center gap-3"><i class="ph-fill ph-translate text-[var(--text-muted)]"></i> ID (Native) • EN (Upper Int.)</li>
+          </ul>
+        </div>
+
+        <!-- Technical Skills Widget -->
+        <div class="md:col-span-2 glass rounded-3xl p-8 glass-hover">
+          <h2 class="text-xl font-bold mb-5 flex items-center gap-2">
+            <i class="ph ph-laptop text-indigo-400 text-2xl"></i> Technical Skills
+          </h2>
           <div class="flex flex-wrap gap-2">
-            <span class="skill-chip">Strategic Communication</span>
-            <span class="skill-chip">Export Marketing</span>
-            <span class="skill-chip">Market Research</span>
-            <span class="skill-chip">Public Speaking</span>
-            <span class="skill-chip">Campaign Design</span>
-            <span class="skill-chip">AI Content Creation</span>
-            <span class="skill-chip">Event Management</span>
+            <span class="chip">Ms. Excel & PowerPoint</span>
+            <span class="chip">Canva & CapCut</span>
+            <span class="chip">Campaign Briefs</span>
+            <span class="chip">KOL & Agency Research</span>
+            <span class="chip">Competitor Research</span>
+            <span class="chip">POSM Coordination</span>
+            <span class="chip">AI-Assisted Content</span>
           </div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-8 text-sm">
-            <div>
-                <h4 class="font-bold text-sky-500 mb-2">Education</h4>
-                <p class="opacity-80">Multimedia Nusantara University — Strategic Communication (GPA 3.61). Achievement Scholarship (2023).</p>
-            </div>
-            <div>
-                <h4 class="font-bold text-sky-500 mb-2">Certifications & Awards</h4>
-                <ul class="opacity-80 list-disc ml-4">
-                    <li>AI-Powered Performance Ads Certification, Google Digital Academy</li>
-                    <li>2nd Place — Marketing Competition, KSPM UMN, 2024</li>
-                    <li>1st Place — Article Writing Competition, Kompas Corner, 2023</li>
-                </ul>
-            </div>
+        <!-- Soft Skills Widget -->
+        <div class="glass rounded-3xl p-8 glass-hover">
+          <h2 class="text-xl font-bold mb-5 flex items-center gap-2">
+            <i class="ph ph-users-three text-purple-400 text-2xl"></i> Soft Skills
+          </h2>
+          <div class="flex flex-wrap gap-2">
+            <span class="chip">Business Comm</span>
+            <span class="chip">Cross-functional</span>
+            <span class="chip">Problem Solving</span>
+            <span class="chip">Attention to Detail</span>
+            <span class="chip">Adaptability</span>
+            <span class="chip">Time Management</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="experience" class="mb-24">
-      <h2 class="text-2xl font-extrabold mb-8">Experience</h2>
-      <div class="space-y-8">
-        <div class="card-glass p-8 border-l-4 border-l-sky-500">
-          <span class="text-xs font-bold text-sky-500 uppercase tracking-widest">Feb 2026 — Present</span>
-          <h3 class="font-bold text-2xl mt-1">Marketing Export Intern</h3>
-          <p class="font-semibold opacity-90 mb-4 text-sky-500">WINGS Group</p>
-          <ul class="text-sm opacity-70 list-disc ml-5 space-y-2">
-            <li>Conducted market research and competitor pricing analysis across ASEAN markets to identify category opportunities and optimize export pricing strategies.</li>
-            <li>Analyzed multi-channel retail price lists including wholesalers and convenience stores to support data-driven market entry decisions in ASEAN.</li>
-            <li>Assisted in export marketing planning and budgeting for overseas campaigns and events, coordinating with regional vendors and partners across ASEAN.</li>
-          </ul>
-        </div>
+    <!-- Experience Timeline (Glass Cards) -->
+    <section id="experience" class="mb-24 scroll-mt-32">
+      <div class="flex items-center gap-3 mb-10">
+        <div class="p-3 rounded-2xl glass bg-sky-500/10"><i class="ph ph-briefcase text-2xl text-sky-500"></i></div>
+        <h2 class="text-3xl font-extrabold">Work Experiences</h2>
+      </div>
 
-        <div class="card-glass p-8">
-          <span class="text-xs font-bold text-sky-500 uppercase tracking-widest">Apr 2025 — Apr 2026</span>
-          <h3 class="font-bold text-2xl mt-1">Education Consultant (Part-time)</h3>
-          <p class="font-semibold opacity-90 mb-4">Multimedia Nusantara University</p>
-          <ul class="text-sm opacity-70 list-disc ml-5 space-y-2">
-            <li>Conducted daily follow-ups with over 200 prospective students, providing personalized guidance on programs, tuition, and scholarship opportunities.</li>
-            <li>Established recurring consultation events ("NGOPI") to engage prospective students and parents.</li>
-            <li>Traveled regionally (Tangerang to Jambi) to spearhead outreach and promotional campaigns.</li>
-          </ul>
-        </div>
-
-        <div class="card-glass p-8">
-          <span class="text-xs font-bold text-sky-500 uppercase tracking-widest">Jun 2025 — Aug 2025</span>
-          <h3 class="font-bold text-xl mt-1">Marketing Assistant (Freelance)</h3>
-          <p class="font-semibold opacity-90 mb-4">Multimedia Nusantara University</p>
-          <ul class="text-sm opacity-70 list-disc ml-5 space-y-2">
-            <li>Delivered presentations at high schools to audiences of 50–150 senior students.</li>
-            <li>Organized 5+ promotional events including expos and seminars.</li>
-          </ul>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
-          <div class="card-glass p-6">
-            <span class="text-[10px] font-bold text-sky-500 uppercase">Oct 2024 — Feb 2026</span>
-            <h3 class="font-bold text-lg mt-1">Barista (Part-time)</h3>
-            <p class="text-xs font-bold opacity-70 mb-3">C TO COFFEE</p>
-            <ul class="text-xs opacity-60 list-disc ml-4 space-y-1">
-                <li>Served 20–40 customers daily; handled multi-channel payments and maintained accurate beverage prep following SOP.</li>
-                <li>Demonstrated strong multitasking and customer service in a fast-paced environment.</li>
+      <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-sky-400 before:via-indigo-400 before:to-transparent">
+        
+        <!-- Experience 1 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-color)] bg-sky-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+            <i class="ph ph-globe-hemisphere-east"></i>
+          </div>
+          <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass p-6 rounded-3xl glass-hover">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-sky-500 uppercase tracking-wider">Feb 2026 — Present</span>
+            </div>
+            <h3 class="font-bold text-xl">Trade Marketing (Intern)</h3>
+            <p class="font-semibold text-[var(--text-muted)] text-sm mb-4">WINGS GROUP</p>
+            <ul class="text-sm opacity-80 list-disc ml-4 space-y-1.5 leading-relaxed">
+              <li>Assisted agency coordination for 5 international markets (Thailand, Cambodia, Vietnam, Brunei, Kenya) via proposal collection, service review, quotation comparison, and campaign planning.</li>
+              <li>Supported KOL outreach, POSM development, and social media planning across FMCG product categories for overseas brand activation.</li>
+              <li>Prepared competitor research, campaign summaries, and internal marketing documents to support Global Operations international market development.</li>
             </ul>
           </div>
-          <div class="card-glass p-6">
-            <span class="text-[10px] font-bold text-sky-500 uppercase">Feb 2024 — Feb 2025</span>
-            <h3 class="font-bold text-lg mt-1">Head of Security Division</h3>
-            <p class="text-xs font-bold opacity-70 mb-3">UMN Earth Caring Operation</p>
-            <p class="text-xs opacity-60 leading-relaxed">Directed a 40-member security team for events with 1,000+ participants; implemented security protocols with zero incidents.</p>
+        </div>
+
+        <!-- Experience 2 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-color)] bg-indigo-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+            <i class="ph ph-student"></i>
           </div>
-          <div class="card-glass p-6">
-            <span class="text-[10px] font-bold text-sky-500 uppercase">Event Period</span>
-            <h3 class="font-bold text-lg mt-1">Safety Liaison Team</h3>
-            <p class="text-xs font-bold opacity-70 mb-3">MR. & MRS. UMN</p>
-            <p class="text-xs opacity-60 leading-relaxed">Managed security logistics for 500+ attendees and served as personal liaison for a finalist.</p>
+          <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass p-6 rounded-3xl glass-hover">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Apr 2025 — Feb 2026</span>
+            </div>
+            <h3 class="font-bold text-xl">Education Consultant (Part-time)</h3>
+            <p class="font-semibold text-[var(--text-muted)] text-sm mb-4">MULTIMEDIA NUSANTARA UNIVERSITY</p>
+            <ul class="text-sm opacity-80 list-disc ml-4 space-y-1.5 leading-relaxed">
+              <li>Conducted daily follow-ups with 200+ prospective students, providing personalized guidance on programs, tuition, and scholarships.</li>
+              <li>Established recurring consultation events ("NGOPI") for students/parents in an informal setting.</li>
+              <li>Traveled regionally (Tangerang to Jambi) to spearhead outreach and promotional campaigns.</li>
+            </ul>
           </div>
+        </div>
+
+        <!-- Experience 3 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-color)] bg-purple-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+            <i class="ph ph-megaphone"></i>
+          </div>
+          <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass p-6 rounded-3xl glass-hover">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">Jun 2025 — Aug 2025</span>
+            </div>
+            <h3 class="font-bold text-lg">Marketing Assistant (Freelance)</h3>
+            <p class="font-semibold text-[var(--text-muted)] text-sm mb-3">MULTIMEDIA NUSANTARA UNIVERSITY</p>
+            <ul class="text-sm opacity-80 list-disc ml-4 space-y-1.5">
+              <li>Conducted consultations with parents about programs, tuition, and careers.</li>
+              <li>Delivered high school presentations to 50-150 senior students promoting UMN.</li>
+              <li>Organized 5+ promotional events including expos and seminars.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Experience 4 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-color)] bg-gray-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+            <i class="ph ph-coffee"></i>
+          </div>
+          <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass p-6 rounded-3xl glass-hover">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Oct 2024 — Feb 2026</span>
+            </div>
+            <h3 class="font-bold text-lg">Barista (Part-time)</h3>
+            <p class="font-semibold text-[var(--text-muted)] text-sm mb-3">C TO COFFEE</p>
+            <ul class="text-sm opacity-80 list-disc ml-4 space-y-1.5">
+              <li>Served 20-40 customers daily while handling multi-channel payments.</li>
+              <li>Maintained fast and accurate beverage preparation according to SOP.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Organizational Experiences -->
+    <section id="organizations" class="mb-24 scroll-mt-32">
+       <div class="flex items-center gap-3 mb-10">
+        <div class="p-3 rounded-2xl glass bg-indigo-500/10"><i class="ph ph-users text-2xl text-indigo-500"></i></div>
+        <h2 class="text-3xl font-extrabold">Organizations & Committee</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass p-6 rounded-3xl glass-hover flex flex-col h-full">
+          <span class="text-xs font-bold text-sky-500 mb-1">Feb 2024 — Feb 2025</span>
+          <h3 class="font-bold text-lg">Head of Security Division</h3>
+          <p class="text-sm font-semibold text-[var(--text-muted)] mb-4">UMN Earth Caring Operation</p>
+          <ul class="text-sm opacity-80 list-disc ml-4 space-y-1 mt-auto">
+            <li>Directed a 40-member security team for events with 1,000+ participants.</li>
+            <li>Interviewed and selected 80+ candidates, implementing protocols with zero incidents.</li>
+          </ul>
+        </div>
+
+        <div class="glass p-6 rounded-3xl glass-hover flex flex-col h-full">
+          <span class="text-xs font-bold text-indigo-400 mb-1">Mar 2023 — Feb 2024</span>
+          <h3 class="font-bold text-lg">Safety Liaison Team</h3>
+          <p class="text-sm font-semibold text-[var(--text-muted)] mb-4">MR. & MRS. UMN</p>
+          <ul class="text-sm opacity-80 list-disc ml-4 space-y-1 mt-auto">
+            <li>Managed security logistics for 500+ attendees during multiple event stages.</li>
+            <li>Assigned as personal liaison for a finalist, ensuring smooth coordination.</li>
+          </ul>
+        </div>
+
+        <div class="glass p-6 rounded-3xl glass-hover flex flex-col h-full">
+          <span class="text-xs font-bold text-purple-400 mb-1">Nov 2021 — Nov 2022</span>
+          <h3 class="font-bold text-lg">Chief Exec of Kartini Day</h3>
+          <p class="text-sm font-semibold text-[var(--text-muted)] mb-4">Student Committee - Art & Culture Div</p>
+          <ul class="text-sm opacity-80 list-disc ml-4 space-y-1 mt-auto">
+            <li>Led 41 volunteers to organize Kartini Day 2022, celebrating women's empowerment.</li>
+            <li>Oversaw event logistics and guest experience, ensuring seamless execution.</li>
+          </ul>
+        </div>
+
+        <div class="glass p-6 rounded-3xl glass-hover flex flex-col h-full">
+          <span class="text-xs font-bold text-gray-400 mb-1">Nov 2020 — Nov 2021</span>
+          <h3 class="font-bold text-lg">Member</h3>
+          <p class="text-sm font-semibold text-[var(--text-muted)] mb-4">Student Committee - Environment Div</p>
+          <ul class="text-sm opacity-80 list-disc ml-4 space-y-1 mt-auto">
+            <li>Contributed to sustainability/leadership programs collaborating with 31 members.</li>
+            <li>Drafted annual work plans adopted for the following academic year.</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section id="portfolio" class="mb-24">
-      <h2 class="text-2xl font-extrabold mb-6">Portfolio</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="card-glass p-4 text-center">
-            <h4 class="text-xs font-bold mb-2">Media Planning</h4>
-            <a href="https://drive.google.com/file/d/1qNbfrG8xDrR5IythCbl79CW4vua9Gd21/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
-        </div>
-        <div class="card-glass p-4 text-center">
-            <h4 class="text-xs font-bold mb-2">Brand Reposition</h4>
-            <a href="https://drive.google.com/file/d/12Wz8ZgXc-uNKaWmJbwxpVUgOtTjLyMgy/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
-        </div>
-        <div class="card-glass p-4 text-center">
-            <h4 class="text-xs font-bold mb-2">Digital Strategy</h4>
-            <a href="https://drive.google.com/file/d/1QBza4jlGniTDBzOQ3tU8jO1iCZNqxA5Q/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
-        </div>
-        <div class="card-glass p-4 text-center">
-            <h4 class="text-xs font-bold mb-2">Copywriting</h4>
-            <a href="https://drive.google.com/file/d/1rfAXErlCCW0kYW4rYbaYQtQXR0sz4Xbm/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a>
-        </div>
-        <div class="card-glass p-4 text-center"><h4 class="text-xs font-bold mb-2">Integrated Brand</h4><a href="https://drive.google.com/file/d/15HeKctKEKyrjvTt6Dha-sEx1oTIEo-GA/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a></div>
-        <div class="card-glass p-4 text-center"><h4 class="text-xs font-bold mb-2">Integrated Mktg</h4><a href="https://drive.google.com/file/d/1m6_0_cmE5ncCEIkfAA7h633eCKxRV8a3/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a></div>
-        <div class="card-glass p-4 text-center"><h4 class="text-xs font-bold mb-2">Promotion Eval</h4><a href="https://drive.google.com/file/d/1v92iFb3QCKosz2qo5vsRz6iz17D-C4Zh/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a></div>
-        <div class="card-glass p-4 text-center"><h4 class="text-xs font-bold mb-2">Trend Spotting</h4><a href="https://drive.google.com/file/d/1z9KFUkt6j1NvQCdXkWIHREyxld52hm_F/view?usp=drive_link" target="_blank" class="text-sky-500 text-[10px] font-bold">VIEW PROJECT →</a></div>
+    <!-- Certifications & Training Widget -->
+    <section class="mb-24">
+      <div class="glass rounded-3xl p-8 glass-hover">
+         <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2">
+            <i class="ph ph-certificate text-yellow-500 text-3xl"></i> Certifications & Awards
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-medium">
+            <div class="flex gap-3"><i class="ph-fill ph-check-circle text-sky-500 mt-0.5"></i> AI-Powered Performance Ads, Google Digital Academy (2025)</div>
+            <div class="flex gap-3"><i class="ph-fill ph-check-circle text-sky-500 mt-0.5"></i> 2nd Place - Marketing Competition, KSPM UMN (2024)</div>
+            <div class="flex gap-3"><i class="ph-fill ph-check-circle text-sky-500 mt-0.5"></i> 1st Place - Article Writing, Kompas Corner (2023)</div>
+            <div class="flex gap-3"><i class="ph-fill ph-check-circle text-sky-500 mt-0.5"></i> Career Preparation & Building Workshop, UMN (2025)</div>
+            <div class="flex gap-3"><i class="ph-fill ph-check-circle text-sky-500 mt-0.5"></i> Teamwork & Leadership Training, UMN (2023)</div>
+          </div>
       </div>
     </section>
+
+    <!-- Portfolio App Grid -->
+    <section id="portfolio" class="mb-10 scroll-mt-32">
+       <div class="flex items-center gap-3 mb-10">
+        <div class="p-3 rounded-2xl glass bg-purple-500/10"><i class="ph ph-folder-open text-2xl text-purple-500"></i></div>
+        <h2 class="text-3xl font-extrabold">Project Apps</h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <!-- App Icon Style Project Links -->
+        <a href="https://drive.google.com/file/d/1qNbfrG8xDrR5IythCbl79CW4vua9Gd21/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-sky-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+            <i class="ph ph-chart-line-up text-2xl"></i>
+          </div>
+          <span class="text-sm font-semibold tracking-tight">Media Plan</span>
+        </a>
+        
+        <a href="https://drive.google.com/file/d/12Wz8ZgXc-uNKaWmJbwxpVUgOtTjLyMgy/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-400 to-purple-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+            <i class="ph ph-arrows-clockwise text-2xl"></i>
+          </div>
+          <span class="text-sm font-semibold tracking-tight">Brand Repo</span>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1QBza4jlGniTDBzOQ3tU8jO1iCZNqxA5Q/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+            <i class="ph ph-device-mobile text-2xl"></i>
+          </div>
+          <span class="text-sm font-semibold tracking-tight">Digital Strat</span>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1rfAXErlCCW0kYW4rYbaYQtQXR0sz4Xbm/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+            <i class="ph ph-pencil-line text-2xl"></i>
+          </div>
+          <span class="text-sm font-semibold tracking-tight">Copywriting</span>
+        </a>
+
+        <a href="https://drive.google.com/file/d/15HeKctKEKyrjvTt6Dha-sEx1oTIEo-GA/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+            <i class="ph ph-strategy text-2xl"></i>
+          </div>
+          <span class="text-sm font-semibold tracking-tight text-center">Integ. Brand</span>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1m6_0_cmE5ncCEIkfAA7h633eCKxRV8a3/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+            <i class="ph ph-megaphone-simple text-2xl"></i>
+          </div>
+          <span class="text-sm font-semibold tracking-tight text-center">Integ. Mktg</span>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1v92iFb3QCKosz2qo5vsRz6iz17D-C4Zh/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+            <i class="ph ph-magnifying-glass-chart text-2xl"></i>
+          </div>
+          <span class="text-sm font-semibold tracking-tight text-center">Promo Eval</span>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1z9KFUkt6j1NvQCdXkWIHREyxld52hm_F/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-400 to-fuchsia-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+            <i class="ph ph-binoculars text-2xl"></i>
+          </div>
+          <span class="text-sm font-semibold tracking-tight text-center">Trend Spot</span>
+        </a>
+      </div>
+    </section>
+
   </main>
 
-  <div class="marquee-wrapper mt-20">
-    <div class="marquee-content">
-      <span class="marquee-item">— Get contact with me —</span>
-      <span class="marquee-item">— +62 895 2952 7783 —</span>
-      <span class="marquee-item">— christianeff13@gmail.com —</span>
-      <span class="marquee-item">— linkedin.com/in/christaineff/ —</span>
-      <span class="marquee-item">— Get contact with me —</span>
+  <!-- Infinite Marquee Text -->
+  <div class="w-full overflow-hidden flex whitespace-nowrap py-6 border-y border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl">
+    <div class="flex animate-marquee min-w-max text-sm font-bold uppercase tracking-widest text-sky-500 px-4">
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Creating Value with Integrity</span>
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Hardwork in The Spirit of Unity</span>
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Christian Effendi</span>
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Marketing</span>
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Strategic Communication</span>
+      
+      <!-- Duplikasi agar looping mulus -->
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Creating Value with Integrity</span>
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Hardwork in The Spirit of Unity</span>
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Christian Effendi</span>
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Marketing</span>
+      <span class="mx-4"><i class="ph-fill ph-star"></i> Strategic Communication</span>
     </div>
   </div>
 
-  <div class="marquee-wrapper" style="background: var(--accent); border: none; padding: 10px 0;">
-    <div class="marquee-content-rev">
-      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-      <span class="marquee-item" style="color:var(--bg-body); font-size: 0.8rem;">— Creating Value with Integrity and Hardwork in The Spirit of Unity —</span>
-    </div>
-  </div>
-
-  <footer class="py-12 border-t" style="border-color: var(--border);">
-    <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-between items-center gap-6">
-      <p class="font-bold opacity-80">Christian Effendi &copy; 2026</p>
-      <div class="flex gap-4">
-        <a class="px-4 py-2 border rounded-lg hover:bg-sky-500 hover:text-white transition text-sm font-bold" href="mailto:christianeff14@gmail.com">Email</a>
-        <a class="px-4 py-2 border rounded-lg hover:bg-sky-500 hover:text-white transition text-sm font-bold" href="https://www.linkedin.com/in/christaineff/" target="_blank">LinkedIn</a>
-        <a class="px-4 py-2 border rounded-lg hover:bg-sky-500 hover:text-white transition text-sm font-bold" href="https://wa.me/6289529527783" target="_blank">WhatsApp</a>
+  <!-- iOS Footer Dock Style -->
+  <footer class="py-12 relative z-10">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="inline-flex glass rounded-full p-2 mb-8 gap-2 shadow-xl">
+        <a href="mailto:christianeff14@gmail.com" class="w-12 h-12 rounded-full flex items-center justify-center hover:bg-white/20 transition group" title="Email">
+          <i class="ph ph-envelope-simple text-2xl group-hover:scale-110 transition"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/christianeff/" target="_blank" class="w-12 h-12 rounded-full flex items-center justify-center hover:bg-white/20 transition group" title="LinkedIn">
+          <i class="ph ph-linkedin-logo text-2xl group-hover:scale-110 transition"></i>
+        </a>
+        <a href="https://wa.me/6289529527783" target="_blank" class="w-12 h-12 rounded-full flex items-center justify-center hover:bg-white/20 transition group text-green-500" title="WhatsApp">
+          <i class="ph ph-whatsapp-logo text-2xl group-hover:scale-110 transition"></i>
+        </a>
       </div>
+      <p class="text-sm font-semibold opacity-60">&copy; 2026 Christian Effendi. Contributing to Solutions.</p>
     </div>
   </footer>
 
-  <script>
-    window.addEventListener('mousemove', e => {
-      document.body.style.setProperty('--x', e.clientX + 'px');
-      document.body.style.setProperty('--y', e.clientY + 'px');
-    });
+  <!-- Floating Action Button for WA (Bottom Right) -->
+  <a href="https://wa.me/6289529527783" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform z-50 group">
+    <i class="ph ph-whatsapp-logo text-3xl group-hover:rotate-12 transition"></i>
+  </a>
 
+  <!-- Scripts -->
+  <script>
+    // Scroll Progress Bar
     window.addEventListener('scroll', () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       document.getElementById("progress-bar").style.width = (winScroll / height) * 100 + "%";
     });
 
-    // GPA COUNTER - Set 1,5 detik (1500ms)
+    // Animate GPA Counter
     const gpaCounter = document.getElementById('gpa-counter');
     const targetGPA = parseFloat(gpaCounter.getAttribute('data-target'));
-    const duration = 1500; // 1.5 detik
-    const frameRate = 1000 / 60; // 60 FPS
+    const duration = 2000; // 2 seconds
+    const frameRate = 1000 / 60;
     const totalFrames = Math.round(duration / frameRate);
     let currentFrame = 0;
 
     const animateGPA = () => {
       currentFrame++;
-      const progress = currentFrame / totalFrames;
+      // easeOutQuart easing function for smooth slowing down effect
+      const progress = 1 - Math.pow(1 - currentFrame / totalFrames, 4); 
       const currentValue = progress * targetGPA;
 
       if (currentFrame <= totalFrames) {
@@ -291,14 +578,14 @@
       }
     };
 
+    // Mulai animasi GPA saat halaman selesai dimuat
     window.onload = animateGPA;
 
-    function toggleMode() {
-      document.body.classList.toggle('light-mode');
-      document.getElementById('mode-btn').innerHTML = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+    // Theme Toggle Function (Light / Dark Mode Apple Style)
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      // Opsional: Simpan preferensi pengguna ke localStorage di skenario nyata
     }
-
-    document.getElementById('resume-nav').href = 'https://drive.google.com/file/d/1FnZQXX-7pcsI4L3J1qqd5cvprqldqWow/view?usp=drive_link';
   </script>
 </body>
 </html>
