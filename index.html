@@ -14,7 +14,7 @@
   <!-- Google Fonts: Inter (San Francisco alternative) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -151,19 +151,57 @@
       background: linear-gradient(90deg, #38bdf8, #818cf8);
       z-index: 1000; width: 0%; transition: width 0.1s ease;
     }
+
+    /* --- LIQUID GLASS FALLING LETTERS --- */
+    .glass-letter {
+      position: absolute;
+      font-weight: 900;
+      font-family: 'Inter', sans-serif;
+      color: rgba(255, 255, 255, 0.3);
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.05)) blur(2px);
+      user-select: none;
+      pointer-events: none;
+    }
+    
+    .dark .glass-letter {
+      color: rgba(255, 255, 255, 0.02);
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3)) blur(2px);
+    }
+
+    @keyframes fallAndRotate {
+      0% {
+        transform: translateY(-20vh) rotate(var(--rot-start));
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(120vh) rotate(var(--rot-end));
+        opacity: 0;
+      }
+    }
   </style>
 </head>
-<body class="antialiased selection:bg-sky-500/30">
+<body class="antialiased selection:bg-sky-500/30 relative">
 
   <!-- Scroll Progress -->
   <div id="progress-bar"></div>
 
   <!-- Mesh Gradient Background (Liquid Effect) -->
-  <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+  <div class="fixed inset-0 z-[-2] overflow-hidden pointer-events-none">
     <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-sky-400/40 blur-[100px] md:blur-[150px] animate-blob mix-blend-normal dark:mix-blend-screen opacity-[var(--blob-opacity)]"></div>
     <div class="absolute top-[20%] right-[-10%] w-[45vw] h-[45vw] rounded-full bg-indigo-400/40 blur-[100px] md:blur-[150px] animate-blob-reverse mix-blend-normal dark:mix-blend-screen opacity-[var(--blob-opacity)]"></div>
     <div class="absolute bottom-[-20%] left-[20%] w-[60vw] h-[60vw] rounded-full bg-purple-400/40 blur-[100px] md:blur-[150px] animate-blob-slow mix-blend-normal dark:mix-blend-screen opacity-[var(--blob-opacity)]"></div>
   </div>
+
+  <!-- Falling Glass Letters Container -->
+  <div id="falling-letters-container" class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none"></div>
 
   <!-- Dynamic Island Navbar -->
   <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
@@ -193,7 +231,7 @@
     
     <!-- Hero Section -->
     <section class="flex flex-col items-center justify-center text-center gap-12 mb-20 md:mb-32">
-      <div class="w-full max-w-4xl space-y-6 flex flex-col items-center z-10">
+      <div class="w-full max-w-4xl space-y-6 flex flex-col items-center z-10 relative">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border-sky-400/30 text-xs font-semibold text-sky-500 mb-2">
           <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
           Available for Opportunities
@@ -226,7 +264,7 @@
     </section>
 
     <!-- iOS Widget Grid Style (About & Skills) -->
-    <section id="about" class="mb-24 scroll-mt-32">
+    <section id="about" class="mb-24 scroll-mt-32 relative z-10">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Summary Widget (Large) -->
@@ -285,7 +323,7 @@
     </section>
 
     <!-- Experience Timeline (Glass Cards) -->
-    <section id="experience" class="mb-24 scroll-mt-32">
+    <section id="experience" class="mb-24 scroll-mt-32 relative z-10">
       <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-sky-500/10"><i class="ph ph-briefcase text-2xl text-sky-500"></i></div>
         <h2 class="text-3xl font-extrabold">Work Experiences</h2>
@@ -372,7 +410,7 @@
     </section>
 
     <!-- Organizational Experiences -->
-    <section id="organizations" class="mb-24 scroll-mt-32">
+    <section id="organizations" class="mb-24 scroll-mt-32 relative z-10">
        <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-indigo-500/10"><i class="ph ph-users text-2xl text-indigo-500"></i></div>
         <h2 class="text-3xl font-extrabold">Organizations & Committee</h2>
@@ -422,7 +460,7 @@
     </section>
 
     <!-- Certifications & Training Widget -->
-    <section class="mb-24">
+    <section class="mb-24 relative z-10">
       <div class="glass rounded-3xl p-8 glass-hover">
          <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2">
             <i class="ph ph-certificate text-yellow-500 text-3xl"></i> Certifications & Awards
@@ -438,7 +476,7 @@
     </section>
 
     <!-- Portfolio App Grid -->
-    <section id="portfolio" class="mb-10 scroll-mt-32">
+    <section id="portfolio" class="mb-10 scroll-mt-32 relative z-10">
        <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-purple-500/10"><i class="ph ph-folder-open text-2xl text-purple-500"></i></div>
         <h2 class="text-3xl font-extrabold">Project Apps</h2>
@@ -507,7 +545,7 @@
   </main>
 
   <!-- Infinite Marquee Text -->
-  <div class="w-full overflow-hidden flex whitespace-nowrap py-6 border-y border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl">
+  <div class="w-full overflow-hidden flex whitespace-nowrap py-6 border-y border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl relative z-10">
     <div class="flex animate-marquee min-w-max text-sm font-bold uppercase tracking-widest text-sky-500 px-4">
       <span class="mx-4"><i class="ph-fill ph-star"></i> Creating Value with Integrity</span>
       <span class="mx-4"><i class="ph-fill ph-star"></i> Hardwork in The Spirit of Unity</span>
@@ -578,13 +616,64 @@
       }
     };
 
-    // Mulai animasi GPA saat halaman selesai dimuat
-    window.onload = animateGPA;
+    // Falling Liquid Glass Letters Logic
+    function initFallingLetters() {
+      const container = document.getElementById('falling-letters-container');
+      // Memilih bentuk huruf yang terlihat estetis saat berputar
+      const letters = ['C', 'E', 'O', 'S', 'M', 'A', 'X', 'I'];
+      const maxLetters = 12; // Batas maksimal agar tidak terlihat lebay/penuh
+      let currentCount = 0;
+
+      function spawnLetter() {
+        if (currentCount >= maxLetters) return;
+
+        const el = document.createElement('div');
+        el.className = 'glass-letter';
+        el.innerText = letters[Math.floor(Math.random() * letters.length)];
+        
+        // Random properties untuk rotasi, ukuran, dan durasi jatuh
+        const size = Math.random() * 5 + 3; // 3rem - 8rem
+        const left = Math.random() * 90 + 5; // 5% - 95% width
+        const fallDuration = Math.random() * 15 + 25; // 25s - 40s (sangat lambat dan rileks)
+        const rotStart = Math.random() * 360;
+        const rotEnd = rotStart + (Math.random() > 0.5 ? 360 : -360);
+
+        el.style.fontSize = `${size}rem`;
+        el.style.left = `${left}%`;
+        el.style.setProperty('--rot-start', `${rotStart}deg`);
+        el.style.setProperty('--rot-end', `${rotEnd}deg`);
+        el.style.animation = `fallAndRotate ${fallDuration}s linear forwards`;
+
+        container.appendChild(el);
+        currentCount++;
+
+        // Hapus elemen saat animasi selesai
+        setTimeout(() => {
+          if(el.parentNode) {
+            el.parentNode.removeChild(el);
+            currentCount--;
+          }
+        }, fallDuration * 1000);
+      }
+
+      // Memunculkan huruf pertama dengan jarak waktu acak (stagger)
+      for(let i = 0; i < maxLetters / 2; i++) {
+        setTimeout(spawnLetter, Math.random() * 10000);
+      }
+
+      // Interval reguler untuk terus memunculkan huruf baru
+      setInterval(spawnLetter, 3500);
+    }
+
+    // Eksekusi fungsi saat jendela dimuat
+    window.onload = () => {
+      animateGPA();
+      initFallingLetters();
+    };
 
     // Theme Toggle Function (Light / Dark Mode Apple Style)
     function toggleTheme() {
       document.documentElement.classList.toggle('dark');
-      // Opsional: Simpan preferensi pengguna ke localStorage di skenario nyata
     }
   </script>
 </body>
