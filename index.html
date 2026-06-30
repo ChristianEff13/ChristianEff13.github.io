@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Christian Effendi | Liquid Glass Portfolio</title>
   
+  <!-- Favicon (Logo di Tab Browser) -->
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/tgYDRtFZ/CE-(1).png" />
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
@@ -263,9 +266,45 @@
     .float-decor-2 { animation: floatDecor2 7s ease-in-out infinite; }
     .float-decor-3 { animation: floatDecor3 5s ease-in-out infinite; }
     .float-decor-4 { animation: floatDecor4 8s ease-in-out infinite; }
+
+    /* --- SCROLL REVEAL ANIMATION (BLUR TO CLEAR) --- */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      filter: blur(15px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out, filter 0.5s ease-out;
+      will-change: opacity, transform, filter;
+    }
+    .scroll-reveal.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
   </style>
 </head>
 <body class="antialiased selection:bg-sky-500/30 relative">
+
+  <!-- SVG Defs for Glass Gradients -->
+  <svg width="0" height="0" class="absolute pointer-events-none">
+    <defs>
+      <!-- Gradient Kaca Mode Terang (Kilauan cahaya) -->
+      <linearGradient id="glass-gradient-light" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="rgba(255,255,255,0.8)" />
+        <stop offset="15%" stop-color="rgba(255,255,255,0.15)" />
+        <stop offset="50%" stop-color="rgba(255,255,255,0.05)" />
+        <stop offset="85%" stop-color="rgba(255,255,255,0.15)" />
+        <stop offset="100%" stop-color="rgba(255,255,255,0.6)" />
+      </linearGradient>
+      <!-- Gradient Kaca Mode Gelap (Kilauan cahaya) -->
+      <linearGradient id="glass-gradient-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="rgba(255,255,255,0.4)" />
+        <stop offset="15%" stop-color="rgba(255,255,255,0.05)" />
+        <stop offset="50%" stop-color="rgba(255,255,255,0)" />
+        <stop offset="85%" stop-color="rgba(255,255,255,0.02)" />
+        <stop offset="100%" stop-color="rgba(255,255,255,0.2)" />
+      </linearGradient>
+    </defs>
+  </svg>
 
   <!-- Scroll Progress -->
   <div id="progress-bar"></div>
@@ -410,7 +449,7 @@
     </section>
 
     <!-- iOS Widget Grid Style (About & Skills) -->
-    <section id="about" class="mb-24 scroll-mt-32 relative z-10">
+    <section id="about" class="mb-24 scroll-mt-32 relative z-10 scroll-reveal">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Summary Widget (Large) -->
@@ -469,7 +508,7 @@
     </section>
 
     <!-- Experience Timeline (Glass Cards) -->
-    <section id="experience" class="mb-24 scroll-mt-32 relative z-10">
+    <section id="experience" class="mb-24 scroll-mt-32 relative z-10 scroll-reveal">
       <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-sky-500/10"><i class="ph ph-briefcase text-2xl text-sky-500"></i></div>
         <h2 class="text-3xl font-extrabold">Work Experiences</h2>
@@ -556,7 +595,7 @@
     </section>
 
     <!-- Organizational Experiences -->
-    <section id="organizations" class="mb-24 scroll-mt-32 relative z-10">
+    <section id="organizations" class="mb-24 scroll-mt-32 relative z-10 scroll-reveal">
        <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-indigo-500/10"><i class="ph ph-users text-2xl text-indigo-500"></i></div>
         <h2 class="text-3xl font-extrabold">Organizations & Committee</h2>
@@ -606,7 +645,7 @@
     </section>
 
     <!-- Certifications & Training Widget -->
-    <section class="mb-24 relative z-10">
+    <section class="mb-24 relative z-10 scroll-reveal">
       <div class="glass rounded-3xl p-8 glass-hover">
          <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2">
             <i class="ph ph-certificate text-yellow-500 text-3xl"></i> Certifications & Awards
@@ -622,7 +661,7 @@
     </section>
 
     <!-- Portfolio App Grid -->
-    <section id="portfolio" class="mb-10 scroll-mt-32 relative z-10">
+    <section id="portfolio" class="mb-10 scroll-mt-32 relative z-10 scroll-reveal">
        <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-purple-500/10"><i class="ph ph-folder-open text-2xl text-purple-500"></i></div>
         <h2 class="text-3xl font-extrabold">Project Apps</h2>
@@ -891,9 +930,26 @@
       });
     }
 
+    // Fungsi Scroll Reveal (Blur ke Jelas)
+    function initScrollReveal() {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            obs.unobserve(entry.target); // Hanya animasi 1x saat muncul
+          }
+        });
+      }, { threshold: 0.1 }); // Muncul saat elemen 10% masuk layar
+
+      document.querySelectorAll('.scroll-reveal').forEach(el => {
+        observer.observe(el);
+      });
+    }
+
     window.onload = () => {
       animateGPA();
       initFloatingLetters();
+      initScrollReveal();
     };
 
     // Theme Toggle Function (Light / Dark Mode Apple Style)
