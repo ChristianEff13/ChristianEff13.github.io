@@ -196,12 +196,36 @@
       z-index: 1000; width: 0%; transition: width 0.1s ease;
     }
 
-    .dark .glass-shape svg {
-      fill: url(#glass-gradient-dark); /* Menggunakan gradient kaca gelap */
-      stroke: rgba(255, 255, 255, 0.35);
+    /* --- ENHANCED LIQUID GLASS FLOATING SHAPES (BUBBLY TETRIS) --- */
+    .glass-shape {
+      position: fixed; 
+      top: 0; left: 0;
+      filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15)) drop-shadow(0px 0px 2px rgba(255,255,255,0.2));
+      pointer-events: none; 
+      will-change: transform;
+    }
+    
+    .dark .glass-shape {
+      filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.5)) drop-shadow(0px 0px 2px rgba(255,255,255,0.1));
     }
 
-    /* --- STATIC DECORATIVE GLASS SHAPES --- */
+    .glass-shape svg {
+      width: 100%;
+      height: 100%;
+      /* DALAMNYA DIBUAT BENING (TRANSPARENT) SEPENUHNYA */
+      fill: transparent; 
+      stroke: rgba(134, 134, 139, 0.3); /* Outline bening netral, bukan hitam */
+      stroke-width: 1.5; 
+      stroke-linejoin: round; 
+      stroke-linecap: round;
+    }
+
+    .dark .glass-shape svg {
+      fill: transparent; /* Dalemnya bening di mode gelap juga */
+      stroke: rgba(255, 255, 255, 0.15); /* Outline putih pudar */
+    }
+
+    /* --- STATIC DECORATIVE GLASS SHAPES (DI SEKITAR FOTO) --- */
     .static-glass {
       fill: url(#glass-gradient-light);
       stroke: rgba(255, 255, 255, 0.8);
@@ -244,28 +268,41 @@
       animation: tooltipFadeOut 2.5s ease-in-out forwards;
     }
 
-    /* --- FLOATING DECORATIONS --- */
+    /* --- FLOATING DECORATIONS (Smooth, Dekat, Pelan) --- */
     @keyframes floatDecor1 {
       0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(15px, -20px); }
+      50% { transform: translate(4px, -6px); }
     }
     @keyframes floatDecor2 {
       0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(-10px, 15px); }
+      50% { transform: translate(-3px, 5px); }
     }
     @keyframes floatDecor3 {
       0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(-15px, -15px); }
+      50% { transform: translate(-5px, -4px); }
     }
     @keyframes floatDecor4 {
       0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(20px, 10px); }
+      50% { transform: translate(6px, 3px); }
     }
     
-    .float-decor-1 { animation: floatDecor1 6s ease-in-out infinite; }
-    .float-decor-2 { animation: floatDecor2 7s ease-in-out infinite; }
-    .float-decor-3 { animation: floatDecor3 5s ease-in-out infinite; }
-    .float-decor-4 { animation: floatDecor4 8s ease-in-out infinite; }
+    .float-decor-1 { animation: floatDecor1 8s ease-in-out infinite; will-change: transform; }
+    .float-decor-2 { animation: floatDecor2 9s ease-in-out infinite; will-change: transform; }
+    .float-decor-3 { animation: floatDecor3 7.5s ease-in-out infinite; will-change: transform; }
+    .float-decor-4 { animation: floatDecor4 10s ease-in-out infinite; will-change: transform; }
+
+    /* --- TEXT GLASS (Khusus untuk Font agar outline rapi) --- */
+    .text-glass {
+      fill: url(#glass-gradient-light);
+      stroke: rgba(255, 255, 255, 0.8);
+      stroke-width: 1; /* Ditipiskan sedikit agar tidak menumpuk di dalam */
+      stroke-linejoin: miter; /* Mencegah sudut gumpalan berantakan pada huruf A, K, dll */
+      stroke-miterlimit: 2;
+    }
+    .dark .text-glass {
+      fill: url(#glass-gradient-dark);
+      stroke: rgba(255, 255, 255, 0.35);
+    }
 
     /* --- SCROLL REVEAL ANIMATION (BLUR TO CLEAR) --- */
     .scroll-reveal {
@@ -280,6 +317,19 @@
       transform: translateY(0);
       filter: blur(0);
     }
+
+    /* --- SCROLL REVEAL "THANK YOU" (HURUF PER HURUF) --- */
+    .scroll-reveal-ty span {
+      display: inline-block;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+      transition-delay: calc(var(--i) * 0.1s); /* Stagger delay berurutan */
+    }
+    .scroll-reveal-ty.is-revealed span {
+      transform: translateY(0);
+      opacity: 1;
+    }
   </style>
 </head>
 <body class="antialiased selection:bg-sky-500/30 relative">
@@ -287,21 +337,23 @@
   <!-- SVG Defs for Glass Gradients -->
   <svg width="0" height="0" class="absolute pointer-events-none">
     <defs>
-      <!-- Gradient Kaca Mode Terang (Kilauan cahaya) -->
+      <!-- Gradient Kaca Mode Terang -->
       <linearGradient id="glass-gradient-light" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="rgba(255,255,255,0.8)" />
-        <stop offset="15%" stop-color="rgba(255,255,255,0.15)" />
-        <stop offset="50%" stop-color="rgba(255,255,255,0.05)" />
-        <stop offset="85%" stop-color="rgba(255,255,255,0.15)" />
-        <stop offset="100%" stop-color="rgba(255,255,255,0.6)" />
-      </linearGradient>
-      <!-- Gradient Kaca Mode Gelap (Kilauan cahaya) -->
-      <linearGradient id="glass-gradient-dark" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="rgba(255,255,255,0.4)" />
+        <stop offset="0%" stop-color="rgba(255,255,255,0.95)" />
+        <stop offset="10%" stop-color="rgba(255,255,255,0.4)" />
         <stop offset="15%" stop-color="rgba(255,255,255,0.05)" />
-        <stop offset="50%" stop-color="rgba(255,255,255,0)" />
-        <stop offset="85%" stop-color="rgba(255,255,255,0.02)" />
-        <stop offset="100%" stop-color="rgba(255,255,255,0.2)" />
+        <stop offset="85%" stop-color="rgba(255,255,255,0.05)" />
+        <stop offset="95%" stop-color="rgba(255,255,255,0.4)" />
+        <stop offset="100%" stop-color="rgba(255,255,255,0.8)" />
+      </linearGradient>
+      <!-- Gradient Kaca Mode Gelap -->
+      <linearGradient id="glass-gradient-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="rgba(255,255,255,0.8)" />
+        <stop offset="10%" stop-color="rgba(255,255,255,0.3)" />
+        <stop offset="15%" stop-color="rgba(255,255,255,0)" />
+        <stop offset="85%" stop-color="rgba(255,255,255,0)" />
+        <stop offset="95%" stop-color="rgba(255,255,255,0.15)" />
+        <stop offset="100%" stop-color="rgba(255,255,255,0.5)" />
       </linearGradient>
     </defs>
   </svg>
@@ -325,30 +377,47 @@
       <a href="#" class="flex items-center">
         <img src="https://i.postimg.cc/tgYDRtFZ/CE-(1).png" alt="Christian Effendi Logo" class="h-10 w-auto hover:scale-110 transition-transform duration-300 drop-shadow-md">
       </a>
-      <div class="hidden md:flex items-center gap-5 text-sm font-medium opacity-80">
+      
+      <div class="hidden lg:flex items-center gap-5 text-sm font-medium opacity-80">
         <a href="#about" class="hover:text-sky-500 transition">About</a>
         <a href="#experience" class="hover:text-sky-500 transition">Experience</a>
         <a href="#organizations" class="hover:text-sky-500 transition">Organizations</a>
         <a href="#portfolio" class="hover:text-sky-500 transition">Portfolio</a>
       </div>
-      <div class="w-[1px] h-5 bg-gray-500/30 hidden md:block"></div>
+      <div class="w-[1px] h-5 bg-gray-500/30 hidden lg:block"></div>
+      
       <div class="flex items-center gap-3">
         
-        <!-- Button Tema dengan Tooltip -->
-        <div class="relative flex items-center justify-center">
-          <button onclick="toggleTheme()" class="w-8 h-8 flex items-center justify-center rounded-full glass btn-liquid" aria-label="Toggle Theme">
-            <i class="ph ph-moon text-lg dark:hidden"></i>
-            <i class="ph ph-sun text-lg hidden dark:block text-yellow-300"></i>
-          </button>
+        <!-- WIDGET CLOCK, DATE, & TOGGLE SWITCH (DESKTOP) -->
+        <div class="hidden md:flex items-center gap-4">
+          <!-- Time & Date Pill -->
+          <div class="flex items-center gap-3 px-4 py-1.5 rounded-full border border-gray-500/20 bg-[#141414] text-gray-100 shadow-sm text-sm font-medium">
+            <div class="flex items-center gap-1.5">
+              <i class="ph ph-sun text-lg text-gray-300"></i>
+              <span id="clock-time" class="tracking-wide">--:-- --</span>
+            </div>
+            <div class="w-[1px] h-4 bg-gray-600/50"></div>
+            <div class="tracking-wide">
+              <span id="clock-date">--- --, ----</span>
+            </div>
+          </div>
           
-          <!-- Tooltip "Wanna try light mode?" -->
-          <div class="absolute top-[130%] right-[-15px] pointer-events-none flex flex-col items-center animate-tooltip z-50">
-            <i class="ph-fill ph-caret-up text-sky-500 text-xl -mb-[10px]"></i>
-            <div class="bg-sky-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap">
-              Wanna try light mode?
+          <!-- Toggle Switch Custom -->
+          <div class="relative flex items-center justify-center">
+            <div class="flex items-center gap-2 cursor-pointer group" onclick="toggleTheme()">
+              <div class="w-11 h-6 rounded-full relative transition-colors duration-300 bg-gray-300 dark:bg-[#a87ffb] shadow-inner">
+                <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 dark:translate-x-5 shadow-sm"></div>
+              </div>
+              <span class="text-sm font-medium w-8 text-left text-[var(--text-main)]" id="theme-label">Dark</span>
             </div>
           </div>
         </div>
+
+        <!-- Button Tema Bulat Biasa (Tampil di Mobile HP saja) -->
+        <button onclick="toggleTheme()" class="md:hidden w-8 h-8 flex items-center justify-center rounded-full glass btn-liquid" aria-label="Toggle Theme">
+          <i class="ph ph-moon text-lg dark:hidden"></i>
+          <i class="ph ph-sun text-lg hidden dark:block text-yellow-300"></i>
+        </button>
 
         <a href="https://drive.google.com/file/d/1FnZQXX-7pcsI4L3J1qqd5cvprqldqWow/view?usp=drive_link" target="_blank" class="px-4 py-1.5 rounded-full glass btn-liquid text-xs font-semibold">
           Resume
@@ -358,9 +427,9 @@
   </header>
 
   <!-- Main Content -->
-  <main class="max-w-6xl mx-auto px-6 pt-32 md:pt-40 pb-24">
+  <main class="max-w-6xl mx-auto px-6 pt-32 md:pt-40 pb-10">
     
-    <!-- Hero Section (Side by side Layout matched with reference) -->
+    <!-- Hero Section -->
     <section class="flex flex-col lg:flex-row items-center justify-between text-center lg:text-left gap-12 mb-20 md:mb-32 relative z-10">
       
       <!-- Text Area (Left) -->
@@ -369,9 +438,12 @@
           <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
           Available for Opportunities
         </div>
+        
+        <!-- TEKS DIUBAH MENJADI: Hello, Its Christian Effendi. -->
         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">
-          Hi, I'm <br/><span class="text-gradient">Christian Effendi.</span>
+          Hello, Its <br/><span class="text-gradient">Christian Effendi.</span>
         </h1>
+        
         <p class="text-lg md:text-xl text-[var(--text-muted)] font-medium max-w-2xl leading-relaxed mx-auto lg:mx-0">
           Marketing Undergraduate & Strategic Communication Student. Currently driving international market growth through Global Operations at <strong class="text-[var(--text-main)]">WINGS Group</strong>.
         </p>
@@ -395,48 +467,34 @@
         </div>
       </div>
 
-      <!-- Image Area (Right) like reference image -->
+      <!-- Image Area (Right) -->
       <div class="w-full lg:w-[45%] relative flex justify-center items-center h-[400px] md:h-[500px] mt-10 lg:mt-0 z-10">
-        
         <!-- Abstract Blob Shape Background -->
-        <!-- Shape organik untuk di belakang foto, menyerupai referensi tetapi dengan warna khas tema kita -->
         <div class="absolute w-[75%] h-[85%] bg-gradient-to-br from-sky-400 to-indigo-500 rounded-[40%_60%_70%_30%/40%_50%_60%_50%] shadow-2xl opacity-90 transition-all duration-700 hover:rounded-[60%_40%_30%_70%/50%_60%_40%_50%]"></div>
         
         <!-- Decorative Vector Elements (Bubbly Tetris Shapes with Colored Glass Effect) -->
         <div class="absolute inset-0 w-full h-full pointer-events-none z-10">
-          <!-- Purple 'L' Tetris Shape (Top Left) -->
           <div class="absolute top-[20%] left-[0%] w-16 h-24 drop-shadow-[0_10px_20px_rgba(168,85,247,0.5)] float-decor-1">
             <svg class="-rotate-12 w-full h-full" viewBox="-5 -5 50 70">
-              <!-- Base Color -->
               <path d="M 10 0 L 10 0 Q 20 0 20 10 L 20 40 L 30 40 Q 40 40 40 50 L 40 50 Q 40 60 30 60 L 10 60 Q 0 60 0 50 L 0 10 Q 0 0 10 0 Z" fill="rgba(168, 85, 247, 0.5)"/>
-              <!-- Glass Highlight & Stroke overlay -->
               <path d="M 10 0 L 10 0 Q 20 0 20 10 L 20 40 L 30 40 Q 40 40 40 50 L 40 50 Q 40 60 30 60 L 10 60 Q 0 60 0 50 L 0 10 Q 0 0 10 0 Z" class="static-glass"/>
             </svg>
           </div>
-          <!-- Yellow 'O' Square Tetris Shape (Top Center) -->
           <div class="absolute top-[8%] left-[28%] w-14 h-14 drop-shadow-[0_10px_20px_rgba(253,224,71,0.5)] float-decor-2">
             <svg class="rotate-12 w-full h-full" viewBox="-5 -5 50 50">
-              <!-- Base Color -->
               <rect x="0" y="0" width="40" height="40" rx="10" fill="rgba(253, 224, 71, 0.5)" />
-              <!-- Glass Highlight & Stroke overlay -->
               <rect x="0" y="0" width="40" height="40" rx="10" class="static-glass" />
             </svg>
           </div>
-          <!-- Yellow 'T' Tetris Shape (Bottom Right) -->
           <div class="absolute bottom-[12%] right-[8%] w-20 h-16 drop-shadow-[0_10px_20px_rgba(250,204,21,0.5)] float-decor-3">
             <svg class="rotate-[-10deg] w-full h-full" viewBox="-5 -5 70 50">
-              <!-- Base Color -->
               <path d="M 10 0 L 50 0 Q 60 0 60 10 L 60 10 Q 60 20 50 20 L 40 20 L 40 30 Q 40 40 30 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z" fill="rgba(250, 204, 21, 0.5)"/>
-              <!-- Glass Highlight & Stroke overlay -->
               <path d="M 10 0 L 50 0 Q 60 0 60 10 L 60 10 Q 60 20 50 20 L 40 20 L 40 30 Q 40 40 30 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z" class="static-glass"/>
             </svg>
           </div>
-          <!-- Indigo 'Z' Tetris Shape (Top Right) -->
           <div class="absolute top-[18%] right-[2%] w-20 h-16 drop-shadow-[0_10px_20px_rgba(129,140,248,0.5)] float-decor-4">
             <svg class="rotate-[20deg] w-full h-full" viewBox="-5 -5 70 50">
-              <!-- Base Color -->
               <path d="M 10 0 L 30 0 Q 40 0 40 10 L 40 20 L 50 20 Q 60 20 60 30 L 60 30 Q 60 40 50 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z" fill="rgba(129, 140, 248, 0.5)"/>
-              <!-- Glass Highlight & Stroke overlay -->
               <path d="M 10 0 L 30 0 Q 40 0 40 10 L 40 20 L 50 20 Q 60 20 60 30 L 60 30 Q 60 40 50 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z" class="static-glass"/>
             </svg>
           </div>
@@ -729,6 +787,71 @@
 
   </main>
 
+  <!-- Section Animasi "THANK YOU" Paling Bawah (Format Tetris Liquid Glass) -->
+  <div class="w-full flex justify-center overflow-hidden py-16 mb-4 relative z-10" aria-label="THANK YOU">
+    <div class="flex justify-center items-center gap-1 md:gap-2 scroll-reveal-ty">
+       <!-- T -->
+       <span style="--i:0" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(56,189,248,0.6)] cursor-default">
+          <svg class="w-full h-full overflow-visible float-decor-1" viewBox="0 0 120 120">
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(56, 189, 248, 0.5)">T</text>
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">T</text>
+          </svg>
+       </span>
+       <!-- H -->
+       <span style="--i:1" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(129,140,248,0.6)] cursor-default">
+          <svg class="w-full h-full overflow-visible float-decor-2" viewBox="0 0 120 120">
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(129, 140, 248, 0.5)">H</text>
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">H</text>
+          </svg>
+       </span>
+       <!-- A -->
+       <span style="--i:2" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(168,85,247,0.6)] cursor-default">
+          <svg class="w-full h-full overflow-visible float-decor-3" viewBox="0 0 120 120">
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(168, 85, 247, 0.5)">A</text>
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">A</text>
+          </svg>
+       </span>
+       <!-- N -->
+       <span style="--i:3" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(244,63,94,0.6)] cursor-default">
+          <svg class="w-full h-full overflow-visible float-decor-4" viewBox="0 0 120 120">
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(244, 63, 94, 0.5)">N</text>
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">N</text>
+          </svg>
+       </span>
+       <!-- K -->
+       <span style="--i:4" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(250,204,21,0.6)] cursor-default">
+          <svg class="w-full h-full overflow-visible float-decor-1" viewBox="0 0 120 120">
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(250, 204, 21, 0.5)">K</text>
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">K</text>
+          </svg>
+       </span>
+
+       <span class="w-2 sm:w-4 md:w-8"></span> <!-- Spasi -->
+
+       <!-- Y -->
+       <span style="--i:5" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(52,211,153,0.6)] cursor-default">
+          <svg class="w-full h-full overflow-visible float-decor-2" viewBox="0 0 120 120">
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(52, 211, 153, 0.5)">Y</text>
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">Y</text>
+          </svg>
+       </span>
+       <!-- O -->
+       <span style="--i:6" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(56,189,248,0.6)] cursor-default">
+          <svg class="w-full h-full overflow-visible float-decor-3" viewBox="0 0 120 120">
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(56, 189, 248, 0.5)">O</text>
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">O</text>
+          </svg>
+       </span>
+       <!-- U -->
+       <span style="--i:7" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(129,140,248,0.6)] cursor-default">
+          <svg class="w-full h-full overflow-visible float-decor-4" viewBox="0 0 120 120">
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(129, 140, 248, 0.5)">U</text>
+             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">U</text>
+          </svg>
+       </span>
+    </div>
+  </div>
+
   <!-- Infinite Marquee Text -->
   <div class="w-full overflow-hidden flex whitespace-nowrap py-6 border-y border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl relative z-10">
     <div class="flex animate-marquee min-w-max text-sm font-bold uppercase tracking-widest text-sky-500 px-4">
@@ -821,7 +944,7 @@
         // Z
         `<svg viewBox="-5 -5 70 50"><path d="M 10 0 L 30 0 Q 40 0 40 10 L 40 20 L 50 20 Q 60 20 60 30 L 60 30 Q 60 40 50 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z"/></svg>`
       ];
-      
+
       const maxLetters = 15; // Jumlah bentuk
       const letterObjects = [];
 
@@ -830,6 +953,7 @@
         const el = document.createElement('div');
         el.className = 'glass-shape';
         el.innerHTML = tetrisShapes[Math.floor(Math.random() * tetrisShapes.length)];
+        
         container.appendChild(el);
 
         const size = Math.random() * 4 + 2; // 2rem to 6rem lebar basis
@@ -917,20 +1041,20 @@
           if (dist < maxDist) {
             const force = (maxDist - dist) / maxDist; // Semakin dekat, force semakin mendekati 1
             const angle = Math.atan2(dy, dx);
-            const pushStrength = force * 15; // Kecepatan dorong jauh lebih lembut (tidak brutal)
+            const pushStrength = force * 6; // Kecepatan dorong riak diperlembut agar tidak patah/terlalu cepat
             
             // Tambahkan kecepatan melempar keluar
             obj.vx += Math.cos(angle) * pushStrength;
             obj.vy += Math.sin(angle) * pushStrength;
             
             // Tambahkan rotasi 2D chaos sesaat setelah terdorong
-            obj.vRot += (Math.random() - 0.5) * force * 5;
+            obj.vRot += (Math.random() - 0.5) * force * 3;
           }
         });
       });
     }
 
-    // Fungsi Scroll Reveal (Blur ke Jelas)
+    // Fungsi Scroll Reveal (Blur ke Jelas) & Animasi HURUF "THANK YOU"
     function initScrollReveal() {
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -941,20 +1065,49 @@
         });
       }, { threshold: 0.1 }); // Muncul saat elemen 10% masuk layar
 
-      document.querySelectorAll('.scroll-reveal').forEach(el => {
+      document.querySelectorAll('.scroll-reveal, .scroll-reveal-ty').forEach(el => {
         observer.observe(el);
       });
+    }
+
+    // --- FITUR WIDGET JAM & TANGGAL REAL-TIME ---
+    function updateClock() {
+      const now = new Date();
+      
+      // Hitung Waktu (Jam, Menit, AM/PM)
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // Atur jam '0' menjadi '12'
+      document.getElementById('clock-time').innerText = `${hours}:${minutes} ${ampm}`;
+      
+      // Hitung Tanggal (Format: Jun 30, 2026)
+      const options = { month: 'short', day: 'numeric', year: 'numeric' };
+      document.getElementById('clock-date').innerText = now.toLocaleDateString('en-US', options);
     }
 
     window.onload = () => {
       animateGPA();
       initFloatingLetters();
       initScrollReveal();
+      
+      // Inisialisasi Jam
+      setInterval(updateClock, 1000);
+      updateClock();
     };
 
-    // Theme Toggle Function (Light / Dark Mode Apple Style)
+    // Theme Toggle Function (Light / Dark Mode Apple Style Toggle)
     function toggleTheme() {
-      document.documentElement.classList.toggle('dark');
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      
+      // Ubah Label Teks ("Dark" atau "Light")
+      const isDark = html.classList.contains('dark');
+      const themeLabel = document.getElementById('theme-label');
+      if (themeLabel) {
+        themeLabel.innerText = isDark ? 'Dark' : 'Light';
+      }
     }
   </script>
 </body>
