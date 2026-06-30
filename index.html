@@ -193,31 +193,21 @@
       z-index: 1000; width: 0%; transition: width 0.1s ease;
     }
 
-    /* --- ENHANCED LIQUID GLASS FLOATING SHAPES (BUBBLY TETRIS) --- */
-    .glass-shape {
-      position: fixed; 
-      top: 0; left: 0;
-      filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15)) drop-shadow(0px 0px 2px rgba(255,255,255,0.2));
-      pointer-events: none; 
-      will-change: transform;
-    }
-    
-    .dark .glass-shape {
-      filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.5)) drop-shadow(0px 0px 2px rgba(255,255,255,0.1));
-    }
-
-    .glass-shape svg {
-      width: 100%;
-      height: 100%;
-      fill: url(#glass-gradient-light); /* Menggunakan gradient kaca */
-      stroke: rgba(255, 255, 255, 0.8); /* Garis tepi kaca / rim light */
-      stroke-width: 1.5; 
-      stroke-linejoin: round; 
-      stroke-linecap: round;
-    }
-
     .dark .glass-shape svg {
       fill: url(#glass-gradient-dark); /* Menggunakan gradient kaca gelap */
+      stroke: rgba(255, 255, 255, 0.35);
+    }
+
+    /* --- STATIC DECORATIVE GLASS SHAPES --- */
+    .static-glass {
+      fill: url(#glass-gradient-light);
+      stroke: rgba(255, 255, 255, 0.8);
+      stroke-width: 1.5;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+    .dark .static-glass {
+      fill: url(#glass-gradient-dark);
       stroke: rgba(255, 255, 255, 0.35);
     }
 
@@ -250,31 +240,32 @@
     .animate-tooltip {
       animation: tooltipFadeOut 2.5s ease-in-out forwards;
     }
+
+    /* --- FLOATING DECORATIONS --- */
+    @keyframes floatDecor1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(15px, -20px); }
+    }
+    @keyframes floatDecor2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-10px, 15px); }
+    }
+    @keyframes floatDecor3 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-15px, -15px); }
+    }
+    @keyframes floatDecor4 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, 10px); }
+    }
+    
+    .float-decor-1 { animation: floatDecor1 6s ease-in-out infinite; }
+    .float-decor-2 { animation: floatDecor2 7s ease-in-out infinite; }
+    .float-decor-3 { animation: floatDecor3 5s ease-in-out infinite; }
+    .float-decor-4 { animation: floatDecor4 8s ease-in-out infinite; }
   </style>
 </head>
 <body class="antialiased selection:bg-sky-500/30 relative">
-
-  <!-- SVG Defs for Glass Gradients -->
-  <svg width="0" height="0" class="absolute pointer-events-none">
-    <defs>
-      <!-- Gradient Kaca Mode Terang (Kilauan cahaya) -->
-      <linearGradient id="glass-gradient-light" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="rgba(255,255,255,0.8)" />
-        <stop offset="15%" stop-color="rgba(255,255,255,0.15)" />
-        <stop offset="50%" stop-color="rgba(255,255,255,0.05)" />
-        <stop offset="85%" stop-color="rgba(255,255,255,0.15)" />
-        <stop offset="100%" stop-color="rgba(255,255,255,0.6)" />
-      </linearGradient>
-      <!-- Gradient Kaca Mode Gelap (Kilauan cahaya) -->
-      <linearGradient id="glass-gradient-dark" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="rgba(255,255,255,0.4)" />
-        <stop offset="15%" stop-color="rgba(255,255,255,0.05)" />
-        <stop offset="50%" stop-color="rgba(255,255,255,0)" />
-        <stop offset="85%" stop-color="rgba(255,255,255,0.02)" />
-        <stop offset="100%" stop-color="rgba(255,255,255,0.2)" />
-      </linearGradient>
-    </defs>
-  </svg>
 
   <!-- Scroll Progress -->
   <div id="progress-bar"></div>
@@ -370,16 +361,44 @@
         <!-- Shape organik untuk di belakang foto, menyerupai referensi tetapi dengan warna khas tema kita -->
         <div class="absolute w-[75%] h-[85%] bg-gradient-to-br from-sky-400 to-indigo-500 rounded-[40%_60%_70%_30%/40%_50%_60%_50%] shadow-2xl opacity-90 transition-all duration-700 hover:rounded-[60%_40%_30%_70%/50%_60%_40%_50%]"></div>
         
-        <!-- Decorative Vector Elements (Lines & Sparkles) -->
-        <div class="absolute inset-0 w-full h-full pointer-events-none">
-          <!-- Kurung ungu kiri -->
-          <svg class="absolute top-[20%] left-[5%] w-12 h-40 text-purple-400 drop-shadow-lg" viewBox="0 0 50 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><path d="M40,10 C10,30 10,70 40,90"/></svg>
-          <!-- Aksen garis lurus atas -->
-          <svg class="absolute top-[10%] left-[30%] w-10 h-10 text-yellow-300 drop-shadow-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="4"/><line x1="4" y1="12" x2="12" y2="4"/></svg>
-          <!-- Sparkle/Bintang kanan bawah -->
-          <svg class="absolute bottom-[10%] right-[10%] w-16 h-16 text-yellow-400 drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5l-10 14M22 12H2M19 19L5 5"/></svg>
-          <!-- Elemen outline kotak/aksen transparan -->
-          <div class="absolute top-[15%] right-[5%] w-12 h-20 border-2 border-indigo-400/50 rounded-tl-[1rem] rounded-br-[1rem] rotate-12"></div>
+        <!-- Decorative Vector Elements (Bubbly Tetris Shapes with Colored Glass Effect) -->
+        <div class="absolute inset-0 w-full h-full pointer-events-none z-10">
+          <!-- Purple 'L' Tetris Shape (Top Left) -->
+          <div class="absolute top-[20%] left-[0%] w-16 h-24 drop-shadow-[0_10px_20px_rgba(168,85,247,0.5)] float-decor-1">
+            <svg class="-rotate-12 w-full h-full" viewBox="-5 -5 50 70">
+              <!-- Base Color -->
+              <path d="M 10 0 L 10 0 Q 20 0 20 10 L 20 40 L 30 40 Q 40 40 40 50 L 40 50 Q 40 60 30 60 L 10 60 Q 0 60 0 50 L 0 10 Q 0 0 10 0 Z" fill="rgba(168, 85, 247, 0.5)"/>
+              <!-- Glass Highlight & Stroke overlay -->
+              <path d="M 10 0 L 10 0 Q 20 0 20 10 L 20 40 L 30 40 Q 40 40 40 50 L 40 50 Q 40 60 30 60 L 10 60 Q 0 60 0 50 L 0 10 Q 0 0 10 0 Z" class="static-glass"/>
+            </svg>
+          </div>
+          <!-- Yellow 'O' Square Tetris Shape (Top Center) -->
+          <div class="absolute top-[8%] left-[28%] w-14 h-14 drop-shadow-[0_10px_20px_rgba(253,224,71,0.5)] float-decor-2">
+            <svg class="rotate-12 w-full h-full" viewBox="-5 -5 50 50">
+              <!-- Base Color -->
+              <rect x="0" y="0" width="40" height="40" rx="10" fill="rgba(253, 224, 71, 0.5)" />
+              <!-- Glass Highlight & Stroke overlay -->
+              <rect x="0" y="0" width="40" height="40" rx="10" class="static-glass" />
+            </svg>
+          </div>
+          <!-- Yellow 'T' Tetris Shape (Bottom Right) -->
+          <div class="absolute bottom-[12%] right-[8%] w-20 h-16 drop-shadow-[0_10px_20px_rgba(250,204,21,0.5)] float-decor-3">
+            <svg class="rotate-[-10deg] w-full h-full" viewBox="-5 -5 70 50">
+              <!-- Base Color -->
+              <path d="M 10 0 L 50 0 Q 60 0 60 10 L 60 10 Q 60 20 50 20 L 40 20 L 40 30 Q 40 40 30 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z" fill="rgba(250, 204, 21, 0.5)"/>
+              <!-- Glass Highlight & Stroke overlay -->
+              <path d="M 10 0 L 50 0 Q 60 0 60 10 L 60 10 Q 60 20 50 20 L 40 20 L 40 30 Q 40 40 30 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z" class="static-glass"/>
+            </svg>
+          </div>
+          <!-- Indigo 'Z' Tetris Shape (Top Right) -->
+          <div class="absolute top-[18%] right-[2%] w-20 h-16 drop-shadow-[0_10px_20px_rgba(129,140,248,0.5)] float-decor-4">
+            <svg class="rotate-[20deg] w-full h-full" viewBox="-5 -5 70 50">
+              <!-- Base Color -->
+              <path d="M 10 0 L 30 0 Q 40 0 40 10 L 40 20 L 50 20 Q 60 20 60 30 L 60 30 Q 60 40 50 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z" fill="rgba(129, 140, 248, 0.5)"/>
+              <!-- Glass Highlight & Stroke overlay -->
+              <path d="M 10 0 L 30 0 Q 40 0 40 10 L 40 20 L 50 20 Q 60 20 60 30 L 60 30 Q 60 40 50 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z" class="static-glass"/>
+            </svg>
+          </div>
         </div>
 
         <!-- Person Image (Cut out transparent) -->
@@ -653,7 +672,7 @@
 
         <a href="https://drive.google.com/file/d/1v92iFb3QCKosz2qo5vsRz6iz17D-C4Zh/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
-            <i class="ph ph-magnifying-glass-chart text-2xl"></i>
+            <i class="ph ph-clipboard-text text-2xl"></i>
           </div>
           <span class="text-sm font-semibold tracking-tight text-center">Promo Eval</span>
         </a>
