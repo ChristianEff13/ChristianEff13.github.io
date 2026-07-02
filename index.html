@@ -6,7 +6,7 @@
   <title>Christian Effendi | Liquid Glass Portfolio</title>
   
   <!-- Favicon (Logo di Tab Browser) -->
-  <link rel="icon" type="image/png" href="https://i.postimg.cc/tgYDRtFZ/CE-(1).png" />
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/0Nf9w3WF/CE-(4).png" />
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,10 +14,10 @@
   <!-- Phosphor Icons (Apple-like clean icons) -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   
-  <!-- Google Fonts: Inter (San Francisco alternative) -->
+  <!-- Google Fonts: Inter & Pixelify Sans (Untuk Efek Pixel Tetris) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Pixelify+Sans:wght@700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -26,6 +26,7 @@
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
+            pixel: ['Pixelify Sans', 'sans-serif'], /* Custom Font Pixel */
           },
           colors: {
             apple: {
@@ -291,19 +292,6 @@
     .float-decor-3 { animation: floatDecor3 7.5s ease-in-out infinite; will-change: transform; }
     .float-decor-4 { animation: floatDecor4 10s ease-in-out infinite; will-change: transform; }
 
-    /* --- TEXT GLASS (Khusus untuk Font agar outline rapi) --- */
-    .text-glass {
-      fill: url(#glass-gradient-light);
-      stroke: rgba(255, 255, 255, 0.8);
-      stroke-width: 1; /* Ditipiskan sedikit agar tidak menumpuk di dalam */
-      stroke-linejoin: miter; /* Mencegah sudut gumpalan berantakan pada huruf A, K, dll */
-      stroke-miterlimit: 2;
-    }
-    .dark .text-glass {
-      fill: url(#glass-gradient-dark);
-      stroke: rgba(255, 255, 255, 0.35);
-    }
-
     /* --- SCROLL REVEAL ANIMATION (BLUR TO CLEAR) --- */
     .scroll-reveal {
       opacity: 0;
@@ -318,17 +306,64 @@
       filter: blur(0);
     }
 
-    /* --- SCROLL REVEAL "THANK YOU" (HURUF PER HURUF) --- */
-    .scroll-reveal-ty span {
-      display: inline-block;
-      transform: translateY(100%);
-      opacity: 0;
-      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
-      transition-delay: calc(var(--i) * 0.1s); /* Stagger delay berurutan */
+    /* --- TETRIS NEON TITLE (LARGE PIXEL BLOCKS) --- */
+    .tetris-title {
+      font-family: 'Pixelify Sans', cursive, sans-serif; /* Font Pixel Khusus */
+      font-size: clamp(3.5rem, 12vw, 8.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      text-transform: uppercase;
+      position: relative;
+      text-align: center;
+      /* Grid diperbesar ukurannya agar terlihat seperti balok/pixel raksasa */
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.7) 3px, transparent 3px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.7) 3px, transparent 3px),
+        linear-gradient(to right, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+      background-size: 0.22em 0.22em, 0.22em 0.22em, 100% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5); /* Outline mempertegas bentuk pixel */
+      filter: drop-shadow(0 15px 30px rgba(236, 72, 153, 0.5));
+      z-index: 2;
+      padding-bottom: 0.1em;
+      letter-spacing: 0.05em;
     }
-    .scroll-reveal-ty.is-revealed span {
-      transform: translateY(0);
-      opacity: 1;
+    .dark .tetris-title {
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.3) 3px, transparent 3px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.3) 3px, transparent 3px),
+        linear-gradient(to right, #9333ea 0%, #f43f5e 50%, #0ea5e9 100%);
+      background-size: 0.22em 0.22em, 0.22em 0.22em, 100% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.25);
+      filter: drop-shadow(0 15px 40px rgba(236, 72, 153, 0.6));
+    }
+    
+    /* Refleksi Lantai (Floor Reflection) untuk efek 3D */
+    .tetris-title::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+      text-align: center;
+      transform-origin: top;
+      transform: scaleY(-0.5) perspective(600px) rotateX(30deg); /* Dibalik dan diberi perspektif lantai */
+      background: inherit;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: inherit;
+      opacity: 0.5;
+      filter: blur(6px);
+      /* Gradient mask untuk memudarkan pantulan ke bawah */
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+      pointer-events: none;
+      z-index: 1;
     }
   </style>
 </head>
@@ -375,7 +410,7 @@
   <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
     <nav class="nav-pill rounded-full px-6 py-3 flex items-center gap-6 shadow-lg">
       <a href="#" class="flex items-center">
-        <img src="https://i.postimg.cc/tgYDRtFZ/CE-(1).png" alt="Christian Effendi Logo" class="h-10 w-auto hover:scale-110 transition-transform duration-300 drop-shadow-md">
+        <img src="https://i.postimg.cc/0Nf9w3WF/CE-(4).png" alt="Christian Effendi Logo" class="h-10 w-auto hover:scale-110 transition-transform duration-300 drop-shadow-md">
       </a>
       
       <div class="hidden lg:flex items-center gap-5 text-sm font-medium opacity-80">
@@ -406,9 +441,18 @@
           <div class="relative flex items-center justify-center">
             <div class="flex items-center gap-2 cursor-pointer group" onclick="toggleTheme()">
               <div class="w-11 h-6 rounded-full relative transition-colors duration-300 bg-gray-300 dark:bg-[#a87ffb] shadow-inner">
+                <!-- White Knob -->
                 <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 dark:translate-x-5 shadow-sm"></div>
               </div>
               <span class="text-sm font-medium w-8 text-left text-[var(--text-main)]" id="theme-label">Dark</span>
+            </div>
+            
+            <!-- Tooltip "Wanna try light mode?" -->
+            <div class="absolute top-[130%] right-10 pointer-events-none flex flex-col items-center animate-tooltip z-50">
+              <i class="ph-fill ph-caret-up text-sky-500 text-xl -mb-[10px]"></i>
+              <div class="bg-sky-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+                Wanna try light mode?
+              </div>
             </div>
           </div>
         </div>
@@ -428,6 +472,11 @@
 
   <!-- Main Content -->
   <main class="max-w-6xl mx-auto px-6 pt-32 md:pt-40 pb-10">
+
+    <!-- TETRIS NEON PORTOFOLIO TITLE -->
+    <div class="w-full flex justify-center mb-16 md:mb-24 relative z-20 scroll-reveal">
+      <h1 class="tetris-title" data-text="PORTOFOLIO">PORTOFOLIO</h1>
+    </div>
     
     <!-- Hero Section -->
     <section class="flex flex-col lg:flex-row items-center justify-between text-center lg:text-left gap-12 mb-20 md:mb-32 relative z-10">
@@ -439,7 +488,6 @@
           Available for Opportunities
         </div>
         
-        <!-- TEKS DIUBAH MENJADI: Hello, Its Christian Effendi. -->
         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">
           Hello, Its <br/><span class="text-gradient">Christian Effendi.</span>
         </h1>
@@ -787,69 +835,9 @@
 
   </main>
 
-  <!-- Section Animasi "THANK YOU" Paling Bawah (Format Tetris Liquid Glass) -->
-  <div class="w-full flex justify-center overflow-hidden py-16 mb-4 relative z-10" aria-label="THANK YOU">
-    <div class="flex justify-center items-center gap-1 md:gap-2 scroll-reveal-ty">
-       <!-- T -->
-       <span style="--i:0" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(56,189,248,0.6)] cursor-default">
-          <svg class="w-full h-full overflow-visible float-decor-1" viewBox="0 0 120 120">
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(56, 189, 248, 0.5)">T</text>
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">T</text>
-          </svg>
-       </span>
-       <!-- H -->
-       <span style="--i:1" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(129,140,248,0.6)] cursor-default">
-          <svg class="w-full h-full overflow-visible float-decor-2" viewBox="0 0 120 120">
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(129, 140, 248, 0.5)">H</text>
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">H</text>
-          </svg>
-       </span>
-       <!-- A -->
-       <span style="--i:2" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(168,85,247,0.6)] cursor-default">
-          <svg class="w-full h-full overflow-visible float-decor-3" viewBox="0 0 120 120">
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(168, 85, 247, 0.5)">A</text>
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">A</text>
-          </svg>
-       </span>
-       <!-- N -->
-       <span style="--i:3" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(244,63,94,0.6)] cursor-default">
-          <svg class="w-full h-full overflow-visible float-decor-4" viewBox="0 0 120 120">
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(244, 63, 94, 0.5)">N</text>
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">N</text>
-          </svg>
-       </span>
-       <!-- K -->
-       <span style="--i:4" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(250,204,21,0.6)] cursor-default">
-          <svg class="w-full h-full overflow-visible float-decor-1" viewBox="0 0 120 120">
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(250, 204, 21, 0.5)">K</text>
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">K</text>
-          </svg>
-       </span>
-
-       <span class="w-2 sm:w-4 md:w-8"></span> <!-- Spasi -->
-
-       <!-- Y -->
-       <span style="--i:5" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(52,211,153,0.6)] cursor-default">
-          <svg class="w-full h-full overflow-visible float-decor-2" viewBox="0 0 120 120">
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(52, 211, 153, 0.5)">Y</text>
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">Y</text>
-          </svg>
-       </span>
-       <!-- O -->
-       <span style="--i:6" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(56,189,248,0.6)] cursor-default">
-          <svg class="w-full h-full overflow-visible float-decor-3" viewBox="0 0 120 120">
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(56, 189, 248, 0.5)">O</text>
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">O</text>
-          </svg>
-       </span>
-       <!-- U -->
-       <span style="--i:7" class="inline-block w-10 sm:w-16 md:w-24 h-16 sm:h-24 md:h-32 drop-shadow-[0_10px_15px_rgba(129,140,248,0.6)] cursor-default">
-          <svg class="w-full h-full overflow-visible float-decor-4" viewBox="0 0 120 120">
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" fill="rgba(129, 140, 248, 0.5)">U</text>
-             <text x="60" y="100" text-anchor="middle" font-size="100" font-weight="900" font-family="Inter, sans-serif" class="text-glass">U</text>
-          </svg>
-       </span>
-    </div>
+  <!-- TETRIS NEON "THANK YOU" TITLE -->
+  <div class="w-full flex justify-center py-16 mb-4 relative z-10 scroll-reveal" aria-label="THANK YOU">
+    <h2 class="tetris-title !text-5xl md:!text-8xl" data-text="THANK YOU">THANK YOU</h2>
   </div>
 
   <!-- Infinite Marquee Text -->
@@ -1054,7 +1042,7 @@
       });
     }
 
-    // Fungsi Scroll Reveal (Blur ke Jelas) & Animasi HURUF "THANK YOU"
+    // Fungsi Scroll Reveal (Blur ke Jelas)
     function initScrollReveal() {
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -1065,7 +1053,7 @@
         });
       }, { threshold: 0.1 }); // Muncul saat elemen 10% masuk layar
 
-      document.querySelectorAll('.scroll-reveal, .scroll-reveal-ty').forEach(el => {
+      document.querySelectorAll('.scroll-reveal').forEach(el => {
         observer.observe(el);
       });
     }
