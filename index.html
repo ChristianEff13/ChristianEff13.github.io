@@ -5,16 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Christian Effendi | Liquid Glass Portfolio</title>
   
-  <!-- Favicon (Logo di Tab Browser) -->
   <link rel="icon" type="image/png" href="https://i.postimg.cc/0Nf9w3WF/CE-(4).png" />
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Phosphor Icons (Apple-like clean icons) -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   
-  <!-- Google Fonts: Inter & Pixelify Sans (Untuk Efek Pixel Tetris) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Pixelify+Sans:wght@700&display=swap" rel="stylesheet">
@@ -213,20 +209,19 @@
     .glass-shape svg {
       width: 100%;
       height: 100%;
-      /* DALAMNYA DIBUAT BENING (TRANSPARENT) SEPENUHNYA */
       fill: transparent; 
-      stroke: rgba(134, 134, 139, 0.3); /* Outline bening netral, bukan hitam */
+      stroke: rgba(134, 134, 139, 0.3);
       stroke-width: 1.5; 
       stroke-linejoin: round; 
       stroke-linecap: round;
     }
 
     .dark .glass-shape svg {
-      fill: transparent; /* Dalemnya bening di mode gelap juga */
-      stroke: rgba(255, 255, 255, 0.15); /* Outline putih pudar */
+      fill: transparent; 
+      stroke: rgba(255, 255, 255, 0.15); 
     }
 
-    /* --- STATIC DECORATIVE GLASS SHAPES (DI SEKITAR FOTO) --- */
+    /* --- STATIC DECORATIVE GLASS SHAPES --- */
     .static-glass {
       fill: url(#glass-gradient-light);
       stroke: rgba(255, 255, 255, 0.8);
@@ -292,6 +287,19 @@
     .float-decor-3 { animation: floatDecor3 7.5s ease-in-out infinite; will-change: transform; }
     .float-decor-4 { animation: floatDecor4 10s ease-in-out infinite; will-change: transform; }
 
+    /* --- TEXT GLASS (Khusus untuk Font agar outline rapi) --- */
+    .text-glass {
+      fill: url(#glass-gradient-light);
+      stroke: rgba(255, 255, 255, 0.8);
+      stroke-width: 1; /* Ditipiskan sedikit agar tidak menumpuk di dalam */
+      stroke-linejoin: miter; /* Mencegah sudut gumpalan berantakan pada huruf A, K, dll */
+      stroke-miterlimit: 2;
+    }
+    .dark .text-glass {
+      fill: url(#glass-gradient-dark);
+      stroke: rgba(255, 255, 255, 0.35);
+    }
+
     /* --- SCROLL REVEAL ANIMATION (BLUR TO CLEAR) --- */
     .scroll-reveal {
       opacity: 0;
@@ -306,16 +314,28 @@
       filter: blur(0);
     }
 
+    /* --- SCROLL REVEAL "THANK YOU" (HURUF PER HURUF) --- */
+    .scroll-reveal-ty span {
+      display: inline-block;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+      transition-delay: calc(var(--i) * 0.1s); /* Stagger delay berurutan */
+    }
+    .scroll-reveal-ty.is-revealed span {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
     /* --- TETRIS NEON TITLE (LARGE PIXEL BLOCKS) --- */
     .tetris-title {
-      font-family: 'Pixelify Sans', cursive, sans-serif; /* Font Pixel Khusus */
+      font-family: 'Pixelify Sans', cursive, sans-serif;
       font-size: clamp(3.5rem, 12vw, 8.5rem);
       font-weight: 700;
       line-height: 1.1;
       text-transform: uppercase;
       position: relative;
       text-align: center;
-      /* Grid diperbesar ukurannya agar terlihat seperti balok/pixel raksasa */
       background:
         linear-gradient(rgba(255, 255, 255, 0.7) 3px, transparent 3px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.7) 3px, transparent 3px),
@@ -324,7 +344,7 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5); /* Outline mempertegas bentuk pixel */
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5); 
       filter: drop-shadow(0 15px 30px rgba(236, 72, 153, 0.5));
       z-index: 2;
       padding-bottom: 0.1em;
@@ -351,7 +371,7 @@
       width: 100%;
       text-align: center;
       transform-origin: top;
-      transform: scaleY(-0.5) perspective(600px) rotateX(30deg); /* Dibalik dan diberi perspektif lantai */
+      transform: scaleY(-0.5) perspective(600px) rotateX(30deg);
       background: inherit;
       -webkit-background-clip: text;
       background-clip: text;
@@ -359,7 +379,6 @@
       -webkit-text-stroke: inherit;
       opacity: 0.5;
       filter: blur(6px);
-      /* Gradient mask untuk memudarkan pantulan ke bawah */
       -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
       mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
       pointer-events: none;
@@ -369,10 +388,8 @@
 </head>
 <body class="antialiased selection:bg-sky-500/30 relative">
 
-  <!-- SVG Defs for Glass Gradients -->
   <svg width="0" height="0" class="absolute pointer-events-none">
     <defs>
-      <!-- Gradient Kaca Mode Terang -->
       <linearGradient id="glass-gradient-light" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stop-color="rgba(255,255,255,0.95)" />
         <stop offset="10%" stop-color="rgba(255,255,255,0.4)" />
@@ -381,7 +398,6 @@
         <stop offset="95%" stop-color="rgba(255,255,255,0.4)" />
         <stop offset="100%" stop-color="rgba(255,255,255,0.8)" />
       </linearGradient>
-      <!-- Gradient Kaca Mode Gelap -->
       <linearGradient id="glass-gradient-dark" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stop-color="rgba(255,255,255,0.8)" />
         <stop offset="10%" stop-color="rgba(255,255,255,0.3)" />
@@ -393,20 +409,16 @@
     </defs>
   </svg>
 
-  <!-- Scroll Progress -->
   <div id="progress-bar"></div>
 
-  <!-- Mesh Gradient Background (Liquid Effect) -->
   <div class="fixed inset-0 z-[-2] overflow-hidden pointer-events-none">
     <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-sky-400/40 blur-[100px] md:blur-[150px] animate-blob mix-blend-normal dark:mix-blend-screen opacity-[var(--blob-opacity)]"></div>
     <div class="absolute top-[20%] right-[-10%] w-[45vw] h-[45vw] rounded-full bg-indigo-400/40 blur-[100px] md:blur-[150px] animate-blob-reverse mix-blend-normal dark:mix-blend-screen opacity-[var(--blob-opacity)]"></div>
     <div class="absolute bottom-[-20%] left-[20%] w-[60vw] h-[60vw] rounded-full bg-purple-400/40 blur-[100px] md:blur-[150px] animate-blob-slow mix-blend-normal dark:mix-blend-screen opacity-[var(--blob-opacity)]"></div>
   </div>
 
-  <!-- Floating Glass Letters Container -->
   <div id="floating-letters-container" class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none"></div>
 
-  <!-- Dynamic Island Navbar -->
   <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
     <nav class="nav-pill rounded-full px-6 py-3 flex items-center gap-6 shadow-lg">
       <a href="#" class="flex items-center">
@@ -423,9 +435,7 @@
       
       <div class="flex items-center gap-3">
         
-        <!-- WIDGET CLOCK, DATE, & TOGGLE SWITCH (DESKTOP) -->
         <div class="hidden md:flex items-center gap-4">
-          <!-- Time & Date Pill -->
           <div class="flex items-center gap-3 px-4 py-1.5 rounded-full border border-gray-500/20 bg-[#141414] text-gray-100 shadow-sm text-sm font-medium">
             <div class="flex items-center gap-1.5">
               <i class="ph ph-sun text-lg text-gray-300"></i>
@@ -437,17 +447,14 @@
             </div>
           </div>
           
-          <!-- Toggle Switch Custom -->
           <div class="relative flex items-center justify-center">
             <div class="flex items-center gap-2 cursor-pointer group" onclick="toggleTheme()">
               <div class="w-11 h-6 rounded-full relative transition-colors duration-300 bg-gray-300 dark:bg-[#a87ffb] shadow-inner">
-                <!-- White Knob -->
                 <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 dark:translate-x-5 shadow-sm"></div>
               </div>
               <span class="text-sm font-medium w-8 text-left text-[var(--text-main)]" id="theme-label">Dark</span>
             </div>
             
-            <!-- Tooltip "Wanna try light mode?" -->
             <div class="absolute top-[130%] right-10 pointer-events-none flex flex-col items-center animate-tooltip z-50">
               <i class="ph-fill ph-caret-up text-sky-500 text-xl -mb-[10px]"></i>
               <div class="bg-sky-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap">
@@ -457,7 +464,6 @@
           </div>
         </div>
 
-        <!-- Button Tema Bulat Biasa (Tampil di Mobile HP saja) -->
         <button onclick="toggleTheme()" class="md:hidden w-8 h-8 flex items-center justify-center rounded-full glass btn-liquid" aria-label="Toggle Theme">
           <i class="ph ph-moon text-lg dark:hidden"></i>
           <i class="ph ph-sun text-lg hidden dark:block text-yellow-300"></i>
@@ -470,18 +476,14 @@
     </nav>
   </header>
 
-  <!-- Main Content -->
   <main class="max-w-6xl mx-auto px-6 pt-32 md:pt-40 pb-10">
 
-    <!-- TETRIS NEON PORTOFOLIO TITLE -->
     <div class="w-full flex justify-center mb-16 md:mb-24 relative z-20 scroll-reveal">
       <h1 class="tetris-title" data-text="PORTOFOLIO">PORTOFOLIO</h1>
     </div>
     
-    <!-- Hero Section -->
     <section class="flex flex-col lg:flex-row items-center justify-between text-center lg:text-left gap-12 mb-20 md:mb-32 relative z-10">
       
-      <!-- Text Area (Left) -->
       <div class="w-full lg:w-[55%] space-y-6 flex flex-col items-center lg:items-start z-10 relative">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border-sky-400/30 text-xs font-semibold text-sky-500 mb-2">
           <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
@@ -496,7 +498,6 @@
           Marketing Undergraduate & Strategic Communication Student. Currently driving international market growth through Global Operations at <strong class="text-[var(--text-main)]">WINGS Group</strong>.
         </p>
 
-        <!-- GPA -->
         <div class="flex flex-col items-center lg:items-start gap-2 pt-4">
           <div class="flex items-baseline gap-2">
             <h3 class="text-4xl font-extrabold text-sky-500" id="gpa-counter" data-target="3.67">0.00</h3>
@@ -515,12 +516,9 @@
         </div>
       </div>
 
-      <!-- Image Area (Right) (Group area expanded for interaction) -->
       <div class="w-full lg:w-[45%] relative flex justify-center items-center h-[400px] md:h-[500px] mt-10 lg:mt-0 z-10 group">
-        <!-- Abstract Blob Shape Background -->
         <div class="absolute w-[75%] h-[85%] bg-gradient-to-br from-sky-400 to-indigo-500 rounded-[40%_60%_70%_30%/40%_50%_60%_50%] shadow-2xl opacity-90 transition-all duration-700 group-hover:rounded-[60%_40%_30%_70%/50%_60%_40%_50%]"></div>
         
-        <!-- Decorative Vector Elements (Bubbly Tetris Shapes with Colored Glass Effect) -->
         <div class="absolute inset-0 w-full h-full pointer-events-none z-10">
           <div class="absolute top-[20%] left-[0%] w-16 h-24 drop-shadow-[0_10px_20px_rgba(168,85,247,0.5)] float-decor-1">
             <svg class="-rotate-12 w-full h-full" viewBox="-5 -5 50 70">
@@ -548,17 +546,14 @@
           </div>
         </div>
 
-        <!-- Person Image (Cut out transparent) -->
         <img src="https://i.postimg.cc/8CN4Mg80/Untitled-design-(11).png" alt="Christian Effendi" class="relative z-20 h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:scale-[1.03] transition-transform duration-500 ease-out">
       </div>
 
     </section>
 
-    <!-- iOS Widget Grid Style (About & Skills) -->
     <section id="about" class="mb-24 scroll-mt-32 relative z-10 scroll-reveal">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <!-- Summary Widget (Large) -->
         <div class="md:col-span-2 glass rounded-3xl p-8 glass-hover">
           <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
             <i class="ph ph-user-focus text-sky-500 text-2xl"></i> Summary
@@ -568,7 +563,6 @@
           </p>
         </div>
 
-        <!-- Contact Widget -->
         <div class="glass rounded-3xl p-8 glass-hover flex flex-col justify-center">
            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
             <i class="ph ph-map-pin text-sky-500 text-2xl"></i> Details
@@ -580,7 +574,6 @@
           </ul>
         </div>
 
-        <!-- Technical Skills Widget -->
         <div class="md:col-span-2 glass rounded-3xl p-8 glass-hover">
           <h2 class="text-xl font-bold mb-5 flex items-center gap-2">
             <i class="ph ph-laptop text-indigo-400 text-2xl"></i> Technical Skills
@@ -596,7 +589,6 @@
           </div>
         </div>
 
-        <!-- Soft Skills Widget -->
         <div class="glass rounded-3xl p-8 glass-hover">
           <h2 class="text-xl font-bold mb-5 flex items-center gap-2">
             <i class="ph ph-users-three text-purple-400 text-2xl"></i> Soft Skills
@@ -613,7 +605,6 @@
       </div>
     </section>
 
-    <!-- Experience Timeline (Glass Cards) -->
     <section id="experience" class="mb-24 scroll-mt-32 relative z-10 scroll-reveal">
       <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-sky-500/10"><i class="ph ph-briefcase text-2xl text-sky-500"></i></div>
@@ -622,7 +613,6 @@
 
       <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-sky-400 before:via-indigo-400 before:to-transparent">
         
-        <!-- Experience 1 -->
         <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
           <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-color)] bg-sky-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
             <i class="ph ph-globe-hemisphere-east"></i>
@@ -641,7 +631,6 @@
           </div>
         </div>
 
-        <!-- Experience 2 -->
         <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
           <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-color)] bg-indigo-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
             <i class="ph ph-student"></i>
@@ -660,7 +649,6 @@
           </div>
         </div>
 
-        <!-- Experience 3 -->
         <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
           <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-color)] bg-purple-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
             <i class="ph ph-megaphone"></i>
@@ -679,7 +667,6 @@
           </div>
         </div>
 
-        <!-- Experience 4 -->
         <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
           <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-color)] bg-gray-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
             <i class="ph ph-coffee"></i>
@@ -700,7 +687,6 @@
       </div>
     </section>
 
-    <!-- Organizational Experiences -->
     <section id="organizations" class="mb-24 scroll-mt-32 relative z-10 scroll-reveal">
        <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-indigo-500/10"><i class="ph ph-users text-2xl text-indigo-500"></i></div>
@@ -750,7 +736,6 @@
       </div>
     </section>
 
-    <!-- Certifications & Training Widget -->
     <section class="mb-24 relative z-10 scroll-reveal">
       <div class="glass rounded-3xl p-8 glass-hover">
          <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2">
@@ -766,7 +751,6 @@
       </div>
     </section>
 
-    <!-- Portfolio App Grid -->
     <section id="portfolio" class="mb-10 scroll-mt-32 relative z-10 scroll-reveal">
        <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-purple-500/10"><i class="ph ph-folder-open text-2xl text-purple-500"></i></div>
@@ -774,7 +758,6 @@
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-        <!-- App Icon Style Project Links -->
         <a href="https://drive.google.com/file/d/1qNbfrG8xDrR5IythCbl79CW4vua9Gd21/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-sky-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
             <i class="ph ph-chart-line-up text-2xl"></i>
@@ -835,12 +818,10 @@
 
   </main>
 
-  <!-- TETRIS NEON "THANK YOU" TITLE -->
   <div class="w-full flex justify-center py-16 mb-4 relative z-10 scroll-reveal" aria-label="THANK YOU">
     <h2 class="tetris-title !text-5xl md:!text-8xl" data-text="THANK YOU">THANK YOU</h2>
   </div>
 
-  <!-- Infinite Marquee Text -->
   <div class="w-full overflow-hidden flex whitespace-nowrap py-6 border-y border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl relative z-10">
     <div class="flex animate-marquee min-w-max text-sm font-bold uppercase tracking-widest text-sky-500 px-4">
       <span class="mx-4"><i class="ph-fill ph-star"></i> Creating Value with Integrity</span>
@@ -849,7 +830,6 @@
       <span class="mx-4"><i class="ph-fill ph-star"></i> Marketing</span>
       <span class="mx-4"><i class="ph-fill ph-star"></i> Strategic Communication</span>
       
-      <!-- Duplikasi agar looping mulus -->
       <span class="mx-4"><i class="ph-fill ph-star"></i> Creating Value with Integrity</span>
       <span class="mx-4"><i class="ph-fill ph-star"></i> Hardwork in The Spirit of Unity</span>
       <span class="mx-4"><i class="ph-fill ph-star"></i> Christian Effendi</span>
@@ -858,7 +838,6 @@
     </div>
   </div>
 
-  <!-- iOS Footer Dock Style -->
   <footer class="py-12 relative z-10">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <div class="inline-flex glass rounded-full p-2 mb-8 gap-2 shadow-xl">
@@ -876,12 +855,10 @@
     </div>
   </footer>
 
-  <!-- Floating Action Button for WA (Bottom Right) -->
   <a href="https://wa.me/6289529527783" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 glass btn-liquid rounded-full flex items-center justify-center text-green-500 shadow-lg z-50">
     <i class="ph ph-whatsapp-logo text-3xl"></i>
   </a>
 
-  <!-- Scripts -->
   <script>
     // Scroll Progress Bar
     window.addEventListener('scroll', () => {
@@ -911,32 +888,23 @@
       }
     };
 
-    // Interactive Floating Liquid Glass Shapes (Bubbly Tetris with Native Rounded Paths)
+    // Interactive Floating Liquid Glass Shapes (Bubbly Tetris)
     function initFloatingLetters() {
       const container = document.getElementById('floating-letters-container');
       
-      // Kumpulan SVG Bentuk Tetris yang GEOMETRInya SUDAH MELENGKUNG (Rounded Corners)
       const tetrisShapes = [
-        // I (rect dengan rx="10")
         `<svg viewBox="-5 -5 90 30"><rect x="0" y="0" width="80" height="20" rx="10" /></svg>`,
-        // O (rect dengan rx="10")
         `<svg viewBox="-5 -5 50 50"><rect x="0" y="0" width="40" height="40" rx="10" /></svg>`,
-        // T (path yang disisipkan kurva Bezier 'Q' di sudut luar)
         `<svg viewBox="-5 -5 70 50"><path d="M 10 0 L 50 0 Q 60 0 60 10 L 60 10 Q 60 20 50 20 L 40 20 L 40 30 Q 40 40 30 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z"/></svg>`,
-        // L
         `<svg viewBox="-5 -5 50 70"><path d="M 10 0 L 10 0 Q 20 0 20 10 L 20 40 L 30 40 Q 40 40 40 50 L 40 50 Q 40 60 30 60 L 10 60 Q 0 60 0 50 L 0 10 Q 0 0 10 0 Z"/></svg>`,
-        // J
         `<svg viewBox="-5 -5 50 70"><path d="M 30 0 L 30 0 Q 40 0 40 10 L 40 50 Q 40 60 30 60 L 10 60 Q 0 60 0 50 L 0 50 Q 0 40 10 40 L 20 40 L 20 10 Q 20 0 30 0 Z"/></svg>`,
-        // S
         `<svg viewBox="-5 -5 70 50"><path d="M 30 0 L 50 0 Q 60 0 60 10 L 60 10 Q 60 20 50 20 L 40 20 L 40 30 Q 40 40 30 40 L 10 40 Q 0 40 0 30 L 0 30 Q 0 20 10 20 L 20 20 L 20 10 Q 20 0 30 0 Z"/></svg>`,
-        // Z
         `<svg viewBox="-5 -5 70 50"><path d="M 10 0 L 30 0 Q 40 0 40 10 L 40 20 L 50 20 Q 60 20 60 30 L 60 30 Q 60 40 50 40 L 30 40 Q 20 40 20 30 L 20 20 L 10 20 Q 0 20 0 10 L 0 10 Q 0 0 10 0 Z"/></svg>`
       ];
 
-      const maxLetters = 15; // Jumlah bentuk
+      const maxLetters = 15; 
       const letterObjects = [];
 
-      // Create shapes and assign initial properties
       for (let i = 0; i < maxLetters; i++) {
         const el = document.createElement('div');
         el.className = 'glass-shape';
@@ -944,7 +912,7 @@
         
         container.appendChild(el);
 
-        const size = Math.random() * 4 + 2; // 2rem to 6rem lebar basis
+        const size = Math.random() * 4 + 2; 
         el.style.width = `${size}rem`;
 
         const obj = {
@@ -954,104 +922,110 @@
           rot: Math.random() * 360,
           targetX: Math.random() * window.innerWidth,
           targetY: Math.random() * window.innerHeight,
-          vx: 0, // Velocity X
-          vy: 0, // Velocity Y
-          vRot: (Math.random() - 0.5) * 0.15, // Putaran 2D lambat
-          speed: Math.random() * 0.0015 + 0.0005 // Drift speed
+          vx: 0, 
+          vy: 0, 
+          vRot: (Math.random() - 0.5) * 0.15, 
+          speed: Math.random() * 0.0015 + 0.0005
         };
 
         letterObjects.push(obj);
       }
 
-      // Physics loop
+      // --- TAMBAHAN 1 GAMBAR KHUSUS (FLOATING TETRIS IMAGE) ---
+      const specialImgEl = document.createElement('div');
+      specialImgEl.className = 'glass-shape';
+      specialImgEl.innerHTML = `<img src="https://i.postimg.cc/8cRbCZ0R/Portofolio-Bertema-Tetris-(2).png" alt="Floating Tetris" class="w-full h-full object-contain opacity-90 drop-shadow-2xl" />`;
+      container.appendChild(specialImgEl);
+      
+      specialImgEl.style.width = `5rem`; // Ukurannya diperkecil
+      
+      letterObjects.push({
+        el: specialImgEl,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        rot: Math.random() * 360,
+        targetX: Math.random() * window.innerWidth,
+        targetY: Math.random() * window.innerHeight,
+        vx: 0, 
+        vy: 0, 
+        vRot: (Math.random() - 0.5) * 0.1, // Putarannya sedikit lebih pelan dari tetris biasa
+        speed: Math.random() * 0.001 + 0.0005 
+      });
+      // --------------------------------------------------------
+
       function animate() {
         letterObjects.forEach(obj => {
-          // Drift slightly towards a random target
           obj.x += (obj.targetX - obj.x) * obj.speed;
           obj.y += (obj.targetY - obj.y) * obj.speed;
 
-          // If close to target, pick a new random target
           if (Math.abs(obj.targetX - obj.x) < 50 && Math.abs(obj.targetY - obj.y) < 50) {
             obj.targetX = Math.random() * window.innerWidth;
             obj.targetY = Math.random() * window.innerHeight;
           }
 
-          // Apply repulsion forces
           obj.x += obj.vx;
           obj.y += obj.vy;
 
-          // Dampen repulsion forces (friction)
           obj.vx *= 0.92;
           obj.vy *= 0.92;
 
-          // Continual rotation (2D)
           obj.rot += obj.vRot;
 
-          // Apply transformation to element
           obj.el.style.transform = `translate(${obj.x}px, ${obj.y}px) rotate(${obj.rot}deg)`;
         });
         requestAnimationFrame(animate);
       }
 
-      animate(); // Start loop
+      animate(); 
 
-      // Ripple Cooldown Logic
       let lastRippleTime = 0;
-      const RIPPLE_COOLDOWN = 800; // Minimal jeda 800ms antar klik untuk efek riak
+      const RIPPLE_COOLDOWN = 800;
 
-      // Ripple Event Listener (Click interaction)
       window.addEventListener('click', (e) => {
         const now = Date.now();
-        // Cek Cooldown: Jika jarak antar klik kurang dari RIPPLE_COOLDOWN, batalkan fungsi
         if (now - lastRippleTime < RIPPLE_COOLDOWN) return; 
         lastRippleTime = now;
 
         const cx = e.clientX;
         const cy = e.clientY;
 
-        // 1. Create Ripple Visual
         const ripple = document.createElement('div');
         ripple.className = 'ripple-effect';
         ripple.style.left = `${cx}px`;
         ripple.style.top = `${cy}px`;
         document.body.appendChild(ripple);
         
-        // Cleanup ripple (waktu disesuaikan dengan animasi)
         setTimeout(() => { if (ripple.parentNode) ripple.parentNode.removeChild(ripple); }, 1500);
 
-        // 2. Repel Letters
-        const maxDist = 400; // Radius dorongan
+        const maxDist = 400; 
         letterObjects.forEach(obj => {
           const dx = obj.x - cx;
           const dy = obj.y - cy;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDist) {
-            const force = (maxDist - dist) / maxDist; // Semakin dekat, force semakin mendekati 1
+            const force = (maxDist - dist) / maxDist; 
             const angle = Math.atan2(dy, dx);
-            const pushStrength = force * 6; // Kecepatan dorong riak diperlembut agar tidak patah/terlalu cepat
+            const pushStrength = force * 6; 
             
-            // Tambahkan kecepatan melempar keluar
             obj.vx += Math.cos(angle) * pushStrength;
             obj.vy += Math.sin(angle) * pushStrength;
             
-            // Tambahkan rotasi 2D chaos sesaat setelah terdorong
             obj.vRot += (Math.random() - 0.5) * force * 3;
           }
         });
       });
     }
 
-    // Fungsi Scroll Reveal (Blur ke Jelas)
     function initScrollReveal() {
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-revealed');
-            obs.unobserve(entry.target); // Hanya animasi 1x saat muncul
+            obs.unobserve(entry.target); 
           }
         });
-      }, { threshold: 0.1 }); // Muncul saat elemen 10% masuk layar
+      }, { threshold: 0.1 }); 
 
       document.querySelectorAll('.scroll-reveal').forEach(el => {
         observer.observe(el);
@@ -1062,15 +1036,13 @@
     function updateClock() {
       const now = new Date();
       
-      // Hitung Waktu (Jam, Menit, AM/PM)
       let hours = now.getHours();
       const minutes = now.getMinutes().toString().padStart(2, '0');
       const ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12;
-      hours = hours ? hours : 12; // Atur jam '0' menjadi '12'
+      hours = hours ? hours : 12; 
       document.getElementById('clock-time').innerText = `${hours}:${minutes} ${ampm}`;
       
-      // Hitung Tanggal (Format: Jun 30, 2026)
       const options = { month: 'short', day: 'numeric', year: 'numeric' };
       document.getElementById('clock-date').innerText = now.toLocaleDateString('en-US', options);
     }
@@ -1080,17 +1052,14 @@
       initFloatingLetters();
       initScrollReveal();
       
-      // Inisialisasi Jam
       setInterval(updateClock, 1000);
       updateClock();
     };
 
-    // Theme Toggle Function (Light / Dark Mode Apple Style Toggle)
     function toggleTheme() {
       const html = document.documentElement;
       html.classList.toggle('dark');
       
-      // Ubah Label Teks ("Dark" atau "Light")
       const isDark = html.classList.contains('dark');
       const themeLabel = document.getElementById('theme-label');
       if (themeLabel) {
