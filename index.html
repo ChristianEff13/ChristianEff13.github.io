@@ -254,15 +254,15 @@
       100% { transform: translate(-50%, -50%) scale(5); opacity: 0; border-width: 1px; }
     }
 
-    /* --- ANIMASI HINT / TOOLTIP AWAL --- */
+    /* --- ANIMASI HINT / TOOLTIP AWAL (DIPERPANJANG 7 DETIK) --- */
     @keyframes tooltipFadeOut {
       0% { opacity: 0; transform: translateY(10px); }
-      15% { opacity: 1; transform: translateY(0); }
-      85% { opacity: 1; transform: translateY(0); }
+      10% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; transform: translateY(0); }
       100% { opacity: 0; transform: translateY(-5px); visibility: hidden; pointer-events: none; }
     }
     .animate-tooltip {
-      animation: tooltipFadeOut 2.5s ease-in-out forwards;
+      animation: tooltipFadeOut 7s ease-in-out forwards;
     }
 
     /* --- FLOATING DECORATIONS (Smooth, Dekat, Pelan) --- */
@@ -287,6 +287,16 @@
     .float-decor-2 { animation: floatDecor2 9s ease-in-out infinite; will-change: transform; }
     .float-decor-3 { animation: floatDecor3 7.5s ease-in-out infinite; will-change: transform; }
     .float-decor-4 { animation: floatDecor4 10s ease-in-out infinite; will-change: transform; }
+
+    /* --- KODING ANIMASI ASTRONAUT BARU (Sangat Aman & Ringan) --- */
+    @keyframes astronautHover {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(6deg); }
+    }
+    .animate-astronaut-safe {
+      animation: astronautHover 7s ease-in-out infinite;
+      will-change: transform;
+    }
 
     /* --- TEXT GLASS (Khusus untuk Font agar outline rapi) --- */
     .text-glass {
@@ -449,20 +459,23 @@
             </div>
           </div>
           
-          <div class="relative flex items-center justify-center">
-            <div class="flex items-center gap-2 cursor-pointer group" onclick="toggleTheme()">
+          <div class="flex items-center gap-2 cursor-pointer group" onclick="toggleTheme()">
+            <div class="relative flex items-center justify-center">
               <div class="w-11 h-6 rounded-full relative transition-colors duration-300 bg-gray-300 dark:bg-[#a87ffb] shadow-inner">
                 <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 dark:translate-x-5 shadow-sm"></div>
               </div>
-              <span class="text-sm font-medium w-8 text-left text-[var(--text-main)]" id="theme-label">Dark</span>
-            </div>
-            
-            <div class="absolute top-[130%] right-10 pointer-events-none flex flex-col items-center animate-tooltip z-50">
-              <i class="ph-fill ph-caret-up text-sky-500 text-xl -mb-[10px]"></i>
-              <div class="bg-sky-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap">
-                Wanna try light mode?
+              
+              <!-- Container Tooltip baru agar sejajar di bawah switch -->
+              <div class="absolute top-[130%] left-1/2 flex justify-center w-0 z-50">
+                <div class="pointer-events-none flex flex-col items-center animate-tooltip">
+                  <i class="ph-fill ph-caret-up text-sky-500 text-xl -mb-[10px]"></i>
+                  <div class="bg-sky-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+                    Wanna try light mode?
+                  </div>
+                </div>
               </div>
             </div>
+            <span class="text-sm font-medium w-8 text-left text-[var(--text-main)]" id="theme-label">Dark</span>
           </div>
         </div>
 
