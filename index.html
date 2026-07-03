@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Christian Effendi | Liquid Glass Portfolio</title>
   
-  <link rel="icon" type="image/png" href="https://i.postimg.cc/0Nf9w3WF/CE-(4).png" />
+  <!-- Favicon menggunakan gambar lokal dari folder assets -->
+  <link rel="icon" type="image/png" href="https://github.com/ChristianEff13/ChristianEff13.github.io/blob/main/CE%20(4).png?raw=true" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   
@@ -422,7 +423,8 @@
   <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
     <nav class="nav-pill rounded-full px-6 py-3 flex items-center gap-6 shadow-lg">
       <a href="#" class="flex items-center">
-        <img src="https://i.postimg.cc/0Nf9w3WF/CE-(4).png" alt="Christian Effendi Logo" class="h-10 w-auto hover:scale-110 transition-transform duration-300 drop-shadow-md">
+        <!-- Logo Navbar menggunakan gambar lokal -->
+        <img src="https://github.com/ChristianEff13/ChristianEff13.github.io/blob/main/CE%20(4).png?raw=true" alt="Christian Effendi Logo" class="h-10 w-auto hover:scale-110 transition-transform duration-300 drop-shadow-md">
       </a>
       
       <div class="hidden lg:flex items-center gap-5 text-sm font-medium opacity-80">
@@ -546,7 +548,8 @@
           </div>
         </div>
 
-        <img src="https://i.postimg.cc/8CN4Mg80/Untitled-design-(11).png" alt="Christian Effendi" class="relative z-20 h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:scale-[1.03] transition-transform duration-500 ease-out">
+        <!-- Gambar profil utama menggunakan gambar lokal -->
+        <img src="https://github.com/ChristianEff13/ChristianEff13.github.io/blob/main/Untitled%20design%20(13).png?raw=true" alt="Christian Effendi" class="relative z-20 h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:scale-[1.03] transition-transform duration-500 ease-out">
       </div>
 
     </section>
@@ -931,13 +934,14 @@
         letterObjects.push(obj);
       }
 
-      // --- TAMBAHAN 1 GAMBAR KHUSUS (FLOATING TETRIS IMAGE) ---
+      // --- TAMBAHAN 1 GAMBAR KHUSUS (FLOATING ASTRONAUT IMAGE) ---
       const specialImgEl = document.createElement('div');
       specialImgEl.className = 'glass-shape';
-      specialImgEl.innerHTML = `<img src="https://i.postimg.cc/8cRbCZ0R/Portofolio-Bertema-Tetris-(2).png" alt="Floating Tetris" class="w-full h-full object-contain opacity-90 drop-shadow-2xl" />`;
+      // Gambar melayang menggunakan gambar lokal (dilengkapi fallback jika error)
+      specialImgEl.innerHTML = `<img src="https://github.com/ChristianEff13/ChristianEff13.github.io/blob/main/Portofolio%20Bertema%20Tetris%20(4).png?raw=true" alt="Floating Astronaut" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/8118/8118182.png';" class="w-full h-full object-contain opacity-90 drop-shadow-2xl" />`;
       container.appendChild(specialImgEl);
       
-      specialImgEl.style.width = `5rem`; // Ukurannya diperkecil
+      specialImgEl.style.width = `8rem`; 
       
       letterObjects.push({
         el: specialImgEl,
