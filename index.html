@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Christian Effendi | Liquid Glass Portfolio</title>
   
-  <link rel="icon" type="image/png" href="https://github.com/ChristianEff13/ChristianEff13.github.io/blob/main/CE%20(4).png?raw=true" />
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/CE%20(4).png" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   
@@ -377,7 +377,7 @@
   <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
     <nav class="nav-pill rounded-full px-6 py-3 flex items-center gap-6 shadow-lg">
       <a href="#" class="flex items-center">
-        <img src="https://github.com/ChristianEff13/ChristianEff13.github.io/blob/main/CE%20(4).png?raw=true" alt="Christian Effendi Logo" class="h-10 w-auto hover:scale-110 transition-transform duration-300 drop-shadow-md">
+        <img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/CE%20(4).png" alt="Christian Effendi Logo" class="h-10 w-auto hover:scale-110 transition-transform duration-300 drop-shadow-md">
       </a>
       
       <div class="hidden lg:flex items-center gap-5 text-sm font-medium opacity-80">
@@ -476,7 +476,6 @@
       <div class="w-full lg:w-[45%] relative flex justify-center items-center h-[400px] md:h-[500px] mt-10 lg:mt-0 z-10 group">
         <div class="absolute w-[75%] h-[85%] bg-gradient-to-br from-sky-400 to-indigo-500 rounded-[40%_60%_70%_30%/40%_50%_60%_50%] shadow-2xl opacity-90 transition-all duration-700 group-hover:rounded-[60%_40%_30%_70%/50%_60%_40%_50%]"></div>
         
-        <!-- FIX WARNA TETRIS (MENGGUNAKAN FILL SOLID AGAR AMAN DI SEMUA HP/BROWSER) -->
         <div class="absolute inset-0 w-full h-full pointer-events-none z-10">
           <div class="absolute top-[20%] left-[0%] w-16 h-24 drop-shadow-[0_10px_20px_rgba(168,85,247,0.5)] float-decor-1">
             <svg class="-rotate-12 w-full h-full" viewBox="-5 -5 50 70">
@@ -500,7 +499,7 @@
           </div>
         </div>
 
-        <img src="https://github.com/ChristianEff13/ChristianEff13.github.io/blob/main/Untitled%20design%20(13).png?raw=true" alt="Christian Effendi" class="relative z-20 h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:scale-[1.03] transition-transform duration-500 ease-out">
+        <img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/Untitled%20design%20(13).png" alt="Christian Effendi" class="relative z-20 h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:scale-[1.03] transition-transform duration-500 ease-out">
       </div>
 
     </section>
@@ -884,7 +883,7 @@
 
       const specialImgEl = document.createElement('div');
       specialImgEl.className = 'glass-shape';
-      specialImgEl.innerHTML = `<img src="https://github.com/ChristianEff13/ChristianEff13.github.io/blob/main/Portofolio%20Bertema%20Tetris%20(4).png?raw=true" alt="Floating Astronaut" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/8118/8118182.png';" class="w-full h-full object-contain opacity-90 drop-shadow-2xl" />`;
+      specialImgEl.innerHTML = `<img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/Portofolio%20Bertema%20Tetris%20(4).png" alt="Floating Astronaut" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/8118/8118182.png';" class="w-full h-full object-contain opacity-90 drop-shadow-2xl" />`;
       container.appendChild(specialImgEl);
       
       specialImgEl.style.width = `8rem`; 
@@ -985,12 +984,11 @@
       window.addEventListener('pointerdown', (e) => {
         if(e.target.closest('a') || e.target.closest('button')) return;
 
-        // --- EFEK RIPPLE SAAT TAP (KLIK BIASA) ---
         const tapRipple = document.createElement('div');
         tapRipple.className = 'ripple-effect';
         tapRipple.style.left = `${e.clientX}px`;
         tapRipple.style.top = `${e.clientY}px`;
-        tapRipple.style.setProperty('--shock-scale', '2'); // Ukuran normal untuk tap
+        tapRipple.style.setProperty('--shock-scale', '2'); 
         tapRipple.style.setProperty('--shock-duration', '1s');
         document.body.appendChild(tapRipple);
         setTimeout(() => { if (tapRipple.parentNode) tapRipple.parentNode.removeChild(tapRipple); }, 1000);
@@ -1014,8 +1012,6 @@
 
         let holdDuration = Date.now() - holdStartTime;
 
-        // Jangan keluarkan ledakan shockwave jika hanya di-tap sangat sebentar (<150ms)
-        // Karena ripple tap normal sudah terpicu di pointerdown
         if (holdDuration < 150) return; 
 
         if (holdDuration > MAX_HOLD_TIME) holdDuration = MAX_HOLD_TIME;
