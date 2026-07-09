@@ -388,6 +388,12 @@
       animation: scroll 25s linear infinite; 
     }
 
+    /* Animasi pergerakan yang ditambahkan agar logo bergerak ke samping */
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc((-150px - 3rem) * 3)); }
+    }
+
     .logo-carousel:hover .logo-track {
       animation-play-state: paused; 
     }
@@ -417,32 +423,7 @@
     .dark .logo-item:hover img {
       filter: grayscale(0%) brightness(1) opacity(1);
     }
-<!-- ... existing code ... -->
-    <!-- NEW SECTION: INFINITE LOGO CAROUSEL (Hanya 3 Logo) -->
-    <section class="mb-24 relative z-10 scroll-reveal">
-      <div class="glass rounded-3xl p-8 glass-hover overflow-hidden">
-        <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-center justify-center opacity-80">
-          <i class="ph ph-handshake text-sky-500 text-2xl"></i> Trusted by Brands
-        </h2>
-        
-        <div class="logo-carousel">
-          <ul class="logo-track">
-            <!-- Set Pertama -->
-            <li class="logo-item"><img src="https://christianeff13.github.io/WINGS%20LOGO" alt="WINGS Group Logo"></li>
-            <li class="logo-item"><img src="https://christianeff13.github.io/UMN%20LOGO" alt="UMN Logo"></li>
-            <li class="logo-item"><img src="https://christianeff13.github.io/C%20to%20Coffee%20Logo" alt="C to Coffee Logo"></li>
-            
-            <!-- Duplikasi untuk Infinite Loop Mulus -->
-            <li class="logo-item"><img src="https://christianeff13.github.io/WINGS%20LOGO" alt="WINGS Group Logo"></li>
-            <li class="logo-item"><img src="https://christianeff13.github.io/UMN%20LOGO" alt="UMN Logo"></li>
-            <li class="logo-item"><img src="https://christianeff13.github.io/C%20to%20Coffee%20Logo" alt="C to Coffee Logo"></li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
-    <section id="experience" class="mb-24 scroll-mt-32 relative z-10 scroll-reveal">
-<!-- ... existing code ... -->
   </style>
 </head>
 <body class="antialiased selection:bg-sky-500/30 relative">
@@ -651,14 +632,14 @@
         <div class="logo-carousel">
           <ul class="logo-track">
             <!-- Set Pertama -->
-            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=WINGS+Group" alt="WINGS Group Logo"></li>
-            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=UMN" alt="UMN Logo"></li>
-            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=C+to+Coffee" alt="C to Coffee Logo"></li>
+            <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/WINGS%20LOGO.png" alt="WINGS Group Logo"></li>
+            <li class="logo-item"><img src="https://github.com/ChristianEff13/ChristianEff13.github.io/raw/refs/heads/main/UMN%20Logo" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/C%20TO%20COFFEE%20LOGO.png" alt="C to Coffee Logo"></li>
             
             <!-- Duplikasi untuk Infinite Loop Mulus -->
-            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=WINGS+Group" alt="WINGS Group Logo"></li>
-            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=UMN" alt="UMN Logo"></li>
-            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=C+to+Coffee" alt="C to Coffee Logo"></li>
+            <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/WINGS%20LOGO.png" alt="WINGS Group Logo"></li>
+            <li class="logo-item"><img src="https://github.com/ChristianEff13/ChristianEff13.github.io/raw/refs/heads/main/UMN%20Logo" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/C%20TO%20COFFEE%20LOGO.png" alt="C to Coffee Logo"></li>
           </ul>
         </div>
       </div>
@@ -1035,7 +1016,6 @@
               const dY = obj.y - other.y;
               const d = Math.sqrt(dX * dX + dY * dY);
               
-              // Jika terlalu dekat, saling dorong menjauh
               if (d < minDistance && d > 0) {
                 const repelForce = (minDistance - d) / minDistance;
                 sepX += (dX / d) * repelForce * 1.5; 
@@ -1044,7 +1024,6 @@
             }
           });
 
-          // Terapkan dorongan tolak-menolak ke kecepatan objek
           obj.vx += sepX;
           obj.vy += sepY;
 
@@ -1079,7 +1058,6 @@
             let pullForce = distanceError * 0.003;  
             let swirlForce = 0.6; 
             
-            // Dorongan keluar jika terlalu dekat ke titik tengah kursor
             if (distanceError < 0) {
               pullForce = distanceError * 0.015;
             }
@@ -1106,8 +1084,8 @@
           obj.el.style.transform = `translate(${obj.x}px, ${obj.y}px) rotate(${obj.rot}deg)`;
         });
 
-        // EFEK PARTIKEL FIXED: Murni menggunakan CSS Keyframes untuk transisi
-        if (isHolding && Math.random() < 0.6) { // Frekuensi dimunculkannya dinaikkan
+        // EFEK PARTIKEL FIXED
+        if (isHolding && Math.random() < 0.6) { 
           const particle = document.createElement('div');
           particle.className = 'particle-effect';
           
@@ -1119,7 +1097,6 @@
           particle.style.left = `${startX}px`;
           particle.style.top = `${startY}px`;
           
-          // Mengirim posisi tujuan langsung ke CSS Animation
           particle.style.setProperty('--tx', `${pointerX - startX}px`);
           particle.style.setProperty('--ty', `${pointerY - startY}px`);
           
