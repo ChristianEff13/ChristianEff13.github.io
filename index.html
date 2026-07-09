@@ -100,6 +100,16 @@
       overflow-x: hidden;
     }
 
+    /* --- SHIELD OVERLAY (Pelindung Anti-Drag) --- */
+    #interaction-shield {
+      position: fixed;
+      inset: 0;
+      z-index: 9998; /* Berada di bawah partikel tapi di atas konten lain */
+      background: transparent;
+      cursor: crosshair;
+      display: none; /* Disembunyikan secara default */
+    }
+
     .glass {
       background: var(--glass-bg);
       backdrop-filter: blur(24px);
@@ -428,6 +438,9 @@
 </head>
 <body class="antialiased selection:bg-sky-500/30 relative">
 
+  <!-- Lapisan transparan pelindung teks saat blackhole aktif -->
+  <div id="interaction-shield"></div>
+
   <div id="progress-bar"></div>
 
   <div class="fixed inset-0 z-[-2] overflow-hidden pointer-events-none">
@@ -633,27 +646,25 @@
           <ul class="logo-track">
             <!-- Set Pertama -->
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/WINGS%20LOGO.png" alt="WINGS Group Logo"></li>
-            <li class="logo-item"><img src="https://github.com/ChristianEff13/ChristianEff13.github.io/raw/refs/heads/main/UMN%20Logo" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/UMN%20Logo.png" alt="UMN Logo"></li>
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/C%20TO%20COFFEE%20LOGO.png" alt="C to Coffee Logo"></li>
             
-            <!-- Duplikasi untuk Infinite Loop Mulus -->
+            <!-- Duplikasi untuk Infinite Loop Mulus (4x ekstra) -->
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/WINGS%20LOGO.png" alt="WINGS Group Logo"></li>
-            <li class="logo-item"><img src="https://github.com/ChristianEff13/ChristianEff13.github.io/raw/refs/heads/main/UMN%20Logo" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/UMN%20Logo.png" alt="UMN Logo"></li>
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/C%20TO%20COFFEE%20LOGO.png" alt="C to Coffee Logo"></li>
             
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/WINGS%20LOGO.png" alt="WINGS Group Logo"></li>
-            <li class="logo-item"><img src="https://github.com/ChristianEff13/ChristianEff13.github.io/raw/refs/heads/main/UMN%20Logo" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/UMN%20Logo.png" alt="UMN Logo"></li>
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/C%20TO%20COFFEE%20LOGO.png" alt="C to Coffee Logo"></li>
 
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/WINGS%20LOGO.png" alt="WINGS Group Logo"></li>
-            <li class="logo-item"><img src="https://github.com/ChristianEff13/ChristianEff13.github.io/raw/refs/heads/main/UMN%20Logo" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/UMN%20Logo.png" alt="UMN Logo"></li>
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/C%20TO%20COFFEE%20LOGO.png" alt="C to Coffee Logo"></li>
 
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/WINGS%20LOGO.png" alt="WINGS Group Logo"></li>
-            <li class="logo-item"><img src="https://github.com/ChristianEff13/ChristianEff13.github.io/raw/refs/heads/main/UMN%20Logo" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/UMN%20Logo.png" alt="UMN Logo"></li>
             <li class="logo-item"><img src="https://raw.githubusercontent.com/ChristianEff13/ChristianEff13.github.io/main/C%20TO%20COFFEE%20LOGO.png" alt="C to Coffee Logo"></li>
-
-            <!-- Duplikasi untuk Infinite Loop Mulus -->
           </ul>
         </div>
       </div>
@@ -1009,20 +1020,23 @@
       });
 
       let isHolding = false;
+      let holdTimer = null;
       let holdStartTime = 0;
       let pointerX = 0;
       let pointerY = 0;
       const MAX_HOLD_TIME = 2000;
+      const HOLD_DELAY = 150; // Waktu tunggu sebelum shield & blackhole aktif
+
+      const interactionShield = document.getElementById('interaction-shield');
 
       function animate() {
         let holdDuration = isHolding ? Date.now() - holdStartTime : 0;
         let effectRadius = 150 + (holdDuration * 0.8);
 
         letterObjects.forEach(obj => {
-          // --- LOGIKA ANTI-TUMPUK (SEPARATION FORCE) ---
           let sepX = 0;
           let sepY = 0;
-          const minDistance = 60; // Diperkecil lagi agar bisa masuk di orbit 90
+          const minDistance = 60; 
 
           letterObjects.forEach(other => {
             if (obj !== other) {
@@ -1065,10 +1079,9 @@
               obj.targetY = Math.random() * window.innerHeight;
             }
           } else {
-            const orbitRadius = 90; // RADIUS ORBIT DIPERKECIL MENJADI 90
+            const orbitRadius = 90; 
             const distanceError = dist - orbitRadius;
 
-            // TARIKAN HALUS
             let pullForce = distanceError * 0.003;  
             let swirlForce = 0.6; 
             
@@ -1098,7 +1111,6 @@
           obj.el.style.transform = `translate(${obj.x}px, ${obj.y}px) rotate(${obj.rot}deg)`;
         });
 
-        // EFEK PARTIKEL FIXED
         if (isHolding && Math.random() < 0.6) { 
           const particle = document.createElement('div');
           particle.className = 'particle-effect';
@@ -1125,24 +1137,30 @@
       animate(); 
 
       window.addEventListener('pointerdown', (e) => {
-        if(e.target.closest('a') || e.target.closest('button')) return;
+        if(e.target.closest('a') || e.target.closest('button') || e.target.closest('.logo-item')) return;
 
-        const tapRipple = document.createElement('div');
-        tapRipple.className = 'ripple-effect';
-        tapRipple.style.left = `${e.clientX}px`;
-        tapRipple.style.top = `${e.clientY}px`;
-        tapRipple.style.setProperty('--shock-scale', '2'); 
-        tapRipple.style.setProperty('--shock-duration', '1s');
-        document.body.appendChild(tapRipple);
-        setTimeout(() => { if (tapRipple.parentNode) tapRipple.parentNode.removeChild(tapRipple); }, 1000);
-
-        isHolding = true;
-        holdStartTime = Date.now();
         pointerX = e.clientX;
         pointerY = e.clientY;
+
+        // Menunggu 150ms sebelum mengaktifkan shield dan blackhole
+        holdTimer = setTimeout(() => {
+          isHolding = true;
+          holdStartTime = Date.now();
+          interactionShield.style.display = 'block'; // Memunculkan pelindung teks
+          
+          const tapRipple = document.createElement('div');
+          tapRipple.className = 'ripple-effect';
+          tapRipple.style.left = `${pointerX}px`;
+          tapRipple.style.top = `${pointerY}px`;
+          tapRipple.style.setProperty('--shock-scale', '2'); 
+          tapRipple.style.setProperty('--shock-duration', '1s');
+          document.body.appendChild(tapRipple);
+          setTimeout(() => { if (tapRipple.parentNode) tapRipple.parentNode.removeChild(tapRipple); }, 1000);
+        }, HOLD_DELAY);
       });
 
-      window.addEventListener('pointermove', (e) => {
+      // Shield juga perlu mendengarkan perpindahan mouse agar blackhole mengikuti
+      interactionShield.addEventListener('pointermove', (e) => {
         if (isHolding) {
           pointerX = e.clientX;
           pointerY = e.clientY;
@@ -1150,8 +1168,11 @@
       });
 
       const triggerShockwave = () => {
+        clearTimeout(holdTimer); // Batalkan blackhole jika diklik cepat/dilepas sebelum 150ms
+
         if (!isHolding) return;
         isHolding = false;
+        interactionShield.style.display = 'none'; // Matikan pelindung teks
 
         let holdDuration = Date.now() - holdStartTime;
         if (holdDuration < 150) return; 
@@ -1193,6 +1214,7 @@
 
       window.addEventListener('pointerup', triggerShockwave);
       window.addEventListener('pointercancel', triggerShockwave);
+      interactionShield.addEventListener('pointerup', triggerShockwave); // Menangkap event lepas di atas shield
     }
 
     function initScrollReveal() {
@@ -1246,3 +1268,7 @@
   </script>
 </body>
 </html>
+```
+
+Cobalah sekarang:
+Jika Anda hanya menggeser (*drag*) langsung untuk memblok teks, layar akan merespons seperti *website* normal. Tetapi jika Anda menahan (hold) kursor selama sejenak, kursor akan berubah bentuk silang (`+`), lapisan anti-drag otomatis melindungi konten Anda, dan animasi blackhole yang menakjubkan siap beraksi!
