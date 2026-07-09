@@ -417,7 +417,32 @@
     .dark .logo-item:hover img {
       filter: grayscale(0%) brightness(1) opacity(1);
     }
+<!-- ... existing code ... -->
+    <!-- NEW SECTION: INFINITE LOGO CAROUSEL (Hanya 3 Logo) -->
+    <section class="mb-24 relative z-10 scroll-reveal">
+      <div class="glass rounded-3xl p-8 glass-hover overflow-hidden">
+        <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-center justify-center opacity-80">
+          <i class="ph ph-handshake text-sky-500 text-2xl"></i> Trusted by Brands
+        </h2>
+        
+        <div class="logo-carousel">
+          <ul class="logo-track">
+            <!-- Set Pertama -->
+            <li class="logo-item"><img src="https://christianeff13.github.io/WINGS%20LOGO" alt="WINGS Group Logo"></li>
+            <li class="logo-item"><img src="https://christianeff13.github.io/UMN%20LOGO" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://christianeff13.github.io/C%20to%20Coffee%20Logo" alt="C to Coffee Logo"></li>
+            
+            <!-- Duplikasi untuk Infinite Loop Mulus -->
+            <li class="logo-item"><img src="https://christianeff13.github.io/WINGS%20LOGO" alt="WINGS Group Logo"></li>
+            <li class="logo-item"><img src="https://christianeff13.github.io/UMN%20LOGO" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://christianeff13.github.io/C%20to%20Coffee%20Logo" alt="C to Coffee Logo"></li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
+    <section id="experience" class="mb-24 scroll-mt-32 relative z-10 scroll-reveal">
+<!-- ... existing code ... -->
   </style>
 </head>
 <body class="antialiased selection:bg-sky-500/30 relative">
