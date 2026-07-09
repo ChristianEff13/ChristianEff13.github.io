@@ -36,6 +36,7 @@
             'blob-reverse': 'blob-reverse 25s infinite alternate',
             'blob-slow': 'blob-slow 30s infinite alternate',
             'marquee': 'marquee 25s linear infinite',
+            'scroll': 'scroll 25s linear infinite', 
           },
           keyframes: {
             blob: {
@@ -58,6 +59,10 @@
             marquee: {
               '0%': { transform: 'translateX(0)' },
               '100%': { transform: 'translateX(-50%)' },
+            },
+            scroll: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(calc(-250px * 3))' }, 
             }
           }
         }
@@ -233,22 +238,29 @@
       100% { transform: translate(-50%, -50%) scale(var(--shock-scale, 3)); opacity: 0; border-width: 1px; }
     }
 
-    /* --- PARTICLE EFFECT --- */
+    /* --- PARTICLE EFFECT (FIXED DENGAN KEYFRAMES) --- */
+    @keyframes suckInParticle {
+      0% { transform: translate(0, 0) scale(1.5); opacity: 0; }
+      15% { opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+    }
+
     .particle-effect {
       position: fixed;
       width: 5px;
       height: 5px;
-      background: rgba(168, 85, 247, 0.8);
-      box-shadow: 0 0 8px rgba(168, 85, 247, 0.8), 0 0 12px rgba(56, 189, 248, 0.6);
+      background: #a855f7;
+      box-shadow: 0 0 10px #a855f7, 0 0 20px #38bdf8;
       border-radius: 50%;
       pointer-events: none;
-      z-index: 38;
-      transition: transform 0.35s cubic-bezier(0.4, 0, 1, 1), opacity 0.35s ease-out;
-      will-change: transform, opacity;
+      z-index: 9999;
+      /* Animasi murni CSS yang bergantung pada variabel --tx dan --ty */
+      animation: suckInParticle 0.6s cubic-bezier(0.4, 0, 1, 1) forwards;
     }
+    
     .dark .particle-effect {
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.9), 0 0 12px rgba(56, 189, 248, 0.8);
+      background: #ffffff;
+      box-shadow: 0 0 10px #ffffff, 0 0 20px #38bdf8;
     }
 
     @keyframes tooltipFadeOut {
@@ -360,6 +372,52 @@
       pointer-events: none;
       z-index: 1;
     }
+
+    /* --- LOGO CAROUSEL STYLES --- */
+    .logo-carousel {
+      width: 100%;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    .logo-track {
+      display: flex;
+      gap: 3rem; 
+      width: max-content;
+      animation: scroll 25s linear infinite; 
+    }
+
+    .logo-carousel:hover .logo-track {
+      animation-play-state: paused; 
+    }
+
+    .logo-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 150px; 
+      height: 80px; 
+    }
+
+    .logo-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: grayscale(100%) opacity(0.6); 
+      transition: filter 0.3s ease;
+    }
+
+    .logo-item:hover img {
+      filter: grayscale(0%) opacity(1); 
+    }
+    .dark .logo-item img {
+      filter: grayscale(100%) brightness(1.5) opacity(0.6); 
+    }
+    .dark .logo-item:hover img {
+      filter: grayscale(0%) brightness(1) opacity(1);
+    }
+
   </style>
 </head>
 <body class="antialiased selection:bg-sky-500/30 relative">
@@ -558,6 +616,29 @@
       </div>
     </section>
 
+    <!-- NEW SECTION: INFINITE LOGO CAROUSEL (Hanya 3 Logo) -->
+    <section class="mb-24 relative z-10 scroll-reveal">
+      <div class="glass rounded-3xl p-8 glass-hover overflow-hidden">
+        <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-center justify-center opacity-80">
+          <i class="ph ph-handshake text-sky-500 text-2xl"></i> Trusted by Brands
+        </h2>
+        
+        <div class="logo-carousel">
+          <ul class="logo-track">
+            <!-- Set Pertama -->
+            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=WINGS+Group" alt="WINGS Group Logo"></li>
+            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=UMN" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=C+to+Coffee" alt="C to Coffee Logo"></li>
+            
+            <!-- Duplikasi untuk Infinite Loop Mulus -->
+            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=WINGS+Group" alt="WINGS Group Logo"></li>
+            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=UMN" alt="UMN Logo"></li>
+            <li class="logo-item"><img src="https://placehold.co/150x80/png?text=C+to+Coffee" alt="C to Coffee Logo"></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section id="experience" class="mb-24 scroll-mt-32 relative z-10 scroll-reveal">
       <div class="flex items-center gap-3 mb-10">
         <div class="p-3 rounded-2xl glass bg-sky-500/10"><i class="ph ph-briefcase text-2xl text-sky-500"></i></div>
@@ -712,67 +793,65 @@
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         
-        <!-- KOL PROJECT 1 (Dipindah ke Paling Atas) -->
-        <a href="https://drive.google.com/drive/folders/1Yk3BF21npolW28z7AynM2g9Tq4ECyEzh?usp=sharing" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-2 group glass-hover px-2">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+        <a href="https://drive.google.com/drive/folders/1Yk3BF21npolW28z7AynM2g9Tq4ECyEzh?usp=sharing" target="_blank" class="w-full glass rounded-[2rem] aspect-square flex flex-col items-center justify-center p-3 gap-3 group glass-hover text-left cursor-pointer transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300 shrink-0">
             <i class="ph ph-instagram-logo text-2xl"></i>
           </div>
-          <span class="flex flex-col items-center text-center">
-            <span class="text-[9px] font-bold uppercase tracking-wider opacity-70 mb-0.5">KOL Collab</span>
-            <span class="text-xs font-bold tracking-tight">@venturingfoodie</span>
-            <span class="text-[10px] font-medium opacity-60 mt-0.5">ICC Brunei</span>
-          </span>
+          <div class="flex flex-col items-center text-center mt-1">
+            <span class="text-[10px] font-bold text-sky-500 uppercase tracking-wider mb-0.5">KOL Collab</span>
+            <span class="text-xs font-bold tracking-tight leading-tight">@venturingfoodie</span>
+            <span class="text-[9px] font-medium opacity-60 mt-0.5">ICC Brunei</span>
+          </div>
         </a>
 
-        <!-- KOL PROJECT 2 (Dipindah ke Paling Atas) -->
-        <a href="https://drive.google.com/drive/folders/1QUk0fvSFM-OiCGhv5oKESSKCpshIxlCA?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-2 group glass-hover px-2">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+        <a href="https://drive.google.com/drive/folders/1QUk0fvSFM-OiCGhv5oKESSKCpshIxlCA?usp=drive_link" target="_blank" class="w-full glass rounded-[2rem] aspect-square flex flex-col items-center justify-center p-3 gap-3 group glass-hover text-left cursor-pointer transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300 shrink-0">
             <i class="ph ph-instagram-logo text-2xl"></i>
           </div>
-          <span class="flex flex-col items-center text-center">
-            <span class="text-[9px] font-bold uppercase tracking-wider opacity-70 mb-0.5">KOL Collab</span>
-            <span class="text-xs font-bold tracking-tight">@shanniseeeee</span>
-            <span class="text-[10px] font-medium opacity-60 mt-0.5">ICC Brunei</span>
-          </span>
+          <div class="flex flex-col items-center text-center mt-1">
+            <span class="text-[10px] font-bold text-sky-500 uppercase tracking-wider mb-0.5">KOL Collab</span>
+            <span class="text-xs font-bold tracking-tight leading-tight">@shanniseeeee</span>
+            <span class="text-[9px] font-medium opacity-60 mt-0.5">ICC Brunei</span>
+          </div>
         </a>
 
-        <a href="https://drive.google.com/file/d/1qNbfrG8xDrR5IythCbl79CW4vua9Gd21/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-sky-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+        <a href="https://drive.google.com/file/d/1qNbfrG8xDrR5IythCbl79CW4vua9Gd21/view?usp=drive_link" target="_blank" class="w-full glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover text-left cursor-pointer transition-all">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-sky-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300 shrink-0">
             <i class="ph ph-chart-line-up text-2xl"></i>
           </div>
           <span class="text-sm font-semibold tracking-tight">Media Plan</span>
         </a>
         
-        <a href="https://drive.google.com/file/d/1QBza4jlGniTDBzOQ3tU8jO1iCZNqxA5Q/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+        <a href="https://drive.google.com/file/d/1QBza4jlGniTDBzOQ3tU8jO1iCZNqxA5Q/view?usp=drive_link" target="_blank" class="w-full glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover text-left cursor-pointer transition-all">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300 shrink-0">
             <i class="ph ph-device-mobile text-2xl"></i>
           </div>
           <span class="text-sm font-semibold tracking-tight">Digital Strat</span>
         </a>
 
-        <a href="https://drive.google.com/file/d/1rfAXErlCCW0kYW4rYbaYQtQXR0sz4Xbm/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+        <a href="https://drive.google.com/file/d/1rfAXErlCCW0kYW4rYbaYQtQXR0sz4Xbm/view?usp=drive_link" target="_blank" class="w-full glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover text-left cursor-pointer transition-all">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300 shrink-0">
             <i class="ph ph-pencil-line text-2xl"></i>
           </div>
           <span class="text-sm font-semibold tracking-tight">Copywriting</span>
         </a>
 
-        <a href="https://drive.google.com/file/d/15HeKctKEKyrjvTt6Dha-sEx1oTIEo-GA/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+        <a href="https://drive.google.com/file/d/15HeKctKEKyrjvTt6Dha-sEx1oTIEo-GA/view?usp=drive_link" target="_blank" class="w-full glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover text-left cursor-pointer transition-all">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300 shrink-0">
             <i class="ph ph-strategy text-2xl"></i>
           </div>
           <span class="text-sm font-semibold tracking-tight text-center">Integ. Brand</span>
         </a>
 
-        <a href="https://drive.google.com/file/d/1v92iFb3QCKosz2qo5vsRz6iz17D-C4Zh/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+        <a href="https://drive.google.com/file/d/1v92iFb3QCKosz2qo5vsRz6iz17D-C4Zh/view?usp=drive_link" target="_blank" class="w-full glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover text-left cursor-pointer transition-all">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300 shrink-0">
             <i class="ph ph-clipboard-text text-2xl"></i>
           </div>
           <span class="text-sm font-semibold tracking-tight text-center">Promo Eval</span>
         </a>
 
-        <a href="https://drive.google.com/file/d/1z9KFUkt6j1NvQCdXkWIHREyxld52hm_F/view?usp=drive_link" target="_blank" class="glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-400 to-fuchsia-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300">
+        <a href="https://drive.google.com/file/d/1z9KFUkt6j1NvQCdXkWIHREyxld52hm_F/view?usp=drive_link" target="_blank" class="w-full glass rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-3 group glass-hover text-left cursor-pointer transition-all">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-400 to-fuchsia-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition duration-300 shrink-0">
             <i class="ph ph-binoculars text-2xl"></i>
           </div>
           <span class="text-sm font-semibold tracking-tight text-center">Trend Spot</span>
@@ -852,6 +931,7 @@
 
     function initFloatingLetters() {
       const container = document.getElementById('floating-letters-container');
+      container.innerHTML = '';
       
       const tetrisShapes = [
         `<svg viewBox="-5 -5 90 30"><rect x="0" y="0" width="80" height="20" rx="10" /></svg>`,
@@ -870,13 +950,12 @@
         const el = document.createElement('div');
         el.className = 'glass-shape';
         el.innerHTML = tetrisShapes[Math.floor(Math.random() * tetrisShapes.length)];
-        
         container.appendChild(el);
 
         const size = Math.random() * 4 + 2; 
         el.style.width = `${size}rem`;
 
-        const obj = {
+        letterObjects.push({
           el: el,
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
@@ -887,16 +966,13 @@
           vy: 0, 
           vRot: (Math.random() - 0.5) * 0.15, 
           speed: Math.random() * 0.0015 + 0.0005
-        };
-
-        letterObjects.push(obj);
+        });
       }
 
       const specialImgEl = document.createElement('div');
       specialImgEl.className = 'glass-shape';
       specialImgEl.innerHTML = `<img src="https://christianeff13.github.io/Portofolio%20Bertema%20Tetris%20(4).png" alt="Floating Astronaut" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/8118/8118182.png';" class="w-full h-full object-contain opacity-90 drop-shadow-2xl" />`;
       container.appendChild(specialImgEl);
-      
       specialImgEl.style.width = `8rem`; 
       
       letterObjects.push({
@@ -919,56 +995,50 @@
       const MAX_HOLD_TIME = 2000;
 
       function animate() {
-        if (isHolding) {
-          let holdDuration = Date.now() - holdStartTime;
-          if (holdDuration > MAX_HOLD_TIME) holdDuration = MAX_HOLD_TIME;
+        let holdDuration = isHolding ? Date.now() - holdStartTime : 0;
+        let effectRadius = 150 + (holdDuration * 0.8);
 
-          const pullRadius = 150 + (holdDuration / MAX_HOLD_TIME) * 100; 
-          letterObjects.forEach(obj => {
-            const dx = pointerX - obj.x;
-            const dy = pointerY - obj.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            
-            if (dist < pullRadius && dist > 30) {
-              const force = (pullRadius - dist) / pullRadius;
-              const angle = Math.atan2(dy, dx);
+        letterObjects.forEach(obj => {
+          // --- LOGIKA ANTI-TUMPUK (SEPARATION FORCE) ---
+          let sepX = 0;
+          let sepY = 0;
+          const minDistance = 60; // Diperkecil lagi agar bisa masuk di orbit 90
+
+          letterObjects.forEach(other => {
+            if (obj !== other) {
+              const dX = obj.x - other.x;
+              const dY = obj.y - other.y;
+              const d = Math.sqrt(dX * dX + dY * dY);
               
-              const pullStrength = force * 0.8 * (1 + (holdDuration / MAX_HOLD_TIME) * 2);
-              const swirlStrength = force * 0.5 * (1 + (holdDuration / MAX_HOLD_TIME) * 1.5);
-              
-              obj.vx += Math.cos(angle) * pullStrength;
-              obj.vy += Math.sin(angle) * pullStrength;
-              
-              obj.vx += Math.cos(angle + Math.PI/2) * swirlStrength;
-              obj.vy += Math.sin(angle + Math.PI/2) * swirlStrength;
-            } else if (dist <= 30) {
-              obj.vx *= 0.7;
-              obj.vy *= 0.7;
+              // Jika terlalu dekat, saling dorong menjauh
+              if (d < minDistance && d > 0) {
+                const repelForce = (minDistance - d) / minDistance;
+                sepX += (dX / d) * repelForce * 1.5; 
+                sepY += (dY / d) * repelForce * 1.5;
+              }
             }
           });
 
-          if (Math.random() > 0.4) { 
-            const p = document.createElement('div');
-            p.className = 'particle-effect';
-            const angle = Math.random() * Math.PI * 2;
-            const r = Math.random() * 100 + 40; 
-            const px = pointerX + Math.cos(angle) * r;
-            const py = pointerY + Math.sin(angle) * r;
-            p.style.left = `${px}px`;
-            p.style.top = `${py}px`;
-            document.body.appendChild(p);
-            
-            p.offsetHeight;
-            
-            p.style.transform = `translate(${pointerX - px}px, ${pointerY - py}px) scale(0)`;
-            p.style.opacity = '0';
-            
-            setTimeout(() => { if(p.parentNode) p.remove(); }, 350);
-          }
-        }
+          // Terapkan dorongan tolak-menolak ke kecepatan objek
+          obj.vx += sepX;
+          obj.vy += sepY;
 
-        letterObjects.forEach(obj => {
-          if (!isHolding) {
+          let affectedByBlackhole = false;
+          let dist = 0;
+          let dx = 0;
+          let dy = 0;
+
+          if (isHolding) {
+            dx = pointerX - obj.x;
+            dy = pointerY - obj.y;
+            dist = Math.sqrt(dx * dx + dy * dy) || 1;
+            
+            if (dist < effectRadius) {
+              affectedByBlackhole = true;
+            }
+          }
+
+          if (!affectedByBlackhole) {
             obj.x += (obj.targetX - obj.x) * obj.speed;
             obj.y += (obj.targetY - obj.y) * obj.speed;
 
@@ -976,17 +1046,63 @@
               obj.targetX = Math.random() * window.innerWidth;
               obj.targetY = Math.random() * window.innerHeight;
             }
+          } else {
+            const orbitRadius = 90; // RADIUS ORBIT DIPERKECIL MENJADI 90
+            const distanceError = dist - orbitRadius;
+
+            // TARIKAN HALUS
+            let pullForce = distanceError * 0.003;  
+            let swirlForce = 0.6; 
+            
+            // Dorongan keluar jika terlalu dekat ke titik tengah kursor
+            if (distanceError < 0) {
+              pullForce = distanceError * 0.015;
+            }
+
+            obj.vx += (dx / dist) * pullForce;
+            obj.vy += (dy / dist) * pullForce;
+            
+            obj.vx += (-dy / dist) * swirlForce;
+            obj.vy += (dx / dist) * swirlForce;
+            
+            obj.vRot += (obj.speed > 0.0012 ? 0.5 : -0.5); 
           }
 
           obj.x += obj.vx;
           obj.y += obj.vy;
 
-          obj.vx *= 0.92;
-          obj.vy *= 0.92;
+          const friction = affectedByBlackhole ? 0.90 : 0.92;
+          obj.vx *= friction; 
+          obj.vy *= friction;
 
           obj.rot += obj.vRot;
+          obj.vRot *= 0.95; 
+
           obj.el.style.transform = `translate(${obj.x}px, ${obj.y}px) rotate(${obj.rot}deg)`;
         });
+
+        // EFEK PARTIKEL FIXED: Murni menggunakan CSS Keyframes untuk transisi
+        if (isHolding && Math.random() < 0.6) { // Frekuensi dimunculkannya dinaikkan
+          const particle = document.createElement('div');
+          particle.className = 'particle-effect';
+          
+          const angle = Math.random() * Math.PI * 2;
+          const radius = Math.random() * 200 + 100; 
+          const startX = pointerX + Math.cos(angle) * radius;
+          const startY = pointerY + Math.sin(angle) * radius;
+          
+          particle.style.left = `${startX}px`;
+          particle.style.top = `${startY}px`;
+          
+          // Mengirim posisi tujuan langsung ke CSS Animation
+          particle.style.setProperty('--tx', `${pointerX - startX}px`);
+          particle.style.setProperty('--ty', `${pointerY - startY}px`);
+          
+          document.body.appendChild(particle);
+          
+          setTimeout(() => { if (particle.parentNode) particle.parentNode.removeChild(particle); }, 600);
+        }
+
         requestAnimationFrame(animate);
       }
 
@@ -1022,9 +1138,7 @@
         isHolding = false;
 
         let holdDuration = Date.now() - holdStartTime;
-
         if (holdDuration < 150) return; 
-
         if (holdDuration > MAX_HOLD_TIME) holdDuration = MAX_HOLD_TIME;
 
         let holdRatio = holdDuration / MAX_HOLD_TIME; 
@@ -1041,22 +1155,22 @@
         
         setTimeout(() => { if (ripple.parentNode) ripple.parentNode.removeChild(ripple); }, shockDuration * 1000);
 
-        const maxDist = 350 + (holdRatio * 150); 
+        const maxDist = window.innerWidth; 
         letterObjects.forEach(obj => {
           const dx = obj.x - pointerX;
           const dy = obj.y - pointerY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 
           if (dist < maxDist) {
             const force = (maxDist - dist) / maxDist; 
             const angle = Math.atan2(dy, dx);
             
-            const pushStrength = force * 5 * (1 + holdRatio * 1.2); 
+            const pushStrength = force * 8 * (1 + holdRatio * 1.0); 
             
             obj.vx += Math.cos(angle) * pushStrength;
             obj.vy += Math.sin(angle) * pushStrength;
             
-            obj.vRot += (Math.random() - 0.5) * force * 5 * (1 + holdRatio); 
+            obj.vRot += (Math.random() - 0.5) * force * 15; 
           }
         });
       };
